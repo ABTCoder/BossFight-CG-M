@@ -5,6 +5,7 @@ using UnityEngine;
 public class Boss_AI : MonoBehaviour
 {
     private ENEMY_STATE state;
+    private Animator animator;
     //private Transform transformHead;
 
     [SerializeField] private GameObject player;
@@ -17,6 +18,7 @@ public class Boss_AI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         // Start the Finite State Machine (BossFSM)
         StartCoroutine(BossFSM());
     }
@@ -64,6 +66,8 @@ public class Boss_AI : MonoBehaviour
     IEnumerator CHASE()
     {
         float distance = 0;
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("isChasing", true);
 
         // ENTER THE CHASE STATE
         Debug.Log("AH! I'm coming for you, my darling!");
@@ -101,9 +105,12 @@ public class Boss_AI : MonoBehaviour
     {
         // ATTACK
         Debug.Log("Alright, begin! Take THIS!");
+        animator.SetBool("isChasing", false);
+        animator.SetBool("isAttacking", true);
 
         // Change the state to CHASE and check again the distance
         state = ENEMY_STATE.CHASE;
+        
 
         yield return null;
         
