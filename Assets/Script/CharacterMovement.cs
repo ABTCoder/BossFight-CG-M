@@ -12,7 +12,7 @@ public class CharacterMovement : MonoBehaviour
     private float minCameraTilt = 336;
     private Vector3 nextPosition;
     private Quaternion nextRotation;
-    private float rotationLerp = 0.5f;
+    private float rotationLerp = 0.2f;
 
     [SerializeField] private GameObject followTransform;
     [SerializeField] private Camera mainCamera;
@@ -81,7 +81,8 @@ public class CharacterMovement : MonoBehaviour
         #endregion
 
        
-        nextRotation = Quaternion.Lerp(followTransform.transform.rotation, nextRotation, Time.deltaTime * rotationLerp);
+        // nextRotation = Quaternion.Lerp(followTransform.transform.rotation, nextRotation, Time.deltaTime * rotationLerp);
+        // nextRotation = Quaternion.Lerp(Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0), nextRotation, Time.deltaTime * rotationLerp);
 
         if (charMove.x == 0 && charMove.y == 0)
         {
@@ -108,7 +109,8 @@ public class CharacterMovement : MonoBehaviour
 
         //Set the player rotation based on the look transform
         transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
-        //reset the y rotation of the look transform
+        //transform.rotation = nextRotation;
+        //reset the y rotation of the look transform (relative to the parent,the player)
         followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
     }
 
@@ -118,10 +120,11 @@ public class CharacterMovement : MonoBehaviour
         Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();
         Vector2 mouseDelta = movement.Main.MoveCamera.ReadValue<Vector2>();
 
+
         transform.Translate(charMove.x * Time.deltaTime * speed, 0, charMove.y * Time.deltaTime * speed);
         //Debug.Log(charMove.x + " x, " + charMove.y + " y");
         //transform.Rotate(Vector3.up, mouseDelta.x * Time.deltaTime * cameraDeg);
-        //Debug.Log(charMove);
+        Debug.Log(charMove);
     }
     /*
     private void LateUpdate()
