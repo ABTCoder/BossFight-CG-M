@@ -7,11 +7,12 @@ public class SirArginald : MonoBehaviour
 
     [SerializeField] private GameObject player;
     [SerializeField] private Vector3 offset;
+    private MovementController controller;
     private Vector3 pos;
     // Start is called before the first frame update
     void Start()
     {
-
+        controller = new MovementController();
         offset = new Vector3()
         {
             x = -0.4f,
@@ -19,6 +20,16 @@ public class SirArginald : MonoBehaviour
             z = 0,
         };
         pos = player.transform.position;
+    }
+
+    private void OnEnable()
+    {
+        controller.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controller.Disable();
     }
 
     // Update is called once per frame
