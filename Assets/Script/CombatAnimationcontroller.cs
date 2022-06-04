@@ -59,7 +59,6 @@ public class CombatAnimationcontroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 attack = normalAttack.Main.Attack.ReadValue<Vector2>();
         
     }
 }
