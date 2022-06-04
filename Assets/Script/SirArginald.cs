@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SirArginald : MonoBehaviour
 {
 
     [SerializeField] private GameObject player;
     [SerializeField] private Vector3 offset;
+    [SerializeField] private Transform fireballObj;
     private MovementController controller;
     private Vector3 pos;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         controller = new MovementController();
         offset = new Vector3()
@@ -20,6 +22,16 @@ public class SirArginald : MonoBehaviour
             z = 0,
         };
         pos = player.transform.position;
+
+        controller.Main.BaseAttack.Enable();
+        controller.Main.BaseAttack.performed += OnShoot;
+    }
+
+    void OnShoot(InputAction.CallbackContext ctx)
+    {
+        Transform fireball = Instantiate(fireballObj, transform.position, transform.rotation);
+        Vector3 direction = player.transform.Find("Target").transform.forward.normalized;
+        fireball.GetComponent<Fireball>().Setup(direction);
     }
 
     private void OnEnable()
