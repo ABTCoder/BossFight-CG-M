@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 nextPosition;
     private Quaternion nextRotation;
     private float rotationLerp = 0.2f;
+    private CombatAnimationcontroller combatController;
 
     [SerializeField] private GameObject followTransform;
     [SerializeField] private Camera mainCamera;
@@ -20,7 +22,7 @@ public class CharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        combatController = GetComponentInChildren<CombatAnimationcontroller>();
     }
 
     private void Awake()
@@ -33,6 +35,7 @@ public class CharacterMovement : MonoBehaviour
             z = -4
         };
     }
+
 
     private void OnEnable()
     {
@@ -120,11 +123,11 @@ public class CharacterMovement : MonoBehaviour
         Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();
         Vector2 mouseDelta = movement.Main.MoveCamera.ReadValue<Vector2>();
 
-
-        transform.Translate(charMove.x * Time.deltaTime * speed, 0, charMove.y * Time.deltaTime * speed);
+        if (!(combatController.getIsAttacking()))
+            transform.Translate(charMove.x * Time.deltaTime * speed, 0, charMove.y * Time.deltaTime * speed);
         //Debug.Log(charMove.x + " x, " + charMove.y + " y");
         //transform.Rotate(Vector3.up, mouseDelta.x * Time.deltaTime * cameraDeg);
-        Debug.Log(charMove);
+        //Debug.Log(charMove);
     }
     /*
     private void LateUpdate()
