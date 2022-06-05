@@ -1,18 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStats : MonoBehaviour
+public class EnemyStats : CharacterStats
 {
-    // Start is called before the first frame update
     void Start()
     {
-        
+        maxHealth = SetMaxHealthFromHealthLevel();
+        currentHealth = maxHealth;
     }
 
-    // Update is called once per frame
-    void Update()
+    private int SetMaxHealthFromHealthLevel()
     {
-        
+        maxHealth = healthLevel * 10;
+        return maxHealth;
     }
+    
+    public void TakeDamage(int damage)
+    {
+        currentHealth = currentHealth - damage;
+    }
+    
 }
