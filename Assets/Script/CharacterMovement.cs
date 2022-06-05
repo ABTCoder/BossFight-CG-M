@@ -14,6 +14,8 @@ public class CharacterMovement : MonoBehaviour
     private CombatAnimationcontroller combatController;
     
     public bool lockOnInput;
+    public bool right_Stick_Right_Input;
+    public bool right_Stick_Left_Input;
     
     public bool lockOnFlag;
 
@@ -49,6 +51,8 @@ public class CharacterMovement : MonoBehaviour
         {
             movement = new MovementController();
             movement.Main.LockOn.performed += i => lockOnInput = true;
+            movement.Main.LockOnTargetRight.performed += i => right_Stick_Right_Input = true;
+            movement.Main.LockOnTargetLeft.performed += i => right_Stick_Left_Input = true;
         }
         
         movement.Enable();
@@ -154,7 +158,6 @@ public class CharacterMovement : MonoBehaviour
     {
         if (lockOnInput && lockOnFlag == false)
         {
-            cameraHandler.ClearLockOnTargets();
             lockOnInput = false;
             cameraHandler.HandleLockOn();
             if (cameraHandler.nearestLockOnTarget != null)
@@ -169,5 +172,27 @@ public class CharacterMovement : MonoBehaviour
             lockOnFlag = false;
             cameraHandler.ClearLockOnTargets();
         }
+
+        if (lockOnFlag && right_Stick_Left_Input)
+        {
+            right_Stick_Left_Input = false;
+            cameraHandler.HandleLockOn();
+            if (cameraHandler.leftLockTarget != null)
+            {
+                cameraHandler.currentLockOnTarget = cameraHandler.leftLockTarget;
+            }
+        }
+
+        if (lockOnFlag && right_Stick_Right_Input)
+        {
+            right_Stick_Right_Input = false;
+            cameraHandler.HandleLockOn();
+            if (cameraHandler.rightLockTarget != null)
+            {
+                cameraHandler.currentLockOnTarget = cameraHandler.rightLockTarget;
+            }
+        }
+        
+        cameraHandler.SetCameraHeight();
     }
 }
