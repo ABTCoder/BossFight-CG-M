@@ -10,8 +10,8 @@ public class CombatAnimationcontroller : MonoBehaviour
     private bool comboPossible;
     private MovementController attackController;
     private CharacterMovement attackComponent;
-    private bool isAttacking;
-    private bool isBlocking;
+    private bool isAttacking = false;
+    private bool isBlocking = false;
 
 
     // Start is called before the first frame update
@@ -24,7 +24,6 @@ public class CombatAnimationcontroller : MonoBehaviour
 
         attackController.Main.BaseAttack.performed += NormalAttack;
         attackController.Main.ShieldBlock.performed += Block;
-        isAttacking = false;
     }
 
     private void ComboPossible()
@@ -77,16 +76,21 @@ public class CombatAnimationcontroller : MonoBehaviour
 
     public void Block(InputAction.CallbackContext ctx)
     {
-        isBlocking = attackController.Main.ShieldBlock.IsPressed();
         Debug.Log("Blocking");
-        if (!isAttacking) 
-        {
-            playerAnimator.Play("ShieldBlock01");
-            while(isBlocking)
-                playerAnimator.Play("ShieldBlock01_Loop");
+        //playerAnimator.Play("ShieldBlock01");
+        playerAnimator.SetBool("isBlocking", true);
+        //playerAnimator.speed = 0;
+        attackController.Main.ShieldBlock.canceled += StopBlocking;
 
-        }
     }
+
+    public void StopBlocking(InputAction.CallbackContext ctx) 
+    {
+        Debug.Log("Stop Blocking");
+        playerAnimator.SetBool("isBlocking", false);
+        //gameObject.GetComponent<Animator>().enabled = false;
+    }
+
 
     // Update is called once per frame
     void Update()
