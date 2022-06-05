@@ -58,7 +58,6 @@ public class CombatAnimationcontroller : MonoBehaviour
         Debug.Log(comboStep);
         isAttacking = true;
         playerAnimator.SetBool("isAttacking", true);
-        //playerAnimator.Play("RightHand@Attack01");
         if (comboStep == 0)
         {
             playerAnimator.Play("PlayerAttack01");
