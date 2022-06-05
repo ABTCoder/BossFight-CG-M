@@ -10,6 +10,7 @@ public class BossRoomCutscene : MonoBehaviour
 
     [SerializeField] private GameObject player;
     private MovementController controller;
+    private bool ended = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +23,14 @@ public class BossRoomCutscene : MonoBehaviour
     private void Stopped(PlayableDirector d)
     {
         gameObject.SetActive(false);
+        ended = true;
         controller.Enable();
     }
 
+    public bool IsEnded()
+    {
+        return ended;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Player")

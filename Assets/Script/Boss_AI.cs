@@ -9,6 +9,7 @@ public class Boss_AI : MonoBehaviour
     //private Transform transformHead;
 
     [SerializeField] private GameObject player;
+    private BossRoomCutscene cs;
 
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class Boss_AI : MonoBehaviour
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        cs = GameObject.Find("BossRoom trigger").GetComponent<BossRoomCutscene>();
         // Start the Finite State Machine (BossFSM)
         StartCoroutine(BossFSM());
     }
@@ -49,7 +51,7 @@ public class Boss_AI : MonoBehaviour
         while (state == ENEMY_STATE.IDLE)
         {
             distance = Vector3.Distance(player.transform.position, transform.position);
-            if (distance <= 20)
+            if (distance <= 20 || cs.IsEnded())
             {
                 state = ENEMY_STATE.CHASE;
             }
