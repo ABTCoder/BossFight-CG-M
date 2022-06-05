@@ -9,11 +9,8 @@ public class CharacterMovement : MonoBehaviour
     private float speed = 7;
     private Vector3 characterCameraOffset;
     private float cameraDeg = 6;
-    private float maxCameraTilt = 34;
-    private float minCameraTilt = 336;
     private Vector3 nextPosition;
     private Quaternion nextRotation;
-    private float rotationLerp = 0.2f;
     private CombatAnimationcontroller combatController;
 
     [SerializeField] private GameObject followTransform;
@@ -83,9 +80,6 @@ public class CharacterMovement : MonoBehaviour
         followTransform.transform.localEulerAngles = angles;
         #endregion
 
-       
-        // nextRotation = Quaternion.Lerp(followTransform.transform.rotation, nextRotation, Time.deltaTime * rotationLerp);
-        // nextRotation = Quaternion.Lerp(Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0), nextRotation, Time.deltaTime * rotationLerp);
 
         if (charMove.x == 0 && charMove.y == 0)
         {
@@ -111,7 +105,8 @@ public class CharacterMovement : MonoBehaviour
 
 
         //Set the player rotation based on the look transform
-        transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
+        if (!(combatController.getIsAttacking()))
+            transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
         //transform.rotation = nextRotation;
         //reset the y rotation of the look transform (relative to the parent,the player)
         followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
@@ -129,43 +124,7 @@ public class CharacterMovement : MonoBehaviour
         //transform.Rotate(Vector3.up, mouseDelta.x * Time.deltaTime * cameraDeg);
         //Debug.Log(charMove);
     }
-    /*
-    private void LateUpdate()
-    {
-        
-        Vector2 mouseDelta = movement.Main.MoveCamera.ReadValue<Vector2>();
-        
 
-        float horizontal = mouseDelta.x * Time.deltaTime * cameraDeg;
-        float vertical = mouseDelta.y * Time.deltaTime * cameraDeg;
-        mainCamera.transform.position = transform.position;
-        if (horizontal != 0 || vertical != 0)
-        {
-            mainCamera.transform.Rotate(Vector3.right, -vertical);
-            mainCamera.transform.Rotate(Vector3.up, horizontal, Space.World);
-
-        }
-
-
-        float cameraRotationX = mainCamera.transform.rotation.eulerAngles.x;
-        float cameraRotationY = mainCamera.transform.rotation.eulerAngles.y;
-        float cameraRotationZ = mainCamera.transform.rotation.eulerAngles.z;
-
-        
-        if (cameraRotationX < minCameraTilt && cameraRotationX > minCameraTilt - 40)
-        {
-            mainCamera.transform.rotation = Quaternion.Euler(minCameraTilt, cameraRotationY, cameraRotationZ);
-        }
-
-        if (cameraRotationX > maxCameraTilt && cameraRotationX < maxCameraTilt + 40)
-        {
-            mainCamera.transform.rotation = Quaternion.Euler(maxCameraTilt, cameraRotationY, cameraRotationZ);
-        }
-
-        Debug.Log(cameraRotationX);
-        mainCamera.transform.Translate(characterCameraOffset);
-        
-    }*/
 
     public MovementController getMovement() 
     {
