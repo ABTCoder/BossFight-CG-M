@@ -15,7 +15,7 @@ public class SirArginald : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        controller = new MovementController();
+        controller = player.GetComponent<CharacterMovement>().getMovement();
         offset = new Vector3()
         {
             x = -0.4f,
@@ -37,15 +37,6 @@ public class SirArginald : MonoBehaviour
         fireball.GetComponent<Fireball>().Setup(direction, splash);
     }
 
-    private void OnEnable()
-    {
-        controller.Enable();
-    }
-
-    private void OnDisable()
-    {
-        controller.Disable();
-    }
 
     // Update is called once per frame
     void Update()
