@@ -9,6 +9,7 @@ public class SirArginald : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Vector3 offset;
     [SerializeField] private Transform fireballObj;
+    [SerializeField] private Transform splash;
     private MovementController controller;
     private Vector3 pos;
     // Start is called before the first frame update
@@ -23,15 +24,17 @@ public class SirArginald : MonoBehaviour
         };
         pos = player.transform.position;
 
-        controller.Main.BaseAttack.Enable();
-        controller.Main.BaseAttack.performed += OnShoot;
+        controller.Main.Fireball.Enable();
+        controller.Main.Fireball.performed += OnShoot;
     }
 
     void OnShoot(InputAction.CallbackContext ctx)
     {
-        Transform fireball = Instantiate(fireballObj, transform.position, transform.rotation);
+        Vector3 pos = transform.position;
+        pos.y += 0.2f;
+        Transform fireball = Instantiate(fireballObj, pos, transform.rotation);
         Vector3 direction = player.transform.Find("Target").transform.forward.normalized;
-        fireball.GetComponent<Fireball>().Setup(direction);
+        fireball.GetComponent<Fireball>().Setup(direction, splash);
     }
 
     private void OnEnable()

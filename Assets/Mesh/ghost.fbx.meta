@@ -6,7 +6,17 @@ ModelImporter:
   - first:
       74: 2264077025236624520
     second: Armature.001|Armature.001Action
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: ad74849da45a494419b7bcd2ad585a70, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: voodoohead_Alt2
+    second: {fileID: 2100000, guid: d1462f8ae825be44f8221980a83f8486, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
