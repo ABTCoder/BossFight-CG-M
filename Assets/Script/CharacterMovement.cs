@@ -12,6 +12,13 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 nextPosition;
     private Quaternion nextRotation;
     private CombatAnimationcontroller combatController;
+    
+    public bool lockOnInput;
+    
+    public bool lockOnFlag;
+
+    MovementController inputActions;
+    CameraHandler cameraHandler;
 
     [SerializeField] private GameObject followTransform;
     [SerializeField] private Camera mainCamera;
@@ -31,11 +38,19 @@ public class CharacterMovement : MonoBehaviour
             y = 2,
             z = -4
         };
+        
+        cameraHandler = FindObjectOfType<CameraHandler>();
     }
 
 
     private void OnEnable()
     {
+        if (movement == null)
+        {
+            movement = new MovementController();
+            movement.Main.LockOn.performed += i => lockOnInput = true;
+        }
+        
         movement.Enable();
     }
 
@@ -125,9 +140,34 @@ public class CharacterMovement : MonoBehaviour
         //Debug.Log(charMove);
     }
 
+    public void TickInput(float delta)
+    {
+        HandleLockOnInput();
+    }
 
     public MovementController getMovement() 
     {
         return movement;
+    }
+    
+    private void HandleLockOnInput()
+    {
+        if (lockOnInput && lockOnFlag == false)
+        {
+            cameraHandler.ClearLockOnTargets();
+            lockOnInput = false;
+            cameraHandler.HandleLockOn();
+            if (cameraHandler.nearestLockOnTarget != null)
+            {
+                cameraHandler.currentLockOnTarget = cameraHandler.nearestLockOnTarget;
+                lockOnFlag = true;
+            }
+        } 
+        else if (lockOnInput && lockOnFlag)
+        {
+            lockOnInput = false;
+            lockOnFlag = false;
+            cameraHandler.ClearLockOnTargets();
+        }
     }
 }

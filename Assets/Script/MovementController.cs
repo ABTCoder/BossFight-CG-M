@@ -62,6 +62,15 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""LockOn"",
+                    ""type"": ""Button"",
+                    ""id"": ""10a5cae7-fd09-47f0-a69a-5f66a114b4e6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                     ""action"": ""Fireball"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44d0e65c-5a69-45e9-bb3a-3800bda7afc0"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LockOn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +184,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         m_Main_MoveCamera = m_Main.FindAction("Move Camera", throwIfNotFound: true);
         m_Main_BaseAttack = m_Main.FindAction("BaseAttack", throwIfNotFound: true);
         m_Main_Fireball = m_Main.FindAction("Fireball", throwIfNotFound: true);
+        m_Main_LockOn = m_Main.FindAction("LockOn", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +248,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
     private readonly InputAction m_Main_MoveCamera;
     private readonly InputAction m_Main_BaseAttack;
     private readonly InputAction m_Main_Fireball;
+    private readonly InputAction m_Main_LockOn;
     public struct MainActions
     {
         private @MovementController m_Wrapper;
@@ -235,6 +257,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         public InputAction @MoveCamera => m_Wrapper.m_Main_MoveCamera;
         public InputAction @BaseAttack => m_Wrapper.m_Main_BaseAttack;
         public InputAction @Fireball => m_Wrapper.m_Main_Fireball;
+        public InputAction @LockOn => m_Wrapper.m_Main_LockOn;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -256,6 +279,9 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 @Fireball.started -= m_Wrapper.m_MainActionsCallbackInterface.OnFireball;
                 @Fireball.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnFireball;
                 @Fireball.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnFireball;
+                @LockOn.started -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOn;
+                @LockOn.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOn;
+                @LockOn.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOn;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -272,6 +298,9 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 @Fireball.started += instance.OnFireball;
                 @Fireball.performed += instance.OnFireball;
                 @Fireball.canceled += instance.OnFireball;
+                @LockOn.started += instance.OnLockOn;
+                @LockOn.performed += instance.OnLockOn;
+                @LockOn.canceled += instance.OnLockOn;
             }
         }
     }
@@ -282,5 +311,6 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         void OnMoveCamera(InputAction.CallbackContext context);
         void OnBaseAttack(InputAction.CallbackContext context);
         void OnFireball(InputAction.CallbackContext context);
+        void OnLockOn(InputAction.CallbackContext context);
     }
 }
