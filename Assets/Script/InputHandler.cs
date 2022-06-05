@@ -5,28 +5,39 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    public float mouseX;
-    public float mouseY;
-
-    public bool lockOnInput;
+    /*public bool lockOnInput;
     
     public bool lockOnFlag;
-    
+
+    MovementController inputActions;
     CameraHandler cameraHandler;
 
     private void Awake()
     {
-        cameraHandler = CameraHandler.singleton;
+        cameraHandler = FindObjectOfType<CameraHandler>();
     }
 
-    private void FixedUpdate()
+    public void OnEnable()
     {
-        float delta = Time.fixedDeltaTime;
-
-        if (cameraHandler != null)
+        if (inputActions == null)
         {
-            cameraHandler.FollowTarget(delta);
-            cameraHandler.HandleCameraRotation(delta, mouseX, mouseY);
+            inputActions = new MovementController();
+            inputActions.Main.LockOn.performed += i => lockOnInput = true;
         }
     }
+
+    private void HandleLockOnInput()
+    {
+        if (lockOnInput && lockOnFlag == false)
+        {
+            lockOnInput = false;
+            lockOnFlag = true;
+            cameraHandler.HandleLockOn();
+        } else if (lockOnInput && lockOnFlag)
+        {
+            lockOnInput = false;
+            lockOnFlag = false;
+            // Clear lock on targets
+        }
+    }*/
 }
