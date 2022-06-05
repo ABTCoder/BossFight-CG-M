@@ -25,7 +25,7 @@ public class AnimationController : MonoBehaviour
     private void FixedUpdate()
     {
         Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();
-        if (!(combatController.getIsAttacking()))
+        if (!(combatController.getIsAttacking()) && !(combatController.getIsBlocking()))
         {
             // If player move isWalking to true
             if (charMove.y > 0 && charMove.x == 0)

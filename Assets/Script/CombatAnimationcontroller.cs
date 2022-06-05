@@ -76,26 +76,23 @@ public class CombatAnimationcontroller : MonoBehaviour
 
     public void Block(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Blocking");
-        //playerAnimator.Play("ShieldBlock01");
+
+        isBlocking = true;
         playerAnimator.SetBool("isBlocking", true);
-        //playerAnimator.speed = 0;
         attackController.Main.ShieldBlock.canceled += StopBlocking;
 
     }
 
     public void StopBlocking(InputAction.CallbackContext ctx) 
     {
-        Debug.Log("Stop Blocking");
+        
+        isBlocking = false;
         playerAnimator.SetBool("isBlocking", false);
-        //gameObject.GetComponent<Animator>().enabled = false;
     }
 
-
-    // Update is called once per frame
-    void Update()
+    public bool getIsBlocking()
     {
-        
+        return isBlocking;
     }
 
     public bool getIsAttacking() 

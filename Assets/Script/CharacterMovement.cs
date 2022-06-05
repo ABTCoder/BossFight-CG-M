@@ -120,7 +120,7 @@ public class CharacterMovement : MonoBehaviour
 
 
         //Set the player rotation based on the look transform
-        if (!(combatController.getIsAttacking()))
+        if (!(combatController.getIsAttacking()) && !(combatController.getIsBlocking()))
             transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
         //transform.rotation = nextRotation;
         //reset the y rotation of the look transform (relative to the parent,the player)
@@ -133,7 +133,7 @@ public class CharacterMovement : MonoBehaviour
         Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();
         Vector2 mouseDelta = movement.Main.MoveCamera.ReadValue<Vector2>();
 
-        if (!(combatController.getIsAttacking()))
+        if (!(combatController.getIsAttacking()) && !(combatController.getIsBlocking()))
             transform.Translate(charMove.x * Time.deltaTime * speed, 0, charMove.y * Time.deltaTime * speed);
         //Debug.Log(charMove.x + " x, " + charMove.y + " y");
         //transform.Rotate(Vector3.up, mouseDelta.x * Time.deltaTime * cameraDeg);
