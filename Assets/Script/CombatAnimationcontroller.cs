@@ -1,22 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CombatAnimationcontroller : MonoBehaviour
 {
     Animator playerAnimator;
-    private int comboStep;
+    private int comboStep = 0;
     private bool comboPossible;
-    private MovementController normalAttack;
-    private CharacterMovement componentCharacterMovement;
+    private MovementController attackController;
+    private CharacterMovement attackComponent;
+    private bool isAttacking;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        playerAnimator = GetComponentInChildren<Animator>();
+        playerAnimator = GetComponent<Animator>();
 
-        componentCharacterMovement = GetComponent<CharacterMovement>();
-        normalAttack = componentCharacterMovement.getMovement();
+        attackComponent = GetComponentInParent<CharacterMovement>();
+        attackController = attackComponent.getMovement();
+
+        attackController.Main.BaseAttack.performed += NormalAttack;
+        isAttacking = false;
     }
 
     private void ComboPossible()
@@ -27,24 +33,35 @@ public class CombatAnimationcontroller : MonoBehaviour
     private void NextAttack()
     {
         if (comboStep == 2)
-            playerAnimator.Play("1H-RH@Attack04");
+        {
+            Debug.Log("BaseAttack2");
+            playerAnimator.Play("PlayerAttack02");
+        }
         else if (comboStep == 3)
-            playerAnimator.Play("1H-RH@Attack03");
+        {
+            Debug.Log("BaseAttack3");
+            playerAnimator.Play("PlayerAttack03");
+        }
     }
 
     private void ResetCombo()
     {
+        isAttacking = false;
+        playerAnimator.SetBool("isAttacking", false);
         comboPossible = false;
         comboStep = 0;
     }
 
-    private void NormalAttack() 
+    public void NormalAttack(InputAction.CallbackContext ctx)
     {
+        Debug.Log("BaseAttack1");
+        Debug.Log(comboStep);
+        isAttacking = true;
+        playerAnimator.SetBool("isAttacking", true);
         if (comboStep == 0)
         {
-            playerAnimator.Play("1H - RH@Attack01");
+            playerAnimator.Play("PlayerAttack01");
             comboStep = 1;
-            return;
         }
         else
         {
@@ -60,5 +77,10 @@ public class CombatAnimationcontroller : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public bool getIsAttacking() 
+    {
+        return isAttacking;
     }
 }

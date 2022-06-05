@@ -11,9 +11,9 @@ public class AnimationController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponent<Animator>();
 
-        componentCharacterMovement = GetComponent<CharacterMovement>();
+        componentCharacterMovement = GetComponentInParent<CharacterMovement>();
         movement = componentCharacterMovement.getMovement();
 
     }
@@ -31,7 +31,7 @@ public class AnimationController : MonoBehaviour
             animator.SetBool("isWalkingBackward", false);
             animator.SetBool("isWalkingRight", false);
             animator.SetBool("isWalkingLeft", false);
-            Debug.Log("I'm running!");
+            //Debug.Log("I'm running!");
         }
         else if (charMove.y < 0 && charMove.x == 0)
         {
@@ -39,7 +39,7 @@ public class AnimationController : MonoBehaviour
             animator.SetBool("isWalkingForward", false);
             animator.SetBool("isWalkingRight", false);
             animator.SetBool("isWalkingLeft", false);
-            Debug.Log("I'm running backward!");
+            //Debug.Log("I'm running backward!");
         }
         else if(charMove.y == 0 && charMove.x > 0)
         {
@@ -89,7 +89,7 @@ public class AnimationController : MonoBehaviour
             animator.SetBool("isWalkingBackward", false);
             animator.SetBool("isWalkingRight", false);
             animator.SetBool("isWalkingLeft", false);
-            Debug.Log("I'm chilling!");
+            //Debug.Log("I'm chilling!");
         }
         
 
