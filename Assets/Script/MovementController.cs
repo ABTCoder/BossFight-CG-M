@@ -71,6 +71,15 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShieldBlock"",
+                    ""type"": ""Button"",
+                    ""id"": ""6ee84591-d16e-4269-a31b-ea679302af96"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -172,6 +181,17 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                     ""action"": ""LockOn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d941f15f-a52b-4cab-a391-d29fa96da4d6"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShieldBlock"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +205,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         m_Main_BaseAttack = m_Main.FindAction("BaseAttack", throwIfNotFound: true);
         m_Main_Fireball = m_Main.FindAction("Fireball", throwIfNotFound: true);
         m_Main_LockOn = m_Main.FindAction("LockOn", throwIfNotFound: true);
+        m_Main_ShieldBlock = m_Main.FindAction("ShieldBlock", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -249,6 +270,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
     private readonly InputAction m_Main_BaseAttack;
     private readonly InputAction m_Main_Fireball;
     private readonly InputAction m_Main_LockOn;
+    private readonly InputAction m_Main_ShieldBlock;
     public struct MainActions
     {
         private @MovementController m_Wrapper;
@@ -258,6 +280,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         public InputAction @BaseAttack => m_Wrapper.m_Main_BaseAttack;
         public InputAction @Fireball => m_Wrapper.m_Main_Fireball;
         public InputAction @LockOn => m_Wrapper.m_Main_LockOn;
+        public InputAction @ShieldBlock => m_Wrapper.m_Main_ShieldBlock;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -282,6 +305,9 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 @LockOn.started -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOn;
                 @LockOn.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOn;
                 @LockOn.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOn;
+                @ShieldBlock.started -= m_Wrapper.m_MainActionsCallbackInterface.OnShieldBlock;
+                @ShieldBlock.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnShieldBlock;
+                @ShieldBlock.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnShieldBlock;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -301,6 +327,9 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 @LockOn.started += instance.OnLockOn;
                 @LockOn.performed += instance.OnLockOn;
                 @LockOn.canceled += instance.OnLockOn;
+                @ShieldBlock.started += instance.OnShieldBlock;
+                @ShieldBlock.performed += instance.OnShieldBlock;
+                @ShieldBlock.canceled += instance.OnShieldBlock;
             }
         }
     }
@@ -312,5 +341,6 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         void OnBaseAttack(InputAction.CallbackContext context);
         void OnFireball(InputAction.CallbackContext context);
         void OnLockOn(InputAction.CallbackContext context);
+        void OnShieldBlock(InputAction.CallbackContext context);
     }
 }
