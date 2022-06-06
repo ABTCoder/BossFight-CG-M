@@ -7,6 +7,7 @@ using UnityEngine.Playables;
 public class BossRoomCutscene : MonoBehaviour
 {
     private PlayableDirector cutsceneDirector;
+    private GameManager gameManager;
 
     [SerializeField] private GameObject player;
     private MovementController controller;
@@ -16,6 +17,7 @@ public class BossRoomCutscene : MonoBehaviour
     void Start()
     {
         cutsceneDirector = GetComponentInChildren<PlayableDirector>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         cutsceneDirector.stopped += Stopped;
         controller = player.GetComponent<CharacterMovement>().getMovement();
     }
@@ -35,6 +37,7 @@ public class BossRoomCutscene : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
+            gameManager.PlayBossMusic();
             controller.Disable();
             cutsceneDirector.Play();
         }
