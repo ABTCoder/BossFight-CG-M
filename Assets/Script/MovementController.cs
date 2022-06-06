@@ -98,6 +98,15 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DodgeRoll"",
+                    ""type"": ""Button"",
+                    ""id"": ""49909745-3cbd-41eb-bb1d-cfd2690ff6a8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -232,6 +241,17 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                     ""action"": ""ShieldBlock"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aaddf609-60d3-43f5-8d27-8115e3291fb9"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DodgeRoll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -248,6 +268,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         m_Main_LockOn = m_Main.FindAction("LockOn", throwIfNotFound: true);
         m_Main_LockOnTargetLeft = m_Main.FindAction("Lock On Target Left", throwIfNotFound: true);
         m_Main_LockOnTargetRight = m_Main.FindAction("Lock On Target Right", throwIfNotFound: true);
+        m_Main_DodgeRoll = m_Main.FindAction("DodgeRoll", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -315,6 +336,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
     private readonly InputAction m_Main_LockOn;
     private readonly InputAction m_Main_LockOnTargetLeft;
     private readonly InputAction m_Main_LockOnTargetRight;
+    private readonly InputAction m_Main_DodgeRoll;
     public struct MainActions
     {
         private @MovementController m_Wrapper;
@@ -327,6 +349,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         public InputAction @LockOn => m_Wrapper.m_Main_LockOn;
         public InputAction @LockOnTargetLeft => m_Wrapper.m_Main_LockOnTargetLeft;
         public InputAction @LockOnTargetRight => m_Wrapper.m_Main_LockOnTargetRight;
+        public InputAction @DodgeRoll => m_Wrapper.m_Main_DodgeRoll;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -360,6 +383,9 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 @LockOnTargetRight.started -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOnTargetRight;
                 @LockOnTargetRight.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOnTargetRight;
                 @LockOnTargetRight.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOnTargetRight;
+                @DodgeRoll.started -= m_Wrapper.m_MainActionsCallbackInterface.OnDodgeRoll;
+                @DodgeRoll.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnDodgeRoll;
+                @DodgeRoll.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnDodgeRoll;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -388,6 +414,9 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 @LockOnTargetRight.started += instance.OnLockOnTargetRight;
                 @LockOnTargetRight.performed += instance.OnLockOnTargetRight;
                 @LockOnTargetRight.canceled += instance.OnLockOnTargetRight;
+                @DodgeRoll.started += instance.OnDodgeRoll;
+                @DodgeRoll.performed += instance.OnDodgeRoll;
+                @DodgeRoll.canceled += instance.OnDodgeRoll;
             }
         }
     }
@@ -402,5 +431,6 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         void OnLockOn(InputAction.CallbackContext context);
         void OnLockOnTargetLeft(InputAction.CallbackContext context);
         void OnLockOnTargetRight(InputAction.CallbackContext context);
+        void OnDodgeRoll(InputAction.CallbackContext context);
     }
 }
