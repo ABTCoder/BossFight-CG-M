@@ -23,8 +23,11 @@ public class Fireball : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Instantiate(splash, transform.position, transform.rotation);
-        Destroy(gameObject);
+        if (other.gameObject.tag != "Player")
+        {
+            Instantiate(splash, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
 
     }
 

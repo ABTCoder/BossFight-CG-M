@@ -10,12 +10,15 @@ public class SirArginald : MonoBehaviour
     [SerializeField] private Vector3 offset;
     [SerializeField] private Transform fireballObj;
     [SerializeField] private Transform splash;
+
+    private AudioSource fireballFX;
     private MovementController controller;
     private Vector3 pos;
     // Start is called before the first frame update
     void Awake()
     {
         controller = player.GetComponent<CharacterMovement>().getMovement();
+        fireballFX = GetComponent<AudioSource>();
         offset = new Vector3()
         {
             x = -0.4f,
@@ -35,6 +38,7 @@ public class SirArginald : MonoBehaviour
         Transform fireball = Instantiate(fireballObj, pos, transform.rotation);
         Vector3 direction = player.transform.Find("Target").transform.forward.normalized;
         fireball.GetComponent<Fireball>().Setup(direction, splash);
+        fireballFX.Play();
     }
 
 
