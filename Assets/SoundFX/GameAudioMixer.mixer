@@ -48,7 +48,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fireball
+  m_Name: Environment
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: de5fb034bec63b242b1d7889c4bbf5f2
   m_Children: []
@@ -167,8 +167,8 @@ AudioMixerSnapshotController:
     aa7022b095e27f4499e948973ffce086: 2000
     7c3604325d5a302428a6a3c17852b887: 0
     537cfff4123332e4a84b0f8b9d12a139: -1802
-    2296a085abbb78942b8eaf0881626b9b: -2.5738313
-    14ec84d972f42ad4c98a634b4029739b: -18.592384
+    2296a085abbb78942b8eaf0881626b9b: 0
+    14ec84d972f42ad4c98a634b4029739b: -18.59239
     34dd1a8c11d4c244eaf2c4ef54ce73a1: 2.6
     ff7966bead6eb7148bdfae3daa42f3cd: -3423
   m_TransitionOverrides: {}
