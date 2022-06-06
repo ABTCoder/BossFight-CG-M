@@ -24,6 +24,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "ShieldBlock",
+                    "type": "Button",
+                    "id": "6ee84591-d16e-4269-a31b-ea679302af96",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "BaseAttack",
                     "type": "Button",
                     "id": "8304a417-978f-489b-a93f-df4e8eccebf2",
@@ -51,9 +60,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ShieldBlock",
+                    "name": "Lock On Target Left",
                     "type": "Button",
-                    "id": "6ee84591-d16e-4269-a31b-ea679302af96",
+                    "id": "643ef5da-ffd9-4ab4-bdaf-62686faa7c59",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Lock On Target Right",
+                    "type": "Button",
+                    "id": "2b6403ad-e23f-42f7-986e-da217d47e046",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DodgeRoll",
+                    "type": "Button",
+                    "id": "49909745-3cbd-41eb-bb1d-cfd2690ff6a8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -162,12 +189,45 @@
                 },
                 {
                     "name": "",
+                    "id": "517d4b13-4d74-4554-8394-918c567bbcc8",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lock On Target Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f5a537de-02f4-4d00-a702-b82be4aa44cc",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lock On Target Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d941f15f-a52b-4cab-a391-d29fa96da4d6",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "ShieldBlock",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aaddf609-60d3-43f5-8d27-8115e3291fb9",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DodgeRoll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

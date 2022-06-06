@@ -46,6 +46,15 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""ShieldBlock"",
+                    ""type"": ""Button"",
+                    ""id"": ""6ee84591-d16e-4269-a31b-ea679302af96"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""BaseAttack"",
                     ""type"": ""Button"",
                     ""id"": ""8304a417-978f-489b-a93f-df4e8eccebf2"",
@@ -73,9 +82,27 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ShieldBlock"",
+                    ""name"": ""Lock On Target Left"",
                     ""type"": ""Button"",
-                    ""id"": ""6ee84591-d16e-4269-a31b-ea679302af96"",
+                    ""id"": ""643ef5da-ffd9-4ab4-bdaf-62686faa7c59"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lock On Target Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""2b6403ad-e23f-42f7-986e-da217d47e046"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DodgeRoll"",
+                    ""type"": ""Button"",
+                    ""id"": ""49909745-3cbd-41eb-bb1d-cfd2690ff6a8"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -184,12 +211,45 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""517d4b13-4d74-4554-8394-918c567bbcc8"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Lock On Target Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f5a537de-02f4-4d00-a702-b82be4aa44cc"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Lock On Target Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""d941f15f-a52b-4cab-a391-d29fa96da4d6"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ShieldBlock"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aaddf609-60d3-43f5-8d27-8115e3291fb9"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DodgeRoll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -202,10 +262,13 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
         m_Main_Move = m_Main.FindAction("Move", throwIfNotFound: true);
         m_Main_MoveCamera = m_Main.FindAction("Move Camera", throwIfNotFound: true);
+        m_Main_ShieldBlock = m_Main.FindAction("ShieldBlock", throwIfNotFound: true);
         m_Main_BaseAttack = m_Main.FindAction("BaseAttack", throwIfNotFound: true);
         m_Main_Fireball = m_Main.FindAction("Fireball", throwIfNotFound: true);
         m_Main_LockOn = m_Main.FindAction("LockOn", throwIfNotFound: true);
-        m_Main_ShieldBlock = m_Main.FindAction("ShieldBlock", throwIfNotFound: true);
+        m_Main_LockOnTargetLeft = m_Main.FindAction("Lock On Target Left", throwIfNotFound: true);
+        m_Main_LockOnTargetRight = m_Main.FindAction("Lock On Target Right", throwIfNotFound: true);
+        m_Main_DodgeRoll = m_Main.FindAction("DodgeRoll", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -267,20 +330,26 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
     private IMainActions m_MainActionsCallbackInterface;
     private readonly InputAction m_Main_Move;
     private readonly InputAction m_Main_MoveCamera;
+    private readonly InputAction m_Main_ShieldBlock;
     private readonly InputAction m_Main_BaseAttack;
     private readonly InputAction m_Main_Fireball;
     private readonly InputAction m_Main_LockOn;
-    private readonly InputAction m_Main_ShieldBlock;
+    private readonly InputAction m_Main_LockOnTargetLeft;
+    private readonly InputAction m_Main_LockOnTargetRight;
+    private readonly InputAction m_Main_DodgeRoll;
     public struct MainActions
     {
         private @MovementController m_Wrapper;
         public MainActions(@MovementController wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Main_Move;
         public InputAction @MoveCamera => m_Wrapper.m_Main_MoveCamera;
+        public InputAction @ShieldBlock => m_Wrapper.m_Main_ShieldBlock;
         public InputAction @BaseAttack => m_Wrapper.m_Main_BaseAttack;
         public InputAction @Fireball => m_Wrapper.m_Main_Fireball;
         public InputAction @LockOn => m_Wrapper.m_Main_LockOn;
-        public InputAction @ShieldBlock => m_Wrapper.m_Main_ShieldBlock;
+        public InputAction @LockOnTargetLeft => m_Wrapper.m_Main_LockOnTargetLeft;
+        public InputAction @LockOnTargetRight => m_Wrapper.m_Main_LockOnTargetRight;
+        public InputAction @DodgeRoll => m_Wrapper.m_Main_DodgeRoll;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -296,6 +365,9 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 @MoveCamera.started -= m_Wrapper.m_MainActionsCallbackInterface.OnMoveCamera;
                 @MoveCamera.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnMoveCamera;
                 @MoveCamera.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnMoveCamera;
+                @ShieldBlock.started -= m_Wrapper.m_MainActionsCallbackInterface.OnShieldBlock;
+                @ShieldBlock.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnShieldBlock;
+                @ShieldBlock.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnShieldBlock;
                 @BaseAttack.started -= m_Wrapper.m_MainActionsCallbackInterface.OnBaseAttack;
                 @BaseAttack.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnBaseAttack;
                 @BaseAttack.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnBaseAttack;
@@ -305,9 +377,15 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 @LockOn.started -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOn;
                 @LockOn.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOn;
                 @LockOn.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOn;
-                @ShieldBlock.started -= m_Wrapper.m_MainActionsCallbackInterface.OnShieldBlock;
-                @ShieldBlock.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnShieldBlock;
-                @ShieldBlock.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnShieldBlock;
+                @LockOnTargetLeft.started -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOnTargetLeft;
+                @LockOnTargetLeft.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOnTargetLeft;
+                @LockOnTargetLeft.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOnTargetLeft;
+                @LockOnTargetRight.started -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOnTargetRight;
+                @LockOnTargetRight.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOnTargetRight;
+                @LockOnTargetRight.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnLockOnTargetRight;
+                @DodgeRoll.started -= m_Wrapper.m_MainActionsCallbackInterface.OnDodgeRoll;
+                @DodgeRoll.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnDodgeRoll;
+                @DodgeRoll.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnDodgeRoll;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -318,6 +396,9 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 @MoveCamera.started += instance.OnMoveCamera;
                 @MoveCamera.performed += instance.OnMoveCamera;
                 @MoveCamera.canceled += instance.OnMoveCamera;
+                @ShieldBlock.started += instance.OnShieldBlock;
+                @ShieldBlock.performed += instance.OnShieldBlock;
+                @ShieldBlock.canceled += instance.OnShieldBlock;
                 @BaseAttack.started += instance.OnBaseAttack;
                 @BaseAttack.performed += instance.OnBaseAttack;
                 @BaseAttack.canceled += instance.OnBaseAttack;
@@ -327,9 +408,15 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 @LockOn.started += instance.OnLockOn;
                 @LockOn.performed += instance.OnLockOn;
                 @LockOn.canceled += instance.OnLockOn;
-                @ShieldBlock.started += instance.OnShieldBlock;
-                @ShieldBlock.performed += instance.OnShieldBlock;
-                @ShieldBlock.canceled += instance.OnShieldBlock;
+                @LockOnTargetLeft.started += instance.OnLockOnTargetLeft;
+                @LockOnTargetLeft.performed += instance.OnLockOnTargetLeft;
+                @LockOnTargetLeft.canceled += instance.OnLockOnTargetLeft;
+                @LockOnTargetRight.started += instance.OnLockOnTargetRight;
+                @LockOnTargetRight.performed += instance.OnLockOnTargetRight;
+                @LockOnTargetRight.canceled += instance.OnLockOnTargetRight;
+                @DodgeRoll.started += instance.OnDodgeRoll;
+                @DodgeRoll.performed += instance.OnDodgeRoll;
+                @DodgeRoll.canceled += instance.OnDodgeRoll;
             }
         }
     }
@@ -338,9 +425,12 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnMoveCamera(InputAction.CallbackContext context);
+        void OnShieldBlock(InputAction.CallbackContext context);
         void OnBaseAttack(InputAction.CallbackContext context);
         void OnFireball(InputAction.CallbackContext context);
         void OnLockOn(InputAction.CallbackContext context);
-        void OnShieldBlock(InputAction.CallbackContext context);
+        void OnLockOnTargetLeft(InputAction.CallbackContext context);
+        void OnLockOnTargetRight(InputAction.CallbackContext context);
+        void OnDodgeRoll(InputAction.CallbackContext context);
     }
 }
