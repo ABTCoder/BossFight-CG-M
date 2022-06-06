@@ -6,10 +6,17 @@ using UnityEngine.InputSystem;
 public class CharacterMovement : MonoBehaviour
 {
     private MovementController movement;
-    private float speed = 7;
+    private float speed = 5.5f;
     private Vector3 characterCameraOffset;
     private float cameraDeg = 6;
+    private float rollSpeed = 10f;
+
     private Vector3 nextPosition;
+    private Vector3 startRollPos;
+    private Vector3 endRollPos;
+    private Vector3 dirRoll;
+    private Vector3 lastPosition;
+
     private Quaternion nextRotation;
     private CombatAnimationcontroller combatController;
     
@@ -32,7 +39,8 @@ public class CharacterMovement : MonoBehaviour
     }
 
     private void Awake()
-    {   
+    {
+        lastPosition = Vector3.zero;
         movement = new MovementController();
         characterCameraOffset = new Vector3()
         {
@@ -68,6 +76,7 @@ public class CharacterMovement : MonoBehaviour
     {
         Vector2 mouseDelta = movement.Main.MoveCamera.ReadValue<Vector2>();
         Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();
+        
 
         #region Follow Transform Rotation
 
@@ -125,23 +134,54 @@ public class CharacterMovement : MonoBehaviour
 
         //Set the player rotation based on the look transform
         if (!(combatController.getIsAttacking()) && !(combatController.getIsBlocking()))
+        {
             transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
-        //transform.rotation = nextRotation;
-        //reset the y rotation of the look transform (relative to the parent,the player)
-        followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
+
+            //reset the y rotation of the look transform (relative to the parent,the player)
+            followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
+        }
     }
 
     
+
     private void FixedUpdate()
     {
         Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();
         Vector2 mouseDelta = movement.Main.MoveCamera.ReadValue<Vector2>();
 
+        var currentPosition = transform.position;
+        
+
         if (!(combatController.getIsAttacking()) && !(combatController.getIsBlocking()))
-            transform.Translate(charMove.x * Time.deltaTime * speed, 0, charMove.y * Time.deltaTime * speed);
-        //Debug.Log(charMove.x + " x, " + charMove.y + " y");
-        //transform.Rotate(Vector3.up, mouseDelta.x * Time.deltaTime * cameraDeg);
-        //Debug.Log(charMove);
+        {
+            if (combatController.getIsRolling())
+            {
+                // Manage the roll system
+                dirRoll = (currentPosition - lastPosition).normalized; // Take the direction of the movement
+                Debug.Log(dirRoll);
+                if (dirRoll.Equals(Vector3.zero.normalized))
+                {
+
+                    Vector3 backwardDir = -(transform.forward);
+                    backwardDir.y = 0;
+                    transform.position += backwardDir * Time.deltaTime * rollSpeed;
+                }
+                else
+                {
+                    dirRoll.y = 0;
+                    transform.position += dirRoll * Time.deltaTime * rollSpeed;
+                }
+            }
+            else 
+                transform.Translate(charMove.x * Time.deltaTime * speed, 0, charMove.y * Time.deltaTime * speed);
+        }
+
+        lastPosition = currentPosition;
+    }
+
+    public void setStartRollPos()
+    {
+        startRollPos = transform.position;
     }
 
     public void TickInput(float delta)
