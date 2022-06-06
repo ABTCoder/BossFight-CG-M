@@ -6,12 +6,18 @@ using UnityEngine.InputSystem;
 public class CombatAnimationcontroller : MonoBehaviour
 {
     Animator playerAnimator;
+
     private int comboStep = 0;
-    private bool comboPossible;
-    private MovementController attackController;
-    private CharacterMovement attackComponent;
+
+    private bool comboPossible = false;
     private bool isAttacking = false;
     private bool isBlocking = false;
+    private bool isRolling = false;
+    private bool isSliding = false;
+
+    private MovementController attackController;
+    private CharacterMovement attackComponent;
+
 
 
     // Start is called before the first frame update
@@ -24,6 +30,7 @@ public class CombatAnimationcontroller : MonoBehaviour
 
         attackController.Main.BaseAttack.performed += NormalAttack;
         attackController.Main.ShieldBlock.performed += Block;
+        attackController.Main.DodgeRoll.performed += DodgeRoll;
     }
 
     private void ComboPossible()
@@ -59,17 +66,20 @@ public class CombatAnimationcontroller : MonoBehaviour
         Debug.Log(comboStep);
         isAttacking = true;
         playerAnimator.SetBool("isAttacking", true);
-        if (comboStep == 0)
-        {
-            playerAnimator.Play("PlayerAttack01");
-            comboStep = 1;
-        }
-        else
-        {
-            if (comboPossible)
+        if (!isBlocking && !isRolling) 
+        { 
+            if (comboStep == 0)
             {
-                comboPossible = false; //Evita di duplicare l'input
-                comboStep += 1;
+                playerAnimator.Play("PlayerAttack01");
+                comboStep = 1;
+            }
+            else
+            {
+                if (comboPossible)
+                {
+                    comboPossible = false; //Evita di duplicare l'input
+                    comboStep += 1;
+                }
             }
         }
     }
@@ -88,6 +98,39 @@ public class CombatAnimationcontroller : MonoBehaviour
         
         isBlocking = false;
         playerAnimator.SetBool("isBlocking", false);
+    }
+
+    public void DodgeRoll(InputAction.CallbackContext ctx)
+    {
+        if (!isRolling)
+        {
+            playerAnimator.SetBool("isRolling", true);
+            attackComponent.setStartRollPos();
+            isRolling = true;
+        }
+        
+    }
+
+    private void ResetRoll()
+    {
+        isRolling = false;
+        isSliding = false;
+        playerAnimator.SetBool("isRolling", false);
+    }
+
+    public void setTrueIsSliding()
+    {
+        isSliding = true;
+    }
+
+    public bool getIsSliding()
+    {
+        return isSliding;
+    }
+
+    public bool getIsRolling()
+    {
+        return isRolling;
     }
 
     public bool getIsBlocking()
