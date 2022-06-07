@@ -18,7 +18,7 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 lastPosition;
 
     private Quaternion nextRotation;
-    private CombatAnimationcontroller combatController;
+    private AnimationController combatController;
     
     public bool lockOnInput;
     public bool right_Stick_Right_Input;
@@ -35,7 +35,7 @@ public class CharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        combatController = GetComponentInChildren<CombatAnimationcontroller>();
+        combatController = GetComponentInChildren<AnimationController>();
     }
 
     private void Awake()
