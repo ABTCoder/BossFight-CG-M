@@ -122,39 +122,39 @@ public class AnimationController : MonoBehaviour
 
             if (charMove.y > 0 && charMove.x == 0)
             {
-                playerAnimator.Play("RollForward");
+                playerAnimator.CrossFade("RollForward", 0.2f);
             }
             else if (charMove.y < 0 && charMove.x == 0)
             {
-                playerAnimator.Play("RollBackward");
+                playerAnimator.CrossFade("RollBackward", 0.2f);
             }
             else if (charMove.y == 0 && charMove.x > 0)
             {
-                playerAnimator.Play("RollRight");
+                playerAnimator.CrossFade("RollRight", 0.2f);
             }
             else if (charMove.y == 0 && charMove.x < 0)
             {
-                playerAnimator.Play("RollLeft");
+                playerAnimator.CrossFade("RollLeft", 0.2f);
             }
             else if (charMove.y < 0 && charMove.x < 0)
             {
-                playerAnimator.Play("RollBackwardLeft");
+                playerAnimator.CrossFade("RollBackwardLeft", 0.2f);
             }
             else if (charMove.y < 0 && charMove.x > 0)
             {
-                playerAnimator.Play("RollBackwardRight");
+                playerAnimator.CrossFade("RollBackwardRight", 0.2f);
             }
             else if (charMove.y > 0 && charMove.x < 0)
             {
-                playerAnimator.Play("RollForwardLeft");
+                playerAnimator.CrossFade("RollForwardLeft", 0.2f);
             }
             else if (charMove.y > 0 && charMove.x > 0)
             {
-                playerAnimator.Play("RollForwardRight");
+                playerAnimator.CrossFade("RollForwardRight", 0.2f);
             }
             else if (charMove.y == 0 && charMove.x == 0)
             {
-                playerAnimator.Play("RollBackward");
+                playerAnimator.CrossFade("RollBackward", 0.2f);
             }
         }
     }
@@ -179,35 +179,32 @@ public class AnimationController : MonoBehaviour
     {
         if (comboStep == 2)
         {
-            Debug.Log("BaseAttack2");
-            playerAnimator.Play("PlayerAttack02");
+            playerAnimator.CrossFade("PlayerAttack02", 0.2f);
         }
         else if (comboStep == 3)
         {
-            Debug.Log("BaseAttack3");
-            playerAnimator.Play("PlayerAttack03");
+            playerAnimator.CrossFade("PlayerAttack03", 0.2f);
         }
     }
 
     private void ResetCombo()
     {
         isAttacking = false;
-        playerAnimator.SetBool("isDoingAction", false);
+        playerAnimator.SetBool("isAttacking", false);
         comboPossible = false;
         comboStep = 0;
     }
 
     public void NormalAttack(InputAction.CallbackContext ctx)
     {
-        Debug.Log("BaseAttack1");
-        Debug.Log(comboStep);
+
         isAttacking = true;
-        playerAnimator.SetBool("isDoingAction", true);
+        playerAnimator.SetBool("isAttacking", true);
         if (!isBlocking && !isRolling)
         {
             if (comboStep == 0)
             {
-                playerAnimator.Play("PlayerAttack01");
+                playerAnimator.CrossFade("PlayerAttack01", 0.2f);
                 comboStep = 1;
             }
             else
@@ -241,7 +238,7 @@ public class AnimationController : MonoBehaviour
     {
         if (!isRolling)
         {
-            playerAnimator.SetBool("isDoingAction", true);
+            playerAnimator.SetBool("isRolling", true);
             componentCharacterMovement.setStartRollPos();
             isRolling = true;
         }
@@ -252,7 +249,7 @@ public class AnimationController : MonoBehaviour
     {
         isRolling = false;
         isSliding = false;
-        playerAnimator.SetBool("isDoingAction", false);
+        playerAnimator.SetBool("isRolling", false);
     }
 
     public void setTrueIsSliding()

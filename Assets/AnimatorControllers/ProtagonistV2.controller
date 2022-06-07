@@ -12,7 +12,10 @@ AnimatorStateTransition:
     m_ConditionEvent: isBlocking
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isDoingAction
+    m_ConditionEvent: isRolling
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttacking
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 81112638924134936}
@@ -20,7 +23,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.08
+  m_TransitionDuration: 0.075
   m_TransitionOffset: 0
   m_ExitTime: 0.75
   m_HasExitTime: 0
@@ -205,7 +208,13 @@ AnimatorStateTransition:
     m_ConditionEvent: isWalkingRight
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isDoingAction
+    m_ConditionEvent: isRolling
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isBlocking
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttacking
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6550177112153200768}
@@ -213,7 +222,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.1
   m_TransitionOffset: 0
   m_ExitTime: 0.75
   m_HasExitTime: 0
@@ -320,7 +329,13 @@ AnimatorStateTransition:
     m_ConditionEvent: isWalkingLeft
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isDoingAction
+    m_ConditionEvent: isAttacking
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isRolling
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isBlocking
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5684938064478900311}
@@ -328,7 +343,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.1
   m_TransitionOffset: 0
   m_ExitTime: 0.75
   m_HasExitTime: 0
@@ -397,7 +412,13 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: isDoingAction
+  - m_Name: isRolling
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: isAttacking
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -560,13 +581,13 @@ AnimatorStateMachine:
     m_Position: {x: 700, y: 560, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5667673277640484394}
-    m_Position: {x: -30, y: 980, z: 0}
+    m_Position: {x: -320, y: 750, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1456045692472165644}
-    m_Position: {x: 220, y: 980, z: 0}
+    m_Position: {x: -320, y: 820, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5747087609049765803}
-    m_Position: {x: 480, y: 970, z: 0}
+    m_Position: {x: -320, y: 890, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2325593932204300030}
     m_Position: {x: 200, y: 330, z: 0}
@@ -596,37 +617,37 @@ AnimatorStateMachine:
     m_Position: {x: -320, y: 550, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7180951116033270132}
-    m_Position: {x: -320, y: 860, z: 0}
+    m_Position: {x: -320, y: 680, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4332997816170019336}
-    m_Position: {x: -320, y: 800, z: 0}
+    m_Position: {x: -320, y: 620, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4458842603051372171}
-    m_Position: {x: 220, y: 800, z: 0}
+    m_Position: {x: 230, y: 820, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1365805341450190600}
-    m_Position: {x: -30, y: 800, z: 0}
+    m_Position: {x: -20, y: 820, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1793793761617204068}
-    m_Position: {x: 480, y: 800, z: 0}
+    m_Position: {x: 470, y: 820, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1110759113912506775}
-    m_Position: {x: 220, y: 740, z: 0}
+    m_Position: {x: 230, y: 750, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2145329391062099843}
-    m_Position: {x: -30, y: 860, z: 0}
+    m_Position: {x: -20, y: 890, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6550803436619894613}
-    m_Position: {x: 480, y: 860, z: 0}
+    m_Position: {x: 470, y: 890, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3035081537936855388}
-    m_Position: {x: -30, y: 740, z: 0}
+    m_Position: {x: -20, y: 750, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6699084048201705433}
-    m_Position: {x: 480, y: 740, z: 0}
+    m_Position: {x: 470, y: 750, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 28523807346361551}
-    m_Position: {x: 220, y: 860, z: 0}
+    m_Position: {x: 230, y: 890, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 4747875943432913739}
@@ -694,7 +715,13 @@ AnimatorStateTransition:
     m_ConditionEvent: isWalkingRight
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isDoingAction
+    m_ConditionEvent: isRolling
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isBlocking
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttacking
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8315838021439200528}
@@ -702,7 +729,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.1
   m_TransitionOffset: 0
   m_ExitTime: 0.75
   m_HasExitTime: 0
@@ -746,7 +773,13 @@ AnimatorStateTransition:
     m_ConditionEvent: isWalkingRight
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isDoingAction
+    m_ConditionEvent: isRolling
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttacking
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isBlocking
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5036069373739994624}
@@ -754,7 +787,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.1
   m_TransitionOffset: 0
   m_ExitTime: 0.75
   m_HasExitTime: 0
@@ -812,7 +845,10 @@ AnimatorStateTransition:
     m_ConditionEvent: isBlocking
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isDoingAction
+    m_ConditionEvent: isAttacking
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isRolling
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8662285886592809941}
@@ -901,7 +937,13 @@ AnimatorStateTransition:
     m_ConditionEvent: isWalkingLeft
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isDoingAction
+    m_ConditionEvent: isRolling
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isBlocking
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttacking
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 9142671449796284466}
@@ -909,7 +951,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.1
   m_TransitionOffset: 0
   m_ExitTime: 0.75
   m_HasExitTime: 0
@@ -990,7 +1032,13 @@ AnimatorStateTransition:
     m_ConditionEvent: isWalkingLeft
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isDoingAction
+    m_ConditionEvent: isRolling
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isBlocking
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttacking
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5106325065512274971}
@@ -998,7 +1046,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.1
   m_TransitionOffset: 0
   m_ExitTime: 0.75
   m_HasExitTime: 0
@@ -1053,7 +1101,13 @@ AnimatorStateTransition:
     m_ConditionEvent: isWalkingRight
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isDoingAction
+    m_ConditionEvent: isRolling
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isBlocking
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttacking
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1023835490698814698}
@@ -1061,7 +1115,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.1
   m_TransitionOffset: 0
   m_ExitTime: 0.75
   m_HasExitTime: 0
@@ -1164,7 +1218,10 @@ AnimatorStateTransition:
     m_ConditionEvent: isWalkingRight
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isDoingAction
+    m_ConditionEvent: isRolling
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isBlocking
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2325593932204300030}
@@ -1172,7 +1229,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.1
   m_TransitionOffset: 0
   m_ExitTime: 0.75
   m_HasExitTime: 0
