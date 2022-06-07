@@ -8,7 +8,7 @@ public class CharacterMovement : MonoBehaviour
     private MovementController movement;
     private float speed = 5.5f;
     private Vector3 characterCameraOffset;
-    private float cameraDeg = 6;
+    private float cameraDeg = 0.3f;
     private float rollSpeed = 10f;
 
     private Vector3 nextPosition;
@@ -76,18 +76,19 @@ public class CharacterMovement : MonoBehaviour
     {
         Vector2 mouseDelta = movement.Main.MoveCamera.ReadValue<Vector2>();
         Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();
-        
+
+        Debug.Log(combatController.getIsAttacking());
 
         #region Follow Transform Rotation
 
         //Rotate the Follow Target transform based on the input
-        followTransform.transform.rotation *= Quaternion.AngleAxis(mouseDelta.x * cameraDeg * Time.deltaTime , Vector3.up);
+        followTransform.transform.rotation *= Quaternion.AngleAxis(mouseDelta.x * cameraDeg , Vector3.up);
 
         #endregion
 
         #region Vertical Rotation
 
-        followTransform.transform.rotation *= Quaternion.AngleAxis(mouseDelta.y * cameraDeg * Time.deltaTime, Vector3.right);
+        followTransform.transform.rotation *= Quaternion.AngleAxis(mouseDelta.y * cameraDeg , Vector3.right);
 
         var angles = followTransform.transform.localEulerAngles;
         angles.z = 0;
@@ -109,48 +110,24 @@ public class CharacterMovement : MonoBehaviour
         #endregion
 
 
-        if (charMove.x == 0 && charMove.y == 0)
-        {
-            nextPosition = transform.position;
-
-            
-            /*
-            if (aimValue == 1)
-            {
-                //Set the player rotation based on the look transform
-                transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
-                //reset the y rotation of the look transform
-                followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
-            }*/
-            
-
-            return;
-        }
-
+        
         float moveSpeed = speed / 100f;
         Vector3 position = (transform.forward * charMove.y * moveSpeed) + (transform.right * charMove.x * moveSpeed);
-        nextPosition = transform.position + position;
+        
 
 
         //Set the player rotation based on the look transform
-        if (!(combatController.getIsAttacking()) && !(combatController.getIsBlocking()))
+        if (!(combatController.getIsAttacking()) && !(combatController.getIsBlocking()) && !(combatController.getIsRolling()) && (charMove.x != 0 || charMove.y != 0))
         {
             transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
 
             //reset the y rotation of the look transform (relative to the parent,the player)
             followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
         }
-    }
 
-    
 
-    private void FixedUpdate()
-    {
-        Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();
-        Vector2 mouseDelta = movement.Main.MoveCamera.ReadValue<Vector2>();
 
         var currentPosition = transform.position;
-        
 
         if (!(combatController.getIsAttacking()) && !(combatController.getIsBlocking()))
         {
@@ -158,7 +135,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 // Manage the roll system
                 dirRoll = (currentPosition - lastPosition).normalized; // Take the direction of the movement
-                Debug.Log(dirRoll);
+                //Debug.Log(combatController.getIsRolling());
                 if (dirRoll.Equals(Vector3.zero.normalized))
                 {
 
@@ -172,12 +149,13 @@ public class CharacterMovement : MonoBehaviour
                     transform.position += dirRoll * Time.deltaTime * rollSpeed;
                 }
             }
-            else 
+            else
                 transform.Translate(charMove.x * Time.deltaTime * speed, 0, charMove.y * Time.deltaTime * speed);
         }
 
         lastPosition = currentPosition;
     }
+
 
     public void setStartRollPos()
     {

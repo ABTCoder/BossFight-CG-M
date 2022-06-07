@@ -45,7 +45,7 @@ public class Boss_AI : MonoBehaviour
     {
         float distance = 0;
         // ENTER THE IDLE STATE
-        Debug.Log("Alright, seems no evil Player is around, I can chill!");
+        //Debug.Log("Alright, seems no evil Player is around, I can chill!");
 
         // EXECUTE IDLE STATE
         while (state == ENEMY_STATE.IDLE)

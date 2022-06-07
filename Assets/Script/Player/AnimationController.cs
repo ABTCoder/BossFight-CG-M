@@ -16,6 +16,8 @@ public class AnimationController : MonoBehaviour
     private bool isBlocking = false;
     private bool isRolling = false;
     private bool isSliding = false; // It prevents the interruption of the roll's animation
+    private float x = 0;
+    private float y = 0;
 
 
     void Start()
@@ -34,7 +36,7 @@ public class AnimationController : MonoBehaviour
         MovementAnimationHandler();
     }
 
-    private void MovementAnimationHandler()
+    private void MovementAnimationHandlerOLD()
     {
         Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
         if (!(getIsAttacking()) && !(getIsBlocking()) && !(getIsRolling()))
@@ -159,6 +161,33 @@ public class AnimationController : MonoBehaviour
         }
     }
 
+    private void MovementAnimationHandler()
+    {
+        Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
+
+        if (!isSliding)
+        {
+            x = Mathf.Lerp(x, charMove.x, 1f);
+            y = Mathf.Lerp(y, charMove.y, 1f);
+        }
+
+        if (isRolling)
+        {
+            if (charMove.y == 0 && charMove.x == 0 && !isSliding)
+            {
+                playerAnimator.Play("RollBackward");
+            }
+            setTrueIsSliding(); // This method set a boolean that prevents the interruption of the roll's animation
+            
+        }
+
+        
+
+        playerAnimator.SetFloat("X", x);
+        playerAnimator.SetFloat("Y", y);
+
+    }
+
 
     private void EventCombatAddListners()
     {
@@ -197,11 +226,10 @@ public class AnimationController : MonoBehaviour
 
     public void NormalAttack(InputAction.CallbackContext ctx)
     {
-
-        isAttacking = true;
-        playerAnimator.SetBool("isAttacking", true);
         if (!isBlocking && !isRolling)
         {
+            isAttacking = true;
+            playerAnimator.SetBool("isAttacking", true);
             if (comboStep == 0)
             {
                 playerAnimator.CrossFade("PlayerAttack01", 0.2f);
@@ -236,7 +264,7 @@ public class AnimationController : MonoBehaviour
 
     public void DodgeRoll(InputAction.CallbackContext ctx)
     {
-        if (!isRolling)
+        if (!isRolling && !isAttacking && !isSliding)
         {
             playerAnimator.SetBool("isRolling", true);
             componentCharacterMovement.setStartRollPos();

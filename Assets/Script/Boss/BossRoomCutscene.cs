@@ -10,6 +10,7 @@ public class BossRoomCutscene : MonoBehaviour
     private GameManager gameManager;
 
     [SerializeField] private GameObject player;
+    private GameObject UI;
     private MovementController controller;
     private bool ended = false;
 
@@ -20,6 +21,7 @@ public class BossRoomCutscene : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         cutsceneDirector.stopped += Stopped;
         controller = player.GetComponent<CharacterMovement>().getMovement();
+        UI = GameObject.Find("UI");
     }
 
     private void Stopped(PlayableDirector d)
@@ -27,6 +29,7 @@ public class BossRoomCutscene : MonoBehaviour
         gameObject.SetActive(false);
         ended = true;
         controller.Enable();
+        UI.SetActive(true);
     }
 
     public bool IsEnded()
@@ -37,6 +40,7 @@ public class BossRoomCutscene : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
+            UI.SetActive(false);
             gameManager.PlayBossMusic();
             controller.Disable();
             cutsceneDirector.Play();
