@@ -33,6 +33,14 @@ public class AnimationController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!AnimatorIsPlaying())
+        {
+            comboPossible = false; 
+            isAttacking = false;
+            isBlocking = false;
+            isRolling = false;
+            isSliding = false; 
+        }   
         MovementAnimationHandler();
     }
 
@@ -41,122 +49,50 @@ public class AnimationController : MonoBehaviour
         Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
         if (!(getIsAttacking()) && !(getIsBlocking()) && !(getIsRolling()))
         {
-            if (charMove.y > 0 && charMove.x == 0)
+            if (!(getIsAttacking()) && !(getIsBlocking()) && getIsRolling() && !(getIsSliding()))
             {
-                // Move forward
-                playerAnimator.SetBool("isWalkingForward", true);
-                playerAnimator.SetBool("isWalkingBackward", false);
-                playerAnimator.SetBool("isWalkingRight", false);
-                playerAnimator.SetBool("isWalkingLeft", false);
-            }
-            else if (charMove.y < 0 && charMove.x == 0)
-            {
-                // Move backward
-                playerAnimator.SetBool("isWalkingBackward", true);
-                playerAnimator.SetBool("isWalkingForward", false);
-                playerAnimator.SetBool("isWalkingRight", false);
-                playerAnimator.SetBool("isWalkingLeft", false);
-            }
-            else if (charMove.y == 0 && charMove.x > 0)
-            {
-                // Move Right
-                playerAnimator.SetBool("isWalkingForward", false);
-                playerAnimator.SetBool("isWalkingBackward", false);
-                playerAnimator.SetBool("isWalkingRight", true);
-                playerAnimator.SetBool("isWalkingLeft", false);
-            }
-            else if (charMove.y == 0 && charMove.x < 0)
-            {
-                // Move Left
-                playerAnimator.SetBool("isWalkingForward", false);
-                playerAnimator.SetBool("isWalkingBackward", false);
-                playerAnimator.SetBool("isWalkingLeft", true);
-                playerAnimator.SetBool("isWalkingRight", false);
-            }
-            else if (charMove.y < 0 && charMove.x < 0)
-            {
-                // Move Backward Left
-                playerAnimator.SetBool("isWalkingForward", false);
-                playerAnimator.SetBool("isWalkingRight", false);
-                playerAnimator.SetBool("isWalkingBackward", true);
-                playerAnimator.SetBool("isWalkingLeft", true);
-            }
-            else if (charMove.y < 0 && charMove.x > 0)
-            {
-                // Move Backward Right
-                playerAnimator.SetBool("isWalkingForward", false);
-                playerAnimator.SetBool("isWalkingLeft", false);
-                playerAnimator.SetBool("isWalkingBackward", true);
-                playerAnimator.SetBool("isWalkingRight", true);
-            }
-            else if (charMove.y > 0 && charMove.x < 0)
-            {
-                // Move Forward Left
-                playerAnimator.SetBool("isWalkingRight", false);
-                playerAnimator.SetBool("isWalkingBackward", false);
-                playerAnimator.SetBool("isWalkingForward", true);
-                playerAnimator.SetBool("isWalkingLeft", true);
-            }
-            else if (charMove.y > 0 && charMove.x > 0)
-            {
-                // Move Forward Right
-                playerAnimator.SetBool("isWalkingBackward", false);
-                playerAnimator.SetBool("isWalkingLeft", false);
-                playerAnimator.SetBool("isWalkingForward", true);
-                playerAnimator.SetBool("isWalkingRight", true);
-            }
-            else if (charMove.y == 0 && charMove.x == 0)
-            {
-                // Idle
                 playerAnimator.SetBool("isWalkingForward", false);
                 playerAnimator.SetBool("isWalkingBackward", false);
                 playerAnimator.SetBool("isWalkingRight", false);
                 playerAnimator.SetBool("isWalkingLeft", false);
-            }
-        }
-        else if (!(getIsAttacking()) && !(getIsBlocking()) && getIsRolling() && !(getIsSliding()))
-        {
-            playerAnimator.SetBool("isWalkingForward", false);
-            playerAnimator.SetBool("isWalkingBackward", false);
-            playerAnimator.SetBool("isWalkingRight", false);
-            playerAnimator.SetBool("isWalkingLeft", false);
-            setTrueIsSliding(); // This method set a boolean that prevents the interruption of the roll's animation
+                setTrueIsSliding(); // This method set a boolean that prevents the interruption of the roll's animation
 
-            if (charMove.y > 0 && charMove.x == 0)
-            {
-                playerAnimator.CrossFade("RollForward", 0.2f);
-            }
-            else if (charMove.y < 0 && charMove.x == 0)
-            {
-                playerAnimator.CrossFade("RollBackward", 0.2f);
-            }
-            else if (charMove.y == 0 && charMove.x > 0)
-            {
-                playerAnimator.CrossFade("RollRight", 0.2f);
-            }
-            else if (charMove.y == 0 && charMove.x < 0)
-            {
-                playerAnimator.CrossFade("RollLeft", 0.2f);
-            }
-            else if (charMove.y < 0 && charMove.x < 0)
-            {
-                playerAnimator.CrossFade("RollBackwardLeft", 0.2f);
-            }
-            else if (charMove.y < 0 && charMove.x > 0)
-            {
-                playerAnimator.CrossFade("RollBackwardRight", 0.2f);
-            }
-            else if (charMove.y > 0 && charMove.x < 0)
-            {
-                playerAnimator.CrossFade("RollForwardLeft", 0.2f);
-            }
-            else if (charMove.y > 0 && charMove.x > 0)
-            {
-                playerAnimator.CrossFade("RollForwardRight", 0.2f);
-            }
-            else if (charMove.y == 0 && charMove.x == 0)
-            {
-                playerAnimator.CrossFade("RollBackward", 0.2f);
+                if (charMove.y > 0 && charMove.x == 0)
+                {
+                    playerAnimator.CrossFade("RollForward", 0.2f);
+                }
+                else if (charMove.y < 0 && charMove.x == 0)
+                {
+                    playerAnimator.CrossFade("RollBackward", 0.2f);
+                }
+                else if (charMove.y == 0 && charMove.x > 0)
+                {
+                    playerAnimator.CrossFade("RollRight", 0.2f);
+                }
+                else if (charMove.y == 0 && charMove.x < 0)
+                {
+                    playerAnimator.CrossFade("RollLeft", 0.2f);
+                }
+                else if (charMove.y < 0 && charMove.x < 0)
+                {
+                    playerAnimator.CrossFade("RollBackwardLeft", 0.2f);
+                }
+                else if (charMove.y < 0 && charMove.x > 0)
+                {
+                    playerAnimator.CrossFade("RollBackwardRight", 0.2f);
+                }
+                else if (charMove.y > 0 && charMove.x < 0)
+                {
+                    playerAnimator.CrossFade("RollForwardLeft", 0.2f);
+                }
+                else if (charMove.y > 0 && charMove.x > 0)
+                {
+                    playerAnimator.CrossFade("RollForwardRight", 0.2f);
+                }
+                else if (charMove.y == 0 && charMove.x == 0)
+                {
+                    playerAnimator.CrossFade("RollBackward", 0.2f);
+                }
             }
         }
     }
@@ -164,7 +100,8 @@ public class AnimationController : MonoBehaviour
     private void MovementAnimationHandler()
     {
         Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
-
+        if (!isAttacking && !isRolling)
+        { 
         if (!isSliding)
         {
             x = Mathf.Lerp(x, charMove.x, 1f);
@@ -173,21 +110,21 @@ public class AnimationController : MonoBehaviour
 
         if (isRolling)
         {
-            if (charMove.y == 0 && charMove.x == 0 && !isSliding)
-            {
-                playerAnimator.Play("RollBackward");
-            }
             setTrueIsSliding(); // This method set a boolean that prevents the interruption of the roll's animation
-            
         }
 
         
 
         playerAnimator.SetFloat("X", x);
         playerAnimator.SetFloat("Y", y);
-
+        }
     }
 
+    public bool AnimatorIsPlaying()
+    {
+        return playerAnimator.GetCurrentAnimatorStateInfo(0).length >
+               playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+    }
 
     private void EventCombatAddListners()
     {
@@ -248,11 +185,12 @@ public class AnimationController : MonoBehaviour
 
     public void Block(InputAction.CallbackContext ctx)
     {
-
-        isBlocking = true;
-        playerAnimator.SetBool("isBlocking", true);
-        playerInput.Main.ShieldBlock.canceled += StopBlocking;
-
+        if (!isAttacking && !isRolling)
+        {
+            isBlocking = true;
+            playerAnimator.SetBool("isBlocking", true);
+            playerInput.Main.ShieldBlock.canceled += StopBlocking;
+        }
     }
 
     public void StopBlocking(InputAction.CallbackContext ctx)
@@ -264,7 +202,9 @@ public class AnimationController : MonoBehaviour
 
     public void DodgeRoll(InputAction.CallbackContext ctx)
     {
-        if (!isRolling && !isAttacking && !isSliding)
+        Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
+
+        if (!isRolling && !isAttacking && !isSliding && !isBlocking && (charMove != Vector2.zero))
         {
             playerAnimator.SetBool("isRolling", true);
             componentCharacterMovement.setStartRollPos();

@@ -9,13 +9,17 @@ public class CharacterMovement : MonoBehaviour
     private float speed = 5.5f;
     private Vector3 characterCameraOffset;
     private float cameraDeg = 0.3f;
-    private float rollSpeed = 10f;
+    private float rollSpeed = 20f;
+    private float speedRollToDecrease;
 
     private Vector3 nextPosition;
     private Vector3 startRollPos;
     private Vector3 endRollPos;
     private Vector3 dirRoll;
     private Vector3 lastPosition;
+    private Vector3 localDirection;
+    private Vector3 worldInputDirection;
+ 
 
     private Quaternion nextRotation;
     private AnimationController combatController;
@@ -77,7 +81,7 @@ public class CharacterMovement : MonoBehaviour
         Vector2 mouseDelta = movement.Main.MoveCamera.ReadValue<Vector2>();
         Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();
 
-        Debug.Log(combatController.getIsAttacking());
+        //Debug.Log(combatController.getIsAttacking());
 
         #region Follow Transform Rotation
 
@@ -135,19 +139,10 @@ public class CharacterMovement : MonoBehaviour
             {
                 // Manage the roll system
                 dirRoll = (currentPosition - lastPosition).normalized; // Take the direction of the movement
-                //Debug.Log(combatController.getIsRolling());
-                if (dirRoll.Equals(Vector3.zero.normalized))
-                {
-
-                    Vector3 backwardDir = -(transform.forward);
-                    backwardDir.y = 0;
-                    transform.position += backwardDir * Time.deltaTime * rollSpeed;
-                }
-                else
-                {
-                    dirRoll.y = 0;
-                    transform.position += dirRoll * Time.deltaTime * rollSpeed;
-                }
+                
+                speedRollToDecrease = Mathf.SmoothStep(speedRollToDecrease, 0, 0.1f);
+                transform.position += worldInputDirection * Time.deltaTime * speedRollToDecrease;
+                
             }
             else
                 transform.Translate(charMove.x * Time.deltaTime * speed, 0, charMove.y * Time.deltaTime * speed);
@@ -159,7 +154,18 @@ public class CharacterMovement : MonoBehaviour
 
     public void setStartRollPos()
     {
+        Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();
+        speedRollToDecrease = rollSpeed; // Reset roll speed
+
         startRollPos = transform.position;
+        localDirection = new Vector3()
+        {
+            x = charMove.x,
+            y = 0,
+            z = charMove.y
+        };
+
+        worldInputDirection = transform.TransformDirection(localDirection).normalized;
     }
 
     public void TickInput(float delta)
