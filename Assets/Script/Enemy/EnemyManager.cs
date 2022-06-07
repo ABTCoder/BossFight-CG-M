@@ -9,10 +9,11 @@ public class EnemyManager : CharacterManager
 {
     EnemyLocomotionManager enemyLocomotionManager;
     EnemyAnimatorManager enemyAnimationManager;
-    public bool isPreformingAction;
+    private EnemyStats enemyStats;
 
-    public EnemyAttackAction[] enemyAttacks;
-    public EnemyAttackAction currentAttack;
+    public State currentState;
+    
+    public bool isPreformingAction;
 
     [Header("A.I. Settings")]
     public float detectionRadius = 20;
@@ -26,6 +27,7 @@ public class EnemyManager : CharacterManager
     {
         enemyLocomotionManager = GetComponent<EnemyLocomotionManager>();
         enemyAnimationManager = GetComponentInChildren<EnemyAnimatorManager>();
+        enemyStats = GetComponent<EnemyStats>();
     }
 
     private void Update()
@@ -40,7 +42,11 @@ public class EnemyManager : CharacterManager
 
     private void HandleCurrentAction()
     {
-        if (enemyLocomotionManager.currentTarget != null)
+        if (currentState != null)
+        {
+            State nextState = currentState.Tick(this, enemyStats, enemyAnimationManager);
+        }
+        /*if (enemyLocomotionManager.currentTarget != null)
         {
             enemyLocomotionManager.distanceFromTarget = Vector3.Distance(enemyLocomotionManager.currentTarget.transform.position, transform.position);
         }
@@ -55,7 +61,7 @@ public class EnemyManager : CharacterManager
         else if (enemyLocomotionManager.distanceFromTarget <= enemyLocomotionManager.stoppingDistance)
         {
             AttackTarget();
-        }
+        }*/
     }
 
     private void HandleRecoveryTimer()
@@ -78,7 +84,7 @@ public class EnemyManager : CharacterManager
 
     private void AttackTarget()
     {
-        if (isPreformingAction)
+        /*if (isPreformingAction)
             return;
         
         if (currentAttack == null)
@@ -91,12 +97,12 @@ public class EnemyManager : CharacterManager
             currentRecoveryTime = currentAttack.recoveryTime;
             enemyAnimationManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
             currentAttack = null;
-        }
+        }*/
     }
     
     private void GetNewAttack()
     {
-        Vector3 targetDirection = enemyLocomotionManager.currentTarget.transform.position - transform.position;
+        /*Vector3 targetDirection = enemyLocomotionManager.currentTarget.transform.position - transform.position;
         float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
         enemyLocomotionManager.distanceFromTarget = Vector3.Distance(enemyLocomotionManager.currentTarget.transform.position, transform.position);
 
@@ -139,7 +145,7 @@ public class EnemyManager : CharacterManager
                     }
                 }
             }
-        }
+        }*/
     }
     #endregion
 }
