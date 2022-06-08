@@ -204,7 +204,7 @@ public class AnimationController : MonoBehaviour
 
     }
 
-    private void ResetRoll()
+    public void ResetRoll()
     {
         isRolling = false;
     }

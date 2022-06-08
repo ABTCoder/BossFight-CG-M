@@ -8,6 +8,7 @@ public class CharacterMovement : MonoBehaviour
     private MovementController movement;
     private float speed = 5.5f;
     private Vector3 characterCameraOffset;
+    Vector3 followOffset;
     private float cameraDeg = 0.3f;
     private float rollSpeed = 10f;
     private float speedRollToDecrease;
@@ -53,7 +54,13 @@ public class CharacterMovement : MonoBehaviour
             y = 2,
             z = -4
         };
-        
+        followOffset = new Vector3()
+        {
+            x = 0,
+            y = 1,
+            z = 0,
+        };
+
         cameraHandler = FindObjectOfType<CameraHandler>();
     }
 
@@ -116,14 +123,15 @@ public class CharacterMovement : MonoBehaviour
 
         float moveSpeed = speed / 100f;
         Vector3 position = (transform.forward * charMove.y * moveSpeed) + (transform.right * charMove.x * moveSpeed);
+
         
         //Set the player rotation based on the look transform
         if (!(combatController.getIsAttacking()) && !(combatController.getIsBlocking()) && !(combatController.getIsRolling()) && (charMove.x != 0 || charMove.y != 0))
         {
-            transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0),Time.deltaTime*10);
 
             //reset the y rotation of the look transform (relative to the parent,the player)
-            followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
+            //followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
         }
 
 
@@ -135,12 +143,14 @@ public class CharacterMovement : MonoBehaviour
                 float t = (Time.time - rollStartTime) / duration;
                 speedRollToDecrease = Mathf.SmoothStep(rollSpeed, 0, t);
                 transform.Translate(localDirection * speedRollToDecrease * Time.deltaTime);
+                followTransform.transform.position = transform.position + followOffset;
 
             }
             else
             {
                 move = Vector2.Lerp(move, charMove, Time.deltaTime * 10f);
                 transform.Translate(move.x * Time.deltaTime * speed, 0, move.y * Time.deltaTime * speed);
+                followTransform.transform.position = transform.position + followOffset;
             }
         }
         else
