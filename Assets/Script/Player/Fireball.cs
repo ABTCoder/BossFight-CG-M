@@ -7,9 +7,9 @@ public class Fireball : ColliderAttack
 
     private Vector3 shootDir;
     private Transform splash;
-    private float shootSpeed = 10;
+    private float shootSpeed = 1;
 
-    [SerializeField] private int fireballDamage = 5;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +21,13 @@ public class Fireball : ColliderAttack
         this.shootDir = shootDir;
         splash = splashObj;
         Destroy(gameObject, 5f);
+        SetDamage(5);
     }
 
 
     protected override void doExtraStuff(Collider other)
     {
-        if (other.gameObject.tag != "Player")
+        if (other.gameObject.tag != "Player2")
         {
             Debug.Log("I'm destroying the fireball");
             Instantiate(splash, transform.position, transform.rotation);
@@ -46,8 +47,4 @@ public class Fireball : ColliderAttack
         transform.position += shootDir * Time.deltaTime * shootSpeed;
     }
 
-    protected override int getDamageValue()
-    {
-        return fireballDamage;
-    }
 }

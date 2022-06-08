@@ -60,8 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e4f48235d4a0041aef3c0994303f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterTarget: Enemy
-  fireballDamage: 5
+  characterTarget: Player
 --- !u!1 &6003129226132265052
 GameObject:
   m_ObjectHideFlags: 0

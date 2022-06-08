@@ -8,12 +8,19 @@ public class AnimationController : MonoBehaviour
     private Animator playerAnimator;
     private MovementController playerInput;
     private CharacterMovement componentCharacterMovement;
+    [SerializeField] private GameObject weaponCollider;
+    private int damage1 = 10;
+    private int damage2 = 15;
+    private int damage3 = 20;
+    private ColliderAttack colliderScript;
+    private string[] damageAnimations = { "Damage1", "Damage2", "Damage3" };
 
     private int comboStep = 0;
 
     private bool comboPossible = false; // It determinates the possibility to concatenate the attacks
     private bool isAttacking = false;
     private bool isBlocking = false;
+    private bool blockingTransitionPlayed = false;
     private bool isRolling = false;
     private bool isSliding = false; // It prevents the interruption of the roll's animation
     private Vector2 move = Vector2.zero;
@@ -29,6 +36,7 @@ public class AnimationController : MonoBehaviour
         playerInput = componentCharacterMovement.getMovement();
 
         EventCombatAddListners();
+        colliderScript = weaponCollider.GetComponent<ColliderAttack>();
     }
 
 
@@ -87,10 +95,14 @@ public class AnimationController : MonoBehaviour
         if (comboStep == 2)
         {
             playerAnimator.CrossFade("PlayerAttack02", 0.2f);
+            colliderScript.SetDamage(damage2);
+            colliderScript.resetCollided();
         }
         else if (comboStep == 3)
         {
             playerAnimator.CrossFade("PlayerAttack03", 0.2f);
+            colliderScript.SetDamage(damage3);
+            colliderScript.resetCollided();
         }
     }
 
@@ -105,10 +117,12 @@ public class AnimationController : MonoBehaviour
     {
         if (!isBlocking && !isRolling)
         {
-            isAttacking = true;
             if (comboStep == 0)
             {
                 playerAnimator.CrossFade("PlayerAttack01", 0.2f);
+                isAttacking = true;
+                colliderScript.SetDamage(damage1);
+                colliderScript.resetCollided();
                 comboStep = 1;
             }
             else
@@ -137,6 +151,17 @@ public class AnimationController : MonoBehaviour
         isBlocking = false;
     }
 
+    public void DamageHit()
+    {
+        int randomNumber = Mathf.RoundToInt(Random.Range(0, 2));
+        playerAnimator.CrossFade(damageAnimations[randomNumber], 0.2f);
+    }
+
+    public void PlayShieldHit()
+    {
+        playerAnimator.CrossFade("ShieldHit", 0.2f);
+    }
+
     public void DodgeRoll(InputAction.CallbackContext ctx)
     {
         Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
@@ -155,6 +180,8 @@ public class AnimationController : MonoBehaviour
     public void ResetRoll()
     {
         isRolling = false;
+        isBlocking = false;
+        isAttacking = false;
     }
 
 

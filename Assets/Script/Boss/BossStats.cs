@@ -17,7 +17,7 @@ public class BossStats : CharacterStats
 
     private int SetMaxHealthFromHealthLevel()
     {
-        maxHealth = healthLevel * 10;
+        maxHealth = healthLevel * 20;
         return maxHealth;
     }
     
@@ -25,7 +25,7 @@ public class BossStats : CharacterStats
     {
         currentHealth = currentHealth - damage;
         healthBar.TakeDamage(damage);
-        Debug.Log(currentHealth);
+        //Debug.Log(currentHealth);
         if (currentHealth <= 0)
         {
             Debug.Log("The BOSS is dead! Fuck yeah!");

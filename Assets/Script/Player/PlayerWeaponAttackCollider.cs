@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerWeaponAttackCollider : ColliderAttack
 {
-    private int damageAttack = 10;
+    
 
     private AnimationController animationController;
 
@@ -20,8 +20,4 @@ public class PlayerWeaponAttackCollider : ColliderAttack
         return animationController.getIsAttacking();
     }
 
-    protected override int getDamageValue()
-    {
-        return damageAttack;
-    }
 }

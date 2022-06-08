@@ -6,6 +6,7 @@ public class PlayerStats : CharacterStats
 {
     private GameManager gameManager;
     [SerializeField] private HealthBar healthBar;
+    private AnimationController combatController;
 
     void Start()
     {
@@ -13,6 +14,7 @@ public class PlayerStats : CharacterStats
         maxHealth = SetMaxHealthFromHealthLevel();
         currentHealth = maxHealth;
         healthBar.SetHealth(maxHealth);
+        combatController = GetComponentInChildren<AnimationController>();
     }
     
     private int SetMaxHealthFromHealthLevel()
@@ -28,9 +30,15 @@ public class PlayerStats : CharacterStats
 
     public override void TakeDamage(int damage)
     {
+        if (combatController.getIsBlocking())
+        {
+            damage = Mathf.RoundToInt(damage * 0.6f);
+            combatController.PlayShieldHit();
+        }
+        else combatController.DamageHit();
         currentHealth = currentHealth - damage;
         healthBar.TakeDamage(damage);
-        Debug.Log("The player get a damage of " + damage);
+        //Debug.Log("The player get a damage of " + damage);
         if (currentHealth <= 0)
         {
             gameManager.GameOver();
