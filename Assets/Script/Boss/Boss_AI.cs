@@ -61,7 +61,7 @@ public class Boss_AI : MonoBehaviour
 
         // EXIT THE IDLE STATE
 
-        Debug.Log("Uh, I guess I smell a Player!");
+        //Debug.Log("Uh, I guess I smell a Player!");
     }
 
 
@@ -72,7 +72,7 @@ public class Boss_AI : MonoBehaviour
         animator.SetBool("isChasing", true);
 
         // ENTER THE CHASE STATE
-        Debug.Log("AH! I'm coming for you, my darling!");
+        //Debug.Log("AH! I'm coming for you, my darling!");
 
         // EXECUTE CHASE STATE
         while (state == ENEMY_STATE.CHASE)
@@ -99,14 +99,14 @@ public class Boss_AI : MonoBehaviour
 
         // EXIT THE IDLE STATE
 
-        Debug.Log("We are SO close now, prepare yourself! <3");
+        //Debug.Log("We are SO close now, prepare yourself! <3");
     }
 
 
     IEnumerator ATTACK()
     {
         // ATTACK
-        Debug.Log("Alright, begin! Take THIS!");
+        //Debug.Log("Alright, begin! Take THIS!");
         animator.SetBool("isChasing", false);
         animator.SetBool("isAttacking", true);
 

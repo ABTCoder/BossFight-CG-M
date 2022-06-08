@@ -5,20 +5,19 @@ using UnityEngine;
 public class PlayerStats : CharacterStats
 {
     private GameManager gameManager;
-    private HealthBar healthBar;
+    [SerializeField] private HealthBar healthBar;
 
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        healthBar = GameObject.Find("HealthBar player").GetComponent<HealthBar>();
         maxHealth = SetMaxHealthFromHealthLevel();
         currentHealth = maxHealth;
+        healthBar.SetHealth(maxHealth);
     }
     
     private int SetMaxHealthFromHealthLevel()
     {
         maxHealth = healthLevel * 10;
-        healthBar.SetHealth(maxHealth);
         return maxHealth;
     }
 

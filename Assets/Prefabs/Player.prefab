@@ -53,11 +53,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8603835717154183805}
-  - component: {fileID: 8603835717154183804}
   - component: {fileID: 8603835717154183807}
   - component: {fileID: 8603835717154183793}
   - component: {fileID: 8603835717154183806}
   - component: {fileID: 1740811213035982506}
+  - component: {fileID: 1938282582974323801}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -80,24 +80,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8603835717154183804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8603835717154183802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 955f548618a7c1643a3374c225241cc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lockOnInput: 0
-  right_Stick_Right_Input: 0
-  right_Stick_Left_Input: 0
-  lockOnFlag: 0
-  followTransform: {fileID: 0}
-  mainCamera: {fileID: 0}
 --- !u!195 &8603835717154183807
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -165,6 +147,25 @@ MonoBehaviour:
   healthLevel: 10
   maxHealth: 0
   currentHealth: 0
+  healthBar: {fileID: 0}
+--- !u!114 &1938282582974323801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8603835717154183802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbd9464d79be21b40a8aa5753e5c4923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockOnInput: 0
+  right_Stick_Right_Input: 0
+  right_Stick_Left_Input: 0
+  lockOnFlag: 0
+  followTransform: {fileID: 0}
+  mainCamera: {fileID: 0}
 --- !u!1 &8603835717219990649
 GameObject:
   m_ObjectHideFlags: 0

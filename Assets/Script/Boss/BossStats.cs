@@ -5,20 +5,19 @@ using UnityEngine;
 
 public class BossStats : CharacterStats
 {
-    private HealthBar healthBar;
+    [SerializeField] private HealthBar healthBar;
 
     void Start()
     {
         maxHealth = SetMaxHealthFromHealthLevel();
-        healthBar = GameObject.Find("UI").transform.Find("HealthBar Boss").GetComponent<HealthBar>();
-        maxHealth = SetMaxHealthFromHealthLevel();
         currentHealth = maxHealth;
+        healthBar.SetHealth(maxHealth);
+        healthBar.gameObject.SetActive(false);
     }
 
     private int SetMaxHealthFromHealthLevel()
     {
         maxHealth = healthLevel * 10;
-        healthBar.SetHealth(maxHealth);
         return maxHealth;
     }
     
@@ -26,7 +25,7 @@ public class BossStats : CharacterStats
     {
         currentHealth = currentHealth - damage;
         healthBar.TakeDamage(damage);
-        Debug.Log("BOSS Damage");
+        Debug.Log(currentHealth);
         if (currentHealth <= 0)
         {
             Debug.Log("The BOSS is dead! Fuck yeah!");
