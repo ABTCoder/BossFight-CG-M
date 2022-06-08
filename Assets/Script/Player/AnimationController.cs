@@ -37,67 +37,15 @@ public class AnimationController : MonoBehaviour
         MovementAnimationHandler();
     }
 
-    private void MovementAnimationHandlerOLD()
-    {
-        Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
-        if (!(getIsAttacking()) && !(getIsBlocking()) && !(getIsRolling()))
-        {
-            if (!(getIsAttacking()) && !(getIsBlocking()) && getIsRolling())
-            {
-                playerAnimator.SetBool("isWalkingForward", false);
-                playerAnimator.SetBool("isWalkingBackward", false);
-                playerAnimator.SetBool("isWalkingRight", false);
-                playerAnimator.SetBool("isWalkingLeft", false);
-                
-
-                if (charMove.y > 0 && charMove.x == 0)
-                {
-                    playerAnimator.CrossFade("RollForward", 0.2f);
-                }
-                else if (charMove.y < 0 && charMove.x == 0)
-                {
-                    playerAnimator.CrossFade("RollBackward", 0.2f);
-                }
-                else if (charMove.y == 0 && charMove.x > 0)
-                {
-                    playerAnimator.CrossFade("RollRight", 0.2f);
-                }
-                else if (charMove.y == 0 && charMove.x < 0)
-                {
-                    playerAnimator.CrossFade("RollLeft", 0.2f);
-                }
-                else if (charMove.y < 0 && charMove.x < 0)
-                {
-                    playerAnimator.CrossFade("RollBackwardLeft", 0.2f);
-                }
-                else if (charMove.y < 0 && charMove.x > 0)
-                {
-                    playerAnimator.CrossFade("RollBackwardRight", 0.2f);
-                }
-                else if (charMove.y > 0 && charMove.x < 0)
-                {
-                    playerAnimator.CrossFade("RollForwardLeft", 0.2f);
-                }
-                else if (charMove.y > 0 && charMove.x > 0)
-                {
-                    playerAnimator.CrossFade("RollForwardRight", 0.2f);
-                }
-                else if (charMove.y == 0 && charMove.x == 0)
-                {
-                    playerAnimator.CrossFade("RollBackward", 0.2f);
-                }
-            }
-        }
-    }
 
     private void MovementAnimationHandler()
     {
         if (isRolling && !playerAnimator.IsInTransition(0))
         {
             playerAnimator.Play("RollBlend");
-            Debug.Log("FORCE FIX");
+            //Debug.Log("FORCE FIX");
         }
-        else Debug.Log("NO FIX NEEDED");
+        
         Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
         if (playerInput.Main.ShieldBlock.IsPressed()) Block();
         if (!isAttacking && !isRolling && !isBlocking)
@@ -176,7 +124,7 @@ public class AnimationController : MonoBehaviour
 
     public void Block()
     {
-        if (!isAttacking && !isRolling)
+        if (!isAttacking && !isRolling && !isBlocking)
         {
             isBlocking = true;
             playerAnimator.CrossFade("ShieldBlock01_Loop", 0.075f);

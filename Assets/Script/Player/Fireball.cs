@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fireball : MonoBehaviour
+public class Fireball : ColliderAttack
 {
 
     private Vector3 shootDir;
     private Transform splash;
     private float shootSpeed = 10;
+
+    [SerializeField] private int fireballDamage = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,19 +23,31 @@ public class Fireball : MonoBehaviour
         Destroy(gameObject, 5f);
     }
 
-    private void OnTriggerEnter(Collider other)
+
+    protected override void doExtraStuff(Collider other)
     {
         if (other.gameObject.tag != "Player")
         {
+            Debug.Log("I'm destroying the fireball");
             Instantiate(splash, transform.position, transform.rotation);
             Destroy(gameObject);
         }
 
     }
 
+    protected override bool isAttacking()
+    {
+        return true;
+    }
+
     // Update is called once per frame
     void Update()
     {
         transform.position += shootDir * Time.deltaTime * shootSpeed;
+    }
+
+    protected override int getDamageValue()
+    {
+        return fireballDamage;
     }
 }

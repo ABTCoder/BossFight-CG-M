@@ -17,9 +17,14 @@ public class EnemyStats : CharacterStats
         return maxHealth;
     }
     
-    public void TakeDamage(int damage)
+    public override void TakeDamage(int damage)
     {
         currentHealth = currentHealth - damage;
+        Debug.Log("Enemy Damage");
+        if (currentHealth <= 0)
+        {
+            Debug.Log("The enemy is dead!");
+        }
     }
     
 }

@@ -21,7 +21,7 @@ public class SirArginald : MonoBehaviour
         fireballFX = GetComponent<AudioSource>();
         offset = new Vector3()
         {
-            x = -0.4f,
+            x = -0.6f,
             y = 1.69f,
             z = 0,
         };
@@ -36,7 +36,7 @@ public class SirArginald : MonoBehaviour
         Vector3 pos = transform.position;
         pos.y += 0.2f;
         Transform fireball = Instantiate(fireballObj, pos, transform.rotation);
-        Vector3 direction = player.transform.Find("Target").transform.forward.normalized;
+        Vector3 direction = player.transform.forward.normalized;
         fireball.GetComponent<Fireball>().Setup(direction, splash);
         fireballFX.Play();
     }

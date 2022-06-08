@@ -18,6 +18,13 @@ public class GameManager : MonoBehaviour
         musicBoss.Play();
     }
 
+    public void GameOver()
+    {
+        // Game over script
+        // Timeline
+        Debug.Log("Game Over!");
+    }
+
     // Update is called once per frame
     void Update()
     {
