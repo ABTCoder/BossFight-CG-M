@@ -8,6 +8,6 @@ public class Resetter : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         controller = GameObject.Find("Player").GetComponentInChildren<AnimationController>();
-        controller.ResetRoll();
+        controller.ResetAll();
     }
 }

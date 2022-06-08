@@ -155,6 +155,7 @@ public class AnimationController : MonoBehaviour
     {
         int randomNumber = Mathf.RoundToInt(Random.Range(0, 2));
         playerAnimator.CrossFade(damageAnimations[randomNumber], 0.2f);
+        ResetAll();
     }
 
     public void PlayShieldHit()
@@ -177,7 +178,7 @@ public class AnimationController : MonoBehaviour
 
     }
 
-    public void ResetRoll()
+    public void ResetAll()
     {
         isRolling = false;
         isBlocking = false;
