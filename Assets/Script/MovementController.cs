@@ -190,7 +190,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""654fd3dd-79d7-47f8-87c8-fc0059e3d8cf"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -245,7 +245,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""aaddf609-60d3-43f5-8d27-8115e3291fb9"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

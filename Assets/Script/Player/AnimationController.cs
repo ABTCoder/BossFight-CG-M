@@ -16,6 +16,7 @@ public class AnimationController : MonoBehaviour
     private bool isBlocking = false;
     private bool isRolling = false;
     private bool isSliding = false; // It prevents the interruption of the roll's animation
+    private Vector2 move = Vector2.zero;
     private float x = 0;
     private float y = 0;
 
@@ -33,14 +34,6 @@ public class AnimationController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!AnimatorIsPlaying())
-        {
-            comboPossible = false; 
-            isAttacking = false;
-            isBlocking = false;
-            isRolling = false;
-            isSliding = false; 
-        }   
         MovementAnimationHandler();
     }
 
@@ -49,13 +42,13 @@ public class AnimationController : MonoBehaviour
         Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
         if (!(getIsAttacking()) && !(getIsBlocking()) && !(getIsRolling()))
         {
-            if (!(getIsAttacking()) && !(getIsBlocking()) && getIsRolling() && !(getIsSliding()))
+            if (!(getIsAttacking()) && !(getIsBlocking()) && getIsRolling())
             {
                 playerAnimator.SetBool("isWalkingForward", false);
                 playerAnimator.SetBool("isWalkingBackward", false);
                 playerAnimator.SetBool("isWalkingRight", false);
                 playerAnimator.SetBool("isWalkingLeft", false);
-                setTrueIsSliding(); // This method set a boolean that prevents the interruption of the roll's animation
+                
 
                 if (charMove.y > 0 && charMove.x == 0)
                 {
@@ -99,25 +92,25 @@ public class AnimationController : MonoBehaviour
 
     private void MovementAnimationHandler()
     {
+        if (isRolling && !playerAnimator.IsInTransition(0))
+        {
+            playerAnimator.Play("RollBlend");
+            Debug.Log("FORCE FIX");
+        }
+        else Debug.Log("NO FIX NEEDED");
         Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
-        if (!isAttacking && !isRolling)
-        { 
-        if (!isSliding)
+        if (playerInput.Main.ShieldBlock.IsPressed()) Block();
+        if (!isAttacking && !isRolling && !isBlocking)
         {
-            x = Mathf.Lerp(x, charMove.x, 1f);
-            y = Mathf.Lerp(y, charMove.y, 1f);
+            if (!playerAnimator.IsInTransition(0))
+                playerAnimator.CrossFade("Movement Blend Tree", 0.2f);
+            move = Vector2.Lerp(move, charMove, Time.deltaTime*8f);
+            
+
+            playerAnimator.SetFloat("X", move.x);
+            playerAnimator.SetFloat("Y", move.y);
         }
 
-        if (isRolling)
-        {
-            setTrueIsSliding(); // This method set a boolean that prevents the interruption of the roll's animation
-        }
-
-        
-
-        playerAnimator.SetFloat("X", x);
-        playerAnimator.SetFloat("Y", y);
-        }
     }
 
     public bool AnimatorIsPlaying()
@@ -130,7 +123,7 @@ public class AnimationController : MonoBehaviour
     {
         // Reads the input of the player and performs different combat actions due the input
         playerInput.Main.BaseAttack.performed += NormalAttack;
-        playerInput.Main.ShieldBlock.performed += Block;
+        playerInput.Main.ShieldBlock.canceled += StopBlocking;
         playerInput.Main.DodgeRoll.performed += DodgeRoll;
     }
 
@@ -156,7 +149,6 @@ public class AnimationController : MonoBehaviour
     private void ResetCombo()
     {
         isAttacking = false;
-        playerAnimator.SetBool("isAttacking", false);
         comboPossible = false;
         comboStep = 0;
     }
@@ -166,7 +158,6 @@ public class AnimationController : MonoBehaviour
         if (!isBlocking && !isRolling)
         {
             isAttacking = true;
-            playerAnimator.SetBool("isAttacking", true);
             if (comboStep == 0)
             {
                 playerAnimator.CrossFade("PlayerAttack01", 0.2f);
@@ -183,13 +174,12 @@ public class AnimationController : MonoBehaviour
         }
     }
 
-    public void Block(InputAction.CallbackContext ctx)
+    public void Block()
     {
         if (!isAttacking && !isRolling)
         {
             isBlocking = true;
-            playerAnimator.SetBool("isBlocking", true);
-            playerInput.Main.ShieldBlock.canceled += StopBlocking;
+            playerAnimator.CrossFade("ShieldBlock01_Loop", 0.075f);
         }
     }
 
@@ -197,16 +187,17 @@ public class AnimationController : MonoBehaviour
     {
 
         isBlocking = false;
-        playerAnimator.SetBool("isBlocking", false);
     }
 
     public void DodgeRoll(InputAction.CallbackContext ctx)
     {
         Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
 
-        if (!isRolling && !isAttacking && !isSliding && !isBlocking && (charMove != Vector2.zero))
+        if (!isRolling && !isAttacking && !isBlocking && (charMove != Vector2.zero))
         {
-            playerAnimator.SetBool("isRolling", true);
+            playerAnimator.SetFloat("X", charMove.x);
+            playerAnimator.SetFloat("Y", charMove.y);
+            playerAnimator.CrossFade("RollBlend", 0.2f);
             componentCharacterMovement.setStartRollPos();
             isRolling = true;
         }
@@ -216,19 +207,8 @@ public class AnimationController : MonoBehaviour
     private void ResetRoll()
     {
         isRolling = false;
-        isSliding = false;
-        playerAnimator.SetBool("isRolling", false);
     }
 
-    public void setTrueIsSliding()
-    {
-        isSliding = true;
-    }
-
-    public bool getIsSliding()
-    {
-        return isSliding;
-    }
 
     public bool getIsRolling()
     {

@@ -9,16 +9,17 @@ public class CharacterMovement : MonoBehaviour
     private float speed = 5.5f;
     private Vector3 characterCameraOffset;
     private float cameraDeg = 0.3f;
-    private float rollSpeed = 20f;
+    private float rollSpeed = 10f;
     private float speedRollToDecrease;
+    private float rollStartTime;
+    private float duration = 1f;
 
     private Vector3 nextPosition;
     private Vector3 startRollPos;
     private Vector3 endRollPos;
-    private Vector3 dirRoll;
     private Vector3 lastPosition;
     private Vector3 localDirection;
-    private Vector3 worldInputDirection;
+    private Vector2 move;
  
 
     private Quaternion nextRotation;
@@ -113,13 +114,9 @@ public class CharacterMovement : MonoBehaviour
         followTransform.transform.localEulerAngles = angles;
         #endregion
 
-
-        
         float moveSpeed = speed / 100f;
         Vector3 position = (transform.forward * charMove.y * moveSpeed) + (transform.right * charMove.x * moveSpeed);
         
-
-
         //Set the player rotation based on the look transform
         if (!(combatController.getIsAttacking()) && !(combatController.getIsBlocking()) && !(combatController.getIsRolling()) && (charMove.x != 0 || charMove.y != 0))
         {
@@ -130,25 +127,27 @@ public class CharacterMovement : MonoBehaviour
         }
 
 
-
-        var currentPosition = transform.position;
-
         if (!(combatController.getIsAttacking()) && !(combatController.getIsBlocking()))
         {
             if (combatController.getIsRolling())
             {
                 // Manage the roll system
-                dirRoll = (currentPosition - lastPosition).normalized; // Take the direction of the movement
-                
-                speedRollToDecrease = Mathf.SmoothStep(speedRollToDecrease, 0, 0.1f);
-                transform.position += worldInputDirection * Time.deltaTime * speedRollToDecrease;
-                
+                float t = (Time.time - rollStartTime) / duration;
+                speedRollToDecrease = Mathf.SmoothStep(rollSpeed, 0, t);
+                transform.Translate(localDirection * speedRollToDecrease * Time.deltaTime);
+
             }
             else
-                transform.Translate(charMove.x * Time.deltaTime * speed, 0, charMove.y * Time.deltaTime * speed);
+            {
+                move = Vector2.Lerp(move, charMove, Time.deltaTime * 10f);
+                transform.Translate(move.x * Time.deltaTime * speed, 0, move.y * Time.deltaTime * speed);
+            }
+        }
+        else
+        {
+            move = Vector2.Lerp(move, Vector2.zero, Time.deltaTime * 10f);
         }
 
-        lastPosition = currentPosition;
     }
 
 
@@ -156,16 +155,15 @@ public class CharacterMovement : MonoBehaviour
     {
         Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();
         speedRollToDecrease = rollSpeed; // Reset roll speed
-
-        startRollPos = transform.position;
+        rollStartTime = Time.time;
         localDirection = new Vector3()
         {
             x = charMove.x,
             y = 0,
             z = charMove.y
         };
-
-        worldInputDirection = transform.TransformDirection(localDirection).normalized;
+        //worldInputDirection = transform.TransformDirection(localDirection).normalized;
+        //Debug.Log(worldInputDirection);
     }
 
     public void TickInput(float delta)

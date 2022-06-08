@@ -26,10 +26,11 @@ public class BossRoomCutscene : MonoBehaviour
 
     private void Stopped(PlayableDirector d)
     {
-        gameObject.SetActive(false);
         ended = true;
         controller.Enable();
         UI.SetActive(true);
+        UI.transform.Find("HealthBar Boss").gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     public bool IsEnded()
