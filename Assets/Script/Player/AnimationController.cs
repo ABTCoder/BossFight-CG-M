@@ -28,6 +28,9 @@ public class AnimationController : MonoBehaviour
     private float x = 0;
     private float y = 0;
 
+    // Sound effetcs
+    [SerializeField] private AudioClip[] footstepAudioClips;
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -39,6 +42,8 @@ public class AnimationController : MonoBehaviour
 
         EventCombatAddListners();
         colliderScript = weaponCollider.GetComponent<ColliderAttack>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -66,9 +71,9 @@ public class AnimationController : MonoBehaviour
                 playerAnimator.CrossFade("Movement Blend Tree", 0.2f);
             move = Vector2.Lerp(move, charMove, Time.deltaTime*8f);
             
-
-            playerAnimator.SetFloat("X", move.x);
-            playerAnimator.SetFloat("Y", move.y);
+            
+            playerAnimator.SetFloat("X", Mathf.Round(move.x));
+            playerAnimator.SetFloat("Y", Mathf.Round(move.y));
         }
 
     }
@@ -206,6 +211,15 @@ public class AnimationController : MonoBehaviour
     public bool getIsAttacking()
     {
         return isAttacking;
+    }
+
+    #endregion
+
+    #region Animation's sounds
+    private void FootstepAudioEffect() 
+    {
+        AudioClip footstepAudioClip = footstepAudioClips[UnityEngine.Random.Range(0, footstepAudioClips.Length)];
+        audioSource.PlayOneShot(footstepAudioClip);
     }
 
     #endregion
