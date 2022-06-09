@@ -9,6 +9,7 @@ public class AnimationController : MonoBehaviour
     private MovementController playerInput;
     private CharacterMovement componentCharacterMovement;
     [SerializeField] private GameObject weaponCollider;
+    [SerializeField] private GameObject weaponTrail;
     private int damage1 = 10;
     private int damage2 = 15;
     private int damage3 = 20;
@@ -32,6 +33,7 @@ public class AnimationController : MonoBehaviour
     {
         playerAnimator = GetComponent<Animator>();
 
+        
         componentCharacterMovement = GetComponentInParent<CharacterMovement>();
         playerInput = componentCharacterMovement.getMovement();
 
@@ -48,6 +50,8 @@ public class AnimationController : MonoBehaviour
 
     private void MovementAnimationHandler()
     {
+        if (!isAttacking)
+            weaponTrail.SetActive(false);
         if (isRolling && !playerAnimator.IsInTransition(0))
         {
             playerAnimator.Play("RollBlend");
@@ -94,12 +98,14 @@ public class AnimationController : MonoBehaviour
     {
         if (comboStep == 2)
         {
+            weaponTrail.SetActive(true);
             playerAnimator.CrossFade("PlayerAttack02", 0.2f);
             colliderScript.SetDamage(damage2);
             colliderScript.resetCollided();
         }
         else if (comboStep == 3)
         {
+            weaponTrail.SetActive(true);
             playerAnimator.CrossFade("PlayerAttack03", 0.2f);
             colliderScript.SetDamage(damage3);
             colliderScript.resetCollided();
@@ -119,6 +125,7 @@ public class AnimationController : MonoBehaviour
         {
             if (comboStep == 0)
             {
+                weaponTrail.SetActive(true);
                 playerAnimator.CrossFade("PlayerAttack01", 0.2f);
                 isAttacking = true;
                 colliderScript.SetDamage(damage1);
