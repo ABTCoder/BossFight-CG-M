@@ -34,8 +34,12 @@ public class IdleState : State
             }
         }
         #endregion
-        
-        #region Handle Switching To Next State
+
+        return HandleSwitchingToNextState(enemyManager);
+    }
+
+    protected virtual State HandleSwitchingToNextState(EnemyManager enemyManager)
+    {
         if (enemyManager.currentTarget != null)
         {
             return pursueTargetState;
@@ -44,7 +48,5 @@ public class IdleState : State
         {
             return this;
         }
-        #endregion
-        
     }
 }

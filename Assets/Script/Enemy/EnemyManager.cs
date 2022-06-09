@@ -7,8 +7,8 @@ using UnityEngine.AI;
 
 public class EnemyManager : CharacterManager
 {
-    EnemyAnimatorManager enemyAnimationManager;
-    EnemyStats enemyStats;
+    protected EnemyAnimatorManager enemyAnimationManager;
+    protected EnemyStats enemyStats;
     
     public State currentState;
     public CharacterStats currentTarget;
@@ -51,7 +51,7 @@ public class EnemyManager : CharacterManager
         canRotate = enemyAnimationManager.anim.GetBool("canRotate");
     }
 
-    private void HandleStateMachine()
+    protected void HandleStateMachine()
     {
         if (currentState != null)
         {
@@ -64,12 +64,12 @@ public class EnemyManager : CharacterManager
         }
     }
 
-    private void SwitchToNextState(State state)
+    protected void SwitchToNextState(State state)
     {
         currentState = state;
     }
 
-    private void HandleRecoveryTimer()
+    protected void HandleRecoveryTimer()
     {
         if (currentRecoveryTime > 0)
         {
@@ -83,5 +83,10 @@ public class EnemyManager : CharacterManager
                 isPreformingAction = false;
             }
         }
+    }
+
+    public virtual bool isEnded()
+    {
+        return false;
     }
 }
