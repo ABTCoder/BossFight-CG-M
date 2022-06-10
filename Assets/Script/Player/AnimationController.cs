@@ -30,6 +30,7 @@ public class AnimationController : MonoBehaviour
 
     // Sound effetcs
     [SerializeField] private AudioClip[] footstepAudioClips;
+    [SerializeField] private AudioClip[] rollAudioClips;
     private AudioSource audioSource;
 
     void Start()
@@ -216,10 +217,21 @@ public class AnimationController : MonoBehaviour
     #endregion
 
     #region Animation's sounds
-    private void FootstepAudioEffect() 
+
+    private void FootstepAudioEffetct()
     {
-        AudioClip footstepAudioClip = footstepAudioClips[UnityEngine.Random.Range(0, footstepAudioClips.Length)];
-        audioSource.PlayOneShot(footstepAudioClip);
+        PlayAudioEffect(footstepAudioClips);
+    }
+
+    private void RollAudioEffect()
+    {
+        PlayAudioEffect(rollAudioClips);
+    }
+
+    private void PlayAudioEffect(AudioClip[] audioClips) 
+    {
+        AudioClip audioClip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
+        audioSource.PlayOneShot(audioClip);
     }
 
     #endregion
