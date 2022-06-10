@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
+
 
 public class PlayerStats : CharacterStats
 {
@@ -10,6 +12,7 @@ public class PlayerStats : CharacterStats
 
     void Start()
     {
+        
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         maxHealth = SetMaxHealthFromHealthLevel();
         currentHealth = maxHealth;

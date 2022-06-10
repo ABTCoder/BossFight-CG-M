@@ -7,7 +7,7 @@ public class Fireball : ColliderAttack
 
     private Vector3 shootDir;
     private Transform splash;
-    private float shootSpeed = 10;
+    private float shootSpeed = 1;
 
     
     // Start is called before the first frame update
@@ -21,7 +21,7 @@ public class Fireball : ColliderAttack
         this.shootDir = shootDir;
         splash = splashObj;
         Destroy(gameObject, 5f);
-        SetDamage(5);
+        SetDamage(50);
     }
 
 
