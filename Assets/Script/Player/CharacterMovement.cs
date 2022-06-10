@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -29,14 +30,15 @@ public class CharacterMovement : MonoBehaviour
     public bool lockOnInput;
     public bool right_Stick_Right_Input;
     public bool right_Stick_Left_Input;
-    
+        
     public bool lockOnFlag;
 
     MovementController inputActions;
     CameraHandler cameraHandler;
 
     [SerializeField] private GameObject followTransform;
-    [SerializeField] private Camera mainCamera;
+    [SerializeField] private Cinemachine.CinemachineVirtualCamera mainCamera;
+    [SerializeField] private Transform lockedTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -62,8 +64,8 @@ public class CharacterMovement : MonoBehaviour
         };
 
         cameraHandler = FindObjectOfType<CameraHandler>();
+        movement.Main.LockOn.performed += LockOn;
     }
-
 
     private void OnEnable()
     {
@@ -90,37 +92,38 @@ public class CharacterMovement : MonoBehaviour
         Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();
 
         //Debug.Log(combatController.getIsAttacking());
-
-        #region Follow Transform Rotation
-
-        //Rotate the Follow Target transform based on the input
-        followTransform.transform.rotation *= Quaternion.AngleAxis(mouseDelta.x * cameraDeg , Vector3.up);
-
-        #endregion
-
-        #region Vertical Rotation
-
-        followTransform.transform.rotation *= Quaternion.AngleAxis(mouseDelta.y * cameraDeg , Vector3.right);
-
-        var angles = followTransform.transform.localEulerAngles;
-        angles.z = 0;
-
-        var angle = followTransform.transform.localEulerAngles.x;
-
-        //Clamp the Up/Down rotation
-        if (angle > 180 && angle < 340)
+        if (!lockOnFlag)
         {
-            angles.x = 340;
+            #region Follow Transform Rotation
+
+            //Rotate the Follow Target transform based on the input
+            followTransform.transform.rotation *= Quaternion.AngleAxis(mouseDelta.x * cameraDeg, Vector3.up);
+
+            #endregion
+
+            #region Vertical Rotation
+
+            followTransform.transform.rotation *= Quaternion.AngleAxis(mouseDelta.y * cameraDeg, Vector3.right);
+
+            var angles = followTransform.transform.localEulerAngles;
+            angles.z = 0;
+
+            var angle = followTransform.transform.localEulerAngles.x;
+
+            //Clamp the Up/Down rotation
+            if (angle > 180 && angle < 340)
+            {
+                angles.x = 340;
+            }
+            else if (angle < 180 && angle > 40)
+            {
+                angles.x = 40;
+            }
+
+
+            followTransform.transform.localEulerAngles = angles;
+            #endregion
         }
-        else if (angle < 180 && angle > 40)
-        {
-            angles.x = 40;
-        }
-
-
-        followTransform.transform.localEulerAngles = angles;
-        #endregion
-
         float moveSpeed = speed / 100f;
         Vector3 position = (transform.forward * charMove.y * moveSpeed) + (transform.right * charMove.x * moveSpeed);
 
@@ -133,6 +136,13 @@ public class CharacterMovement : MonoBehaviour
             //reset the y rotation of the look transform (relative to the parent,the player)
             //followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
         }
+        if (lockOnFlag)
+        {
+            followTransform.transform.LookAt(lockedTarget);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0), Time.deltaTime * 10);
+        
+        }
+
 
 
         if (!(combatController.getIsAttacking()) && !(combatController.getIsBlocking()))
@@ -160,7 +170,23 @@ public class CharacterMovement : MonoBehaviour
 
     }
 
+    public void LockOn(InputAction.CallbackContext ctx)
+    {
+        if (lockOnFlag)
+            lockOnFlag = false;
+        else
+            lockOnFlag = true;
+    }
 
+    public bool GetLockOnFlag()
+    {
+        return lockOnFlag;
+    }
+
+    public Transform GetLockedTarget()
+    {
+        return lockedTarget;
+    }
     public void setStartRollPos()
     {
         Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();

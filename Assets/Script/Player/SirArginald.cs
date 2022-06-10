@@ -13,11 +13,13 @@ public class SirArginald : MonoBehaviour
 
     private AudioSource fireballFX;
     private MovementController controller;
+    private CharacterMovement cm;
     private Vector3 pos;
     // Start is called before the first frame update
     void Awake()
     {
         controller = player.GetComponent<CharacterMovement>().getMovement();
+        cm = player.GetComponent<CharacterMovement>();
         fireballFX = GetComponent<AudioSource>();
         offset = new Vector3()
         {
@@ -36,7 +38,13 @@ public class SirArginald : MonoBehaviour
         Vector3 pos = transform.position;
         pos.y += 0.2f;
         Transform fireball = Instantiate(fireballObj, pos, transform.rotation);
-        Vector3 direction = player.transform.forward.normalized;
+        Vector3 direction;
+        if(cm.GetLockOnFlag())
+        {
+            transform.LookAt(cm.GetLockedTarget());
+            direction = transform.forward;
+        }
+        else direction = player.transform.forward.normalized;
         fireball.GetComponent<Fireball>().Setup(direction, splash);
         fireballFX.Play();
     }

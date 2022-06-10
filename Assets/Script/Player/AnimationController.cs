@@ -71,10 +71,9 @@ public class AnimationController : MonoBehaviour
             if (!playerAnimator.IsInTransition(0))
                 playerAnimator.CrossFade("Movement Blend Tree", 0.2f);
             move = Vector2.Lerp(move, charMove, Time.deltaTime*8f);
-            
-            
-            playerAnimator.SetFloat("X", Mathf.Round(move.x));
-            playerAnimator.SetFloat("Y", Mathf.Round(move.y));
+
+            playerAnimator.SetFloat("X", move.x);
+            playerAnimator.SetFloat("Y", move.y);
         }
 
     }
@@ -220,12 +219,19 @@ public class AnimationController : MonoBehaviour
 
     private void FootstepAudioEffetct()
     {
-        PlayAudioEffect(footstepAudioClips);
+        if ((move.x < -0.05f || move.x > 0.05f) || (move.y < -0.5f || move.y > 0.5f))
+        {
+            PlayAudioEffect(footstepAudioClips);
+        }
     }
 
     private void RollAudioEffect()
     {
-        PlayAudioEffect(rollAudioClips);
+        
+        if ((move.x < -0.05 || move.x > 0.05) || (move.y < -0.5 || move.y > 0.5))
+        {
+            PlayAudioEffect(rollAudioClips);
+        }
     }
 
     private void PlayAudioEffect(AudioClip[] audioClips) 
