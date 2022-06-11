@@ -22,23 +22,27 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 lastPosition;
     private Vector3 localDirection;
     private Vector2 move;
- 
+
 
     private Quaternion nextRotation;
     private AnimationController combatController;
-    
+
     public bool lockOnInput;
     public bool right_Stick_Right_Input;
     public bool right_Stick_Left_Input;
-        
+
     public bool lockOnFlag;
 
     MovementController inputActions;
-    CameraHandler cameraHandler;
 
     [SerializeField] private GameObject followTransform;
     [SerializeField] private Cinemachine.CinemachineVirtualCamera mainCamera;
-    [SerializeField] private Transform lockedTarget;
+
+    private Transform currentLockOnTarget;
+    List<Transform> availableTargets = new List<Transform>();
+    private Transform nearestLockOnTarget;
+    private Transform leftLockTarget;
+    private Transform rightLockTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -63,8 +67,9 @@ public class CharacterMovement : MonoBehaviour
             z = 0,
         };
 
-        cameraHandler = FindObjectOfType<CameraHandler>();
         movement.Main.LockOn.performed += LockOn;
+        movement.Main.LockOnTargetLeft.performed += SwitchLeftLockOnTarget;
+        movement.Main.LockOnTargetRight.performed += SwitchRightLockOnTarget;
     }
 
     private void OnEnable()
@@ -72,11 +77,8 @@ public class CharacterMovement : MonoBehaviour
         if (movement == null)
         {
             movement = new MovementController();
-            movement.Main.LockOn.performed += i => lockOnInput = true;
-            movement.Main.LockOnTargetRight.performed += i => right_Stick_Right_Input = true;
-            movement.Main.LockOnTargetLeft.performed += i => right_Stick_Left_Input = true;
         }
-        
+
         movement.Enable();
     }
 
@@ -90,6 +92,8 @@ public class CharacterMovement : MonoBehaviour
     {
         Vector2 mouseDelta = movement.Main.MoveCamera.ReadValue<Vector2>();
         Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();
+        availableTargets.Clear();
+        nearestLockOnTarget = null; 
 
         //Debug.Log(combatController.getIsAttacking());
         if (!lockOnFlag)
@@ -111,9 +115,9 @@ public class CharacterMovement : MonoBehaviour
             var angle = followTransform.transform.localEulerAngles.x;
 
             //Clamp the Up/Down rotation
-            if (angle > 180 && angle < 340)
+            if (angle > 180 && angle < 300)
             {
-                angles.x = 340;
+                angles.x = 300;
             }
             else if (angle < 180 && angle > 40)
             {
@@ -127,22 +131,24 @@ public class CharacterMovement : MonoBehaviour
         float moveSpeed = speed / 100f;
         Vector3 position = (transform.forward * charMove.y * moveSpeed) + (transform.right * charMove.x * moveSpeed);
 
-        
+
         //Set the player rotation based on the look transform
         if (!(combatController.getIsAttacking()) && !(combatController.getIsBlocking()) && !(combatController.getIsRolling()) && (charMove.x != 0 || charMove.y != 0))
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0),Time.deltaTime*10);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0), Time.deltaTime * 10);
 
             //reset the y rotation of the look transform (relative to the parent,the player)
             //followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
         }
+
+        HandleLockOn();
+
         if (lockOnFlag)
         {
-            followTransform.transform.LookAt(lockedTarget);
+            followTransform.transform.LookAt(currentLockOnTarget);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0), Time.deltaTime * 10);
-        
-        }
 
+        }
 
 
         if (!(combatController.getIsAttacking()) && !(combatController.getIsBlocking()))
@@ -170,13 +176,113 @@ public class CharacterMovement : MonoBehaviour
 
     }
 
-    public void LockOn(InputAction.CallbackContext ctx)
+    private void LateUpdate()
     {
-        if (lockOnFlag)
-            lockOnFlag = false;
-        else
-            lockOnFlag = true;
+        
     }
+
+    private void LockOn(InputAction.CallbackContext ctx)
+    {   
+        if (lockOnFlag == false)
+        {
+            if (nearestLockOnTarget != null)
+            {
+                currentLockOnTarget = nearestLockOnTarget;
+                lockOnFlag = true;
+            }
+        }
+        else
+        {
+            ClearLockOnTargets();
+        }
+
+    }
+
+
+    private void SwitchLeftLockOnTarget(InputAction.CallbackContext ctx)
+    {
+        if (leftLockTarget != null)
+        {
+            currentLockOnTarget = leftLockTarget;
+        }
+    }
+
+    private void SwitchRightLockOnTarget(InputAction.CallbackContext ctx)
+    {
+        if (rightLockTarget != null)
+        {
+            currentLockOnTarget = rightLockTarget;
+        }
+    }
+
+
+
+    private void HandleLockOn()
+    {
+        float shortestDistance = Mathf.Infinity;
+        float shortestDistanceOfLeftTarget = Mathf.Infinity;
+        float shortestDistanceOfRightTarget = Mathf.Infinity;
+        float maximumLockOnDistance = 30;
+
+        Collider[] colliders = Physics.OverlapSphere(followTransform.transform.position, 26);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            Transform character;
+            if (colliders[i].tag == "Enemy")
+            {
+                character = colliders[i].transform;
+                if (character != null)
+                {
+                    Vector3 lockTargetDirection = character.position - followTransform.transform.position;
+                    float distanceFromTarget = Vector3.Distance(followTransform.transform.position, character.position);
+                    float viewableAngle = Vector3.Angle(lockTargetDirection, followTransform.transform.forward);
+                    if (character.transform.root != followTransform.transform.root && viewableAngle < 50 && distanceFromTarget <= maximumLockOnDistance)
+                    {
+                        Debug.Log(viewableAngle);
+                        availableTargets.Add(character);
+                    }
+                }
+            }
+        }
+
+        for (int k = 0; k < availableTargets.Count; k++)
+        {
+            float distanceFromTarget = Vector3.Distance(followTransform.transform.position, availableTargets[k].transform.position);
+
+            if (distanceFromTarget < shortestDistance)
+            {
+                shortestDistance = distanceFromTarget;
+                nearestLockOnTarget = availableTargets[k];
+   
+            }
+
+            if (lockOnFlag)
+            {
+                Vector3 availableTargetDirection = availableTargets[k].position - followTransform.transform.position;
+                float angle = Vector3.SignedAngle(availableTargetDirection, mainCamera.transform.forward, Vector3.up);
+                float distanceFromAvailableTarget = Vector3.Distance(currentLockOnTarget.transform.position, availableTargets[k].transform.position);
+                if (angle > 0 && distanceFromAvailableTarget < shortestDistanceOfLeftTarget && currentLockOnTarget != availableTargets[k])
+                {
+                    shortestDistanceOfLeftTarget = distanceFromAvailableTarget;
+                    leftLockTarget = availableTargets[k];
+                }
+                if (angle < 0 && distanceFromAvailableTarget < shortestDistanceOfRightTarget && currentLockOnTarget != availableTargets[k])
+                {
+                    shortestDistanceOfRightTarget = distanceFromAvailableTarget;
+                    rightLockTarget = availableTargets[k];
+                }
+            }
+        }
+    }
+
+    private void ClearLockOnTargets()
+    {
+        lockOnFlag = false;
+        availableTargets.Clear();
+        nearestLockOnTarget = null;
+        currentLockOnTarget = null;
+    }
+
 
     public bool GetLockOnFlag()
     {
@@ -185,8 +291,9 @@ public class CharacterMovement : MonoBehaviour
 
     public Transform GetLockedTarget()
     {
-        return lockedTarget;
+        return currentLockOnTarget;
     }
+
     public void setStartRollPos()
     {
         Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();
@@ -198,59 +305,10 @@ public class CharacterMovement : MonoBehaviour
             y = 0,
             z = charMove.y
         };
-        //worldInputDirection = transform.TransformDirection(localDirection).normalized;
-        //Debug.Log(worldInputDirection);
-    }
-
-    public void TickInput(float delta)
-    {
-        HandleLockOnInput();
     }
 
     public MovementController getMovement() 
     {
         return movement;
-    }
-    
-    private void HandleLockOnInput()
-    {
-        if (lockOnInput && lockOnFlag == false)
-        {
-            lockOnInput = false;
-            cameraHandler.HandleLockOn();
-            if (cameraHandler.nearestLockOnTarget != null)
-            {
-                cameraHandler.currentLockOnTarget = cameraHandler.nearestLockOnTarget;
-                lockOnFlag = true;
-            }
-        } 
-        else if (lockOnInput && lockOnFlag)
-        {
-            lockOnInput = false;
-            lockOnFlag = false;
-            cameraHandler.ClearLockOnTargets();
-        }
-
-        if (lockOnFlag && right_Stick_Left_Input)
-        {
-            right_Stick_Left_Input = false;
-            cameraHandler.HandleLockOn();
-            if (cameraHandler.leftLockTarget != null)
-            {
-                cameraHandler.currentLockOnTarget = cameraHandler.leftLockTarget;
-            }
-        }
-
-        if (lockOnFlag && right_Stick_Right_Input)
-        {
-            right_Stick_Right_Input = false;
-            cameraHandler.HandleLockOn();
-            if (cameraHandler.rightLockTarget != null)
-            {
-                cameraHandler.currentLockOnTarget = cameraHandler.rightLockTarget;
-            }
-        }
-        
-        cameraHandler.SetCameraHeight();
     }
 }
