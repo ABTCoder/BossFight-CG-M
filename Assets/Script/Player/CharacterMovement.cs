@@ -32,11 +32,12 @@ public class CharacterMovement : MonoBehaviour
     public bool right_Stick_Left_Input;
 
     public bool lockOnFlag;
-
-    MovementController inputActions;
+    [SerializeField] private GameObject lockOnTargetIcon;
+    private GameObject activeTargetIcon;
 
     [SerializeField] private GameObject followTransform;
     [SerializeField] private Cinemachine.CinemachineVirtualCamera mainCamera;
+    
 
     private Transform currentLockOnTarget;
     List<Transform> availableTargets = new List<Transform>();
@@ -188,12 +189,15 @@ public class CharacterMovement : MonoBehaviour
             if (nearestLockOnTarget != null)
             {
                 currentLockOnTarget = nearestLockOnTarget;
+                activeTargetIcon = Instantiate(lockOnTargetIcon, currentLockOnTarget);
+                mainCamera.LookAt = currentLockOnTarget;
                 lockOnFlag = true;
             }
         }
         else
         {
             ClearLockOnTargets();
+            mainCamera.LookAt = followTransform.transform;
         }
 
     }
@@ -203,7 +207,10 @@ public class CharacterMovement : MonoBehaviour
     {
         if (leftLockTarget != null)
         {
+            Destroy(activeTargetIcon);
             currentLockOnTarget = leftLockTarget;
+            activeTargetIcon = Instantiate(lockOnTargetIcon, currentLockOnTarget);
+            mainCamera.LookAt = currentLockOnTarget;
         }
     }
 
@@ -211,7 +218,10 @@ public class CharacterMovement : MonoBehaviour
     {
         if (rightLockTarget != null)
         {
+            Destroy(activeTargetIcon);
             currentLockOnTarget = rightLockTarget;
+            activeTargetIcon = Instantiate(lockOnTargetIcon, currentLockOnTarget);
+            mainCamera.LookAt = currentLockOnTarget;
         }
     }
 
@@ -281,6 +291,7 @@ public class CharacterMovement : MonoBehaviour
         availableTargets.Clear();
         nearestLockOnTarget = null;
         currentLockOnTarget = null;
+        Destroy(activeTargetIcon);
     }
 
 
