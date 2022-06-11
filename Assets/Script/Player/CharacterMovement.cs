@@ -248,7 +248,6 @@ public class CharacterMovement : MonoBehaviour
                     float viewableAngle = Vector3.Angle(lockTargetDirection, followTransform.transform.forward);
                     if (character.transform.root != followTransform.transform.root && viewableAngle < 50 && distanceFromTarget <= maximumLockOnDistance)
                     {
-                        Debug.Log(viewableAngle);
                         availableTargets.Add(character);
                     }
                 }

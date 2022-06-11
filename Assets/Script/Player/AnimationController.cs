@@ -32,6 +32,10 @@ public class AnimationController : MonoBehaviour
     [SerializeField] private AudioClip[] footstepAudioClips;
     [SerializeField] private AudioClip[] rollAudioClips;
     private AudioSource audioSource;
+    private bool isPlayingFootstepLeft = false;
+    private bool isPlayingFootstepRight = false;
+    private Vector3 leftFootIKPos;
+    private Vector3 rightFootIKPos;
 
     void Start()
     {
@@ -51,6 +55,7 @@ public class AnimationController : MonoBehaviour
     private void FixedUpdate()
     {
         MovementAnimationHandler();
+        FootStepSound();
     }
 
 
@@ -183,6 +188,7 @@ public class AnimationController : MonoBehaviour
         {
             playerAnimator.SetFloat("X", charMove.x);
             playerAnimator.SetFloat("Y", charMove.y);
+            RollAudioEffect();
             playerAnimator.CrossFade("RollBlend", 0.2f);
             componentCharacterMovement.setStartRollPos();
             isRolling = true;
@@ -217,13 +223,6 @@ public class AnimationController : MonoBehaviour
 
     #region Animation's sounds
 
-    private void FootstepAudioEffetct()
-    {
-        if ((move.x < -0.05f || move.x > 0.05f) || (move.y < -0.5f || move.y > 0.5f))
-        {
-            PlayAudioEffect(footstepAudioClips);
-        }
-    }
 
     private void RollAudioEffect()
     {
@@ -241,4 +240,50 @@ public class AnimationController : MonoBehaviour
     }
 
     #endregion
+
+
+    private void FootStepSound()
+    {
+        Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
+
+        if ((charMove.x != 0 || charMove.y != 0) && !isAttacking && !isBlocking && !isRolling)
+        {
+
+            // Find the height of the foot relative to the player
+            Vector3 playerPosition = transform.root.position;
+            float leftFootDistanceFromGround = leftFootIKPos.y - playerPosition.y;
+            float rightFootDistanceFromGround = rightFootIKPos.y - playerPosition.y;
+
+            if (leftFootDistanceFromGround <= 0.087f)
+            {
+                if (isPlayingFootstepLeft == false)
+                {
+                    PlayAudioEffect(footstepAudioClips);
+                    isPlayingFootstepLeft = true;
+                }
+
+            }
+            else
+                isPlayingFootstepLeft = false;
+            if (rightFootDistanceFromGround <= 0.087f)
+            {
+                if (isPlayingFootstepRight == false)
+                {
+                    PlayAudioEffect(footstepAudioClips);
+                    isPlayingFootstepRight = true;
+                }
+            }
+            else
+                isPlayingFootstepRight = false;
+        }
+    }
+
+
+    void OnAnimatorIK()
+    {
+        // Take the feet position using the IK of the animator
+        leftFootIKPos = playerAnimator.GetIKPosition(AvatarIKGoal.LeftFoot);
+        rightFootIKPos = playerAnimator.GetIKPosition(AvatarIKGoal.RightFoot);
+
+    }
 }
