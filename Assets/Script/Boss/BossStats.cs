@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossStats : CharacterStats
+public class BossStats : EnemyStats
 {
     [SerializeField] private HealthBar healthBar;
 
@@ -11,6 +11,9 @@ public class BossStats : CharacterStats
 
     void Start()
     {
+
+        bossManager = GetComponent<BossManager>();
+        
         maxHealth = SetMaxHealthFromHealthLevel();
         currentHealth = maxHealth;
         healthBar.SetHealth(maxHealth);
@@ -28,11 +31,11 @@ public class BossStats : CharacterStats
         currentHealth = currentHealth - damage;
         healthBar.TakeDamage(damage);
         //Debug.Log(currentHealth);
-        /*if (currentHealth <= maxHealth / 2)
+        if (!bossManager.HasPhaseShifted() && currentHealth <= maxHealth / 2)
         {
             bossManager.ShiftToSecondPhase();
         }
-        else*/ if (currentHealth <= 0)
+        else if (currentHealth <= 0)
         {
             Debug.Log("The BOSS is dead! Fuck yeah!");
         }

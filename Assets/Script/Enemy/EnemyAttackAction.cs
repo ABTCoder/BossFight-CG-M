@@ -9,7 +9,6 @@ public class EnemyAttackAction : EnemyAction
     public float recoveryTime = 2;
 
     public float maximumAttackAngle = 35;
-    public float minimumAttackAngle = -35;
 
     public float minimumDistanceNeededToAttack = 0;
     public float maximumDistanceNeededToAttack = 3;

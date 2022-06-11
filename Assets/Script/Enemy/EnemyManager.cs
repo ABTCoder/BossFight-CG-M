@@ -7,8 +7,8 @@ using UnityEngine.AI;
 
 public class EnemyManager : CharacterManager
 {
-    protected EnemyAnimatorManager enemyAnimationManager;
-    protected EnemyStats enemyStats;
+    private EnemyAnimatorManager enemyAnimationManager;
+    private EnemyStats enemyStats;
     
     public State currentState;
     public CharacterStats currentTarget;
@@ -24,7 +24,6 @@ public class EnemyManager : CharacterManager
     public float detectionRadius = 20;
     //The higher, and lower, respectively these angles are, the greater detection FIELD OF VIEW (basically like eye sight)
     public float maximumDetectionAngle = 50;
-    public float minimumDetectionAngle = -50;
 
     public float currentRecoveryTime = 0;
 
@@ -51,7 +50,7 @@ public class EnemyManager : CharacterManager
         canRotate = enemyAnimationManager.anim.GetBool("canRotate");
     }
 
-    protected void HandleStateMachine()
+    protected virtual void HandleStateMachine()
     {
         if (currentState != null)
         {

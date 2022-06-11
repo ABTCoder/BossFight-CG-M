@@ -6,7 +6,7 @@ using UnityEngine;
 public class CombatStanceState : State
 {
     public AttackState attackState;
-    public EnemyAttackAction[] enemyAttacks;
+    public EnemyAttackAction[] baseAttacks;
     public PursueTargetState pursueTargetState;
 
     protected bool randomDestinationSet = false;
@@ -81,7 +81,7 @@ public class CombatStanceState : State
         //Rotate with pathfinding (NavMesh)
         else
         {
-            Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navMeshAgent.desiredVelocity);
+            //Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navMeshAgent.desiredVelocity);
             Vector3 targetVelocity = enemyManager.enemyRigidBody.velocity;
             
             enemyManager.navMeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
@@ -92,8 +92,6 @@ public class CombatStanceState : State
     
     protected void DecideCirclingAction(EnemyAnimatorManager enemyAnimatorManager)
     {
-        //Circle with only forward vertical movement
-        //Circle with running
         //Circle with walking only 
         WalkAroundTarget(enemyAnimatorManager);
     }
@@ -104,11 +102,11 @@ public class CombatStanceState : State
 
         horizontalMovementValue = Random.Range(-1, 1);
         
-        if (horizontalMovementValue <= 1 && horizontalMovementValue > 0)
+        if (horizontalMovementValue > 0)
         {
             horizontalMovementValue = 0.5f;
         }
-        else if (horizontalMovementValue >= -1 && horizontalMovementValue < 0)
+        else 
         {
             horizontalMovementValue = -0.5f;
         }
@@ -122,14 +120,14 @@ public class CombatStanceState : State
 
             int maxScore = 0;
 
-            for (int i = 0; i < enemyAttacks.Length; i++)
+            for (int i = 0; i < baseAttacks.Length; i++)
             {
-                EnemyAttackAction enemyAttackAction = enemyAttacks[i];
+                EnemyAttackAction enemyAttackAction = baseAttacks[i];
 
                 if (distanceFromTarget <= enemyAttackAction.maximumDistanceNeededToAttack
                     && distanceFromTarget >= enemyAttackAction.minimumDistanceNeededToAttack)
                 {
-                    if (viewableAngle <= enemyAttackAction.maximumAttackAngle && viewableAngle >= enemyAttackAction.minimumAttackAngle)
+                    if (viewableAngle <= enemyAttackAction.maximumAttackAngle)
                     {
                         maxScore += enemyAttackAction.attackScore;
                     }
@@ -139,14 +137,14 @@ public class CombatStanceState : State
             int randomValue = Random.Range(0, maxScore);
             int temporaryScore = 0;
 
-            for (int i = 0; i < enemyAttacks.Length; i++)
+            for (int i = 0; i < baseAttacks.Length; i++)
             {
-                EnemyAttackAction enemyAttackAction = enemyAttacks[i];
+                EnemyAttackAction enemyAttackAction = baseAttacks[i];
 
                 if (distanceFromTarget <= enemyAttackAction.maximumDistanceNeededToAttack
                     && distanceFromTarget >= enemyAttackAction.minimumDistanceNeededToAttack)
                 {
-                    if (viewableAngle <= enemyAttackAction.maximumAttackAngle && viewableAngle >= enemyAttackAction.minimumAttackAngle)
+                    if (viewableAngle <= enemyAttackAction.maximumAttackAngle)
                     {
                         if (attackState.currentAttack != null)
                             return;

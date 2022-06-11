@@ -5,7 +5,7 @@ using UnityEngine;
 public class PursueTargetState : State
 {
     public CombatStanceState combatStanceState;
-    public RotateTowardsTargetState rotateTowardsTargetState;
+    //public RotateTowardsTargetState rotateTowardsTargetState;
     
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
     {
@@ -13,10 +13,10 @@ public class PursueTargetState : State
         //If within attack range, return combat stance state
         //If target is out of range, return this state and continue to chase target
         
-        Vector3 targetDirection = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
+        //Vector3 targetDirection = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
         float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
-        float viewableAngle = Vector3.SignedAngle(targetDirection, enemyManager.transform.forward, Vector3.up);
-        
+        //float viewableAngle = Vector3.SignedAngle(targetDirection, enemyManager.transform.forward, Vector3.up);
+
         HandleRotateTowardsTarget(enemyManager);
         
         if (enemyManager.isInteracting)
@@ -64,7 +64,7 @@ public class PursueTargetState : State
         //Rotate with pathfinding (NavMesh)
         else
         {
-            Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navMeshAgent.desiredVelocity);
+            //Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navMeshAgent.desiredVelocity);
             Vector3 targetVelocity = enemyManager.enemyRigidBody.velocity;
             
             enemyManager.navMeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
