@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Boss Attack01
   m_EditorClassIdentifier: 
   actionAnimation: BossAttack01
+  canCombo: 1
+  comboAction: {fileID: 11400000, guid: 5b414777e3a63364599d8068ab332c7e, type: 2}
   attackScore: 3
   recoveryTime: 2
   maximumAttackAngle: 35
-  minimumAttackAngle: -35
   minimumDistanceNeededToAttack: 0
   maximumDistanceNeededToAttack: 3
