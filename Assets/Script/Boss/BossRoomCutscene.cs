@@ -8,10 +8,7 @@ public class BossRoomCutscene : MonoBehaviour
 {
     private PlayableDirector cutsceneDirector;
     private GameManager gameManager;
-
-    [SerializeField] private GameObject player;
     private GameObject UI;
-    private MovementController controller;
     private bool ended = false;
 
     // Start is called before the first frame update
@@ -20,14 +17,13 @@ public class BossRoomCutscene : MonoBehaviour
         cutsceneDirector = GetComponentInChildren<PlayableDirector>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         cutsceneDirector.stopped += Stopped;
-        controller = player.GetComponent<CharacterMovement>().getMovement();
         UI = GameObject.Find("UI");
     }
 
     private void Stopped(PlayableDirector d)
     {
         ended = true;
-        controller.Enable();
+        CharacterMovement.UnlockControls();
         UI.SetActive(true);
         UI.transform.Find("HealthBar Boss").gameObject.SetActive(true);
         gameObject.SetActive(false);
@@ -43,7 +39,7 @@ public class BossRoomCutscene : MonoBehaviour
         {
             UI.SetActive(false);
             gameManager.PlayBossMusic();
-            controller.Disable();
+            CharacterMovement.LockControls();
             cutsceneDirector.Play();
         }
     }

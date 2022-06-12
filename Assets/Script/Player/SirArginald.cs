@@ -18,7 +18,7 @@ public class SirArginald : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        controller = player.GetComponent<CharacterMovement>().getMovement();
+        controller = CharacterMovement.getMovement();
         cm = player.GetComponent<CharacterMovement>();
         fireballFX = GetComponent<AudioSource>();
         offset = new Vector3()

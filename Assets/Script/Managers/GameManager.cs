@@ -6,15 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private AudioSource musicMain;
-    [SerializeField] private AudioSource musicBoss;
+    [SerializeField] private AudioClip musicMain;
+    [SerializeField] private AudioClip musicBoss;
+    [SerializeField] private AudioSource musicAudioSource;
     [SerializeField] private GameObject gameOverCutscene;
 
     private PlayableDirector gameOverCutsceneDirector;
     // Start is called before the first frame update
     void Start()
     {
-        musicMain.Play();
+        musicAudioSource.clip = musicMain;
+        musicAudioSource.Play();
         gameOverCutsceneDirector = gameOverCutscene.GetComponent<PlayableDirector>();
         gameOverCutsceneDirector.stopped += GameOverCutsceneStopped;
         
@@ -25,12 +27,14 @@ public class GameManager : MonoBehaviour
     }
     public void PlayBossMusic()
     {
-        musicMain.Stop();
-        musicBoss.Play();
+        musicAudioSource.Stop();
+        musicAudioSource.clip = musicBoss;
+        musicAudioSource.Play();
     }
 
     public void GameOver()
     {
+        musicAudioSource.Stop();
         gameOverCutsceneDirector.Play();
         // Game over script
         // Timeline

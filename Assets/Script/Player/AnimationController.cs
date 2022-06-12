@@ -43,7 +43,7 @@ public class AnimationController : MonoBehaviour
 
         
         componentCharacterMovement = GetComponentInParent<CharacterMovement>();
-        playerInput = componentCharacterMovement.getMovement();
+        playerInput = CharacterMovement.getMovement();
 
         EventCombatAddListners();
         colliderScript = weaponCollider.GetComponent<ColliderAttack>();

@@ -6,7 +6,7 @@ using Cinemachine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    private MovementController movement;
+    private static MovementController movement;
     private float speed = 5.5f;
     private Vector3 characterCameraOffset;
     Vector3 followOffset;
@@ -177,9 +177,14 @@ public class CharacterMovement : MonoBehaviour
 
     }
 
-    private void LateUpdate()
+    public static void LockControls()
     {
-        
+        movement.Disable();
+    }
+
+    public static void UnlockControls()
+    {
+        movement.Enable();
     }
 
     private void LockOn(InputAction.CallbackContext ctx)
@@ -317,7 +322,7 @@ public class CharacterMovement : MonoBehaviour
         };
     }
 
-    public MovementController getMovement() 
+    public static MovementController getMovement() 
     {
         return movement;
     }
