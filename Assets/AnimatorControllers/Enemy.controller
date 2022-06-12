@@ -89,7 +89,7 @@ BlendTree:
     m_DirectBlendParameter: Horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 83eea1e2ebd4978419603745877c945d, type: 2}
+    m_Motion: {fileID: 7400000, guid: 6a2a88c373d13604d85bcdab941dc4ab, type: 2}
     m_Threshold: 0.5
     m_Position: {x: 0.5, y: 0}
     m_TimeScale: 1
@@ -97,7 +97,7 @@ BlendTree:
     m_DirectBlendParameter: Horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 742872688a399a54b830613741b8a291, type: 2}
+    m_Motion: {fileID: 7400000, guid: e89bf739fbddb764ba28ed391a77db1a, type: 2}
     m_Threshold: 0.6
     m_Position: {x: -0.5, y: 0}
     m_TimeScale: 1
@@ -105,7 +105,7 @@ BlendTree:
     m_DirectBlendParameter: Horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 86a6845eaf225ac49b7ee8076f50836e, type: 2}
+    m_Motion: {fileID: 7400000, guid: e7f72810aeb25b94492d6550a24a1fba, type: 2}
     m_Threshold: 0.7
     m_Position: {x: 0.5, y: 0.5}
     m_TimeScale: 1
@@ -113,7 +113,7 @@ BlendTree:
     m_DirectBlendParameter: Horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: fd7033a1be2d54f4f8b2dd89ae125a7c, type: 2}
+    m_Motion: {fileID: 7400000, guid: c6e1d0025cbedda468e9b1531ae55acd, type: 2}
     m_Threshold: 0.8
     m_Position: {x: -0.5, y: 0.5}
     m_TimeScale: 1
@@ -121,7 +121,7 @@ BlendTree:
     m_DirectBlendParameter: Horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 9a69a43994da55747976782c73ec2afc, type: 2}
+    m_Motion: {fileID: 7400000, guid: fa14ae620fc65024b9105db09aceb749, type: 2}
     m_Threshold: 0.9
     m_Position: {x: 0.5, y: -0.5}
     m_TimeScale: 1
@@ -129,7 +129,7 @@ BlendTree:
     m_DirectBlendParameter: Horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: ce058c28209bff74f8dcb9e75d2f76c2, type: 2}
+    m_Motion: {fileID: 7400000, guid: 10f0fdea69cb39e439bb16d2e0260f1c, type: 2}
     m_Threshold: 1
     m_Position: {x: -0.5, y: -0.5}
     m_TimeScale: 1
@@ -358,31 +358,37 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: canRotate
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: canDoCombo
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   - m_Name: Horizontal
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Vertical
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: isRotatingWithRootMotion
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer

@@ -8,6 +8,7 @@ public class RotateTowardsTargetState : State
 
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
     {
+
         enemyAnimatorManager.anim.SetFloat("Vertical", 0);
         enemyAnimatorManager.anim.SetFloat("Horizontal", 0);
 
@@ -22,7 +23,7 @@ public class RotateTowardsTargetState : State
             enemyAnimatorManager.PlayTargetAnimationWithRootRotation("Turn Behind", true);
             return combatStanceState;
         }
-        else if (viewableAngle <= -101 && viewableAngle >= -180 && !enemyManager.isInteracting)
+        else if (viewableAngle <= -100 && viewableAngle >= -180 && !enemyManager.isInteracting)
         {
             enemyAnimatorManager.PlayTargetAnimationWithRootRotation("Turn Behind", true);
             return combatStanceState;

@@ -9,6 +9,7 @@ public class AttackState : State
     public PursueTargetState pursueTargetState;
     public EnemyAttackAction currentAttack;
 
+    private bool willDoComboOnNextAttack = false;
     public bool hasPerformedAttack = false;
     
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
@@ -21,10 +22,26 @@ public class AttackState : State
             return pursueTargetState;
         }
 
+        if (willDoComboOnNextAttack && enemyManager.canDoCombo)
+        {
+            //ATTACK WITH COMBO!
+            //Set cool down time
+            
+            AttackTargetWithCombo(enemyAnimatorManager, enemyManager);
+        }
+
         if (!hasPerformedAttack)
         {
             //ATTACK!
+            //Roll for a combo chance
+            
             AttackTarget(enemyAnimatorManager, enemyManager);
+            RollForComboChance(enemyManager);
+        }
+
+        if (willDoComboOnNextAttack && hasPerformedAttack)
+        {
+            return this; //Goes back up to preform the combo
         }
 
         return rotateTowardsTargetState;
@@ -36,13 +53,44 @@ public class AttackState : State
         enemyManager.currentRecoveryTime = currentAttack.recoveryTime;
         hasPerformedAttack = true;
     }
+
+    private void AttackTargetWithCombo(EnemyAnimatorManager enemyAnimatorManager, EnemyManager enemyManager)
+    {
+        willDoComboOnNextAttack = false;
+        enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
+        enemyManager.currentRecoveryTime = currentAttack.recoveryTime;
+        currentAttack = null;
+    }
+
+    private void RollForComboChance(EnemyManager enemyManager)
+    {
+        float comboChance = Random.Range(0, 100);
+
+        if (enemyManager.allowAIToPerformCombos && comboChance >= enemyManager.comboLikelyHood)
+        {
+            if (currentAttack.comboAction != null)
+            {
+                willDoComboOnNextAttack = true;
+                currentAttack = currentAttack.comboAction;
+            }
+            else
+            {
+                willDoComboOnNextAttack = false;
+                currentAttack = null;
+            }
+        }
+        else
+        {
+            currentAttack = null;
+        }
+    }
     
     private void RotateTowardsTargetWhilstAttacking(EnemyManager enemyManager)
     {
         //Rotate manually
         if (enemyManager.canRotate && enemyManager.isInteracting)
         {
-            Vector3 direction = enemyManager.currentTarget.transform.position - transform.position;
+            Vector3 direction = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
             direction.y = 0;
             direction.Normalize();
 
@@ -52,7 +100,7 @@ public class AttackState : State
             }
             
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            enemyManager.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, enemyManager.rotationSpeed / Time.deltaTime);
+            enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, targetRotation, enemyManager.rotationSpeed / Time.deltaTime);
         }
     }
     

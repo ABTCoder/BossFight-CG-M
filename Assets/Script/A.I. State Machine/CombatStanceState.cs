@@ -66,7 +66,7 @@ public class CombatStanceState : State
         //Rotate manually
         if (enemyManager.isPreformingAction)
         {
-            Vector3 direction = enemyManager.currentTarget.transform.position - transform.position;
+            Vector3 direction = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
             direction.y = 0;
             direction.Normalize();
 
@@ -76,7 +76,7 @@ public class CombatStanceState : State
             }
             
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            enemyManager.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, enemyManager.rotationSpeed / Time.deltaTime);
+            enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, targetRotation, enemyManager.rotationSpeed / Time.deltaTime);
         }
         //Rotate with pathfinding (NavMesh)
         else
@@ -102,7 +102,7 @@ public class CombatStanceState : State
 
         horizontalMovementValue = Random.Range(-1, 1);
         
-        if (horizontalMovementValue > 0)
+        if (horizontalMovementValue >= 0)
         {
             horizontalMovementValue = 0.5f;
         }
@@ -114,47 +114,22 @@ public class CombatStanceState : State
     
     protected virtual void GetNewAttack(EnemyManager enemyManager)
         {
-            Vector3 targetDirection = enemyManager.currentTarget.transform.position - transform.position;
-            float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
-            float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, transform.position);
+            Vector3 targetDirection = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
+            float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
+            float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
 
-            int maxScore = 0;
+            EnemyAttackAction enemyAttackAction = baseAttacks[Random.Range(0, baseAttacks.Length)];
 
-            for (int i = 0; i < baseAttacks.Length; i++)
+            if (distanceFromTarget <= enemyAttackAction.maximumDistanceNeededToAttack
+                && distanceFromTarget >= enemyAttackAction.minimumDistanceNeededToAttack)
             {
-                EnemyAttackAction enemyAttackAction = baseAttacks[i];
-
-                if (distanceFromTarget <= enemyAttackAction.maximumDistanceNeededToAttack
-                    && distanceFromTarget >= enemyAttackAction.minimumDistanceNeededToAttack)
+                if (viewableAngle <= enemyAttackAction.maximumAttackAngle)
                 {
-                    if (viewableAngle <= enemyAttackAction.maximumAttackAngle)
-                    {
-                        maxScore += enemyAttackAction.attackScore;
-                    }
-                }
-            }
-
-            int randomValue = Random.Range(0, maxScore);
-            int temporaryScore = 0;
-
-            for (int i = 0; i < baseAttacks.Length; i++)
-            {
-                EnemyAttackAction enemyAttackAction = baseAttacks[i];
-
-                if (distanceFromTarget <= enemyAttackAction.maximumDistanceNeededToAttack
-                    && distanceFromTarget >= enemyAttackAction.minimumDistanceNeededToAttack)
-                {
-                    if (viewableAngle <= enemyAttackAction.maximumAttackAngle)
-                    {
-                        if (attackState.currentAttack != null)
-                            return;
-
-                        temporaryScore += enemyAttackAction.attackScore;
-
-                        if (temporaryScore > randomValue)
-                        { 
-                            attackState.currentAttack = enemyAttackAction;
-                        }
+                    if (attackState.currentAttack != null)
+                        return;
+                    else
+                    { 
+                        attackState.currentAttack = enemyAttackAction;
                     }
                 }
             }
