@@ -21,9 +21,9 @@ public class AnimationController : MonoBehaviour
     private bool comboPossible = false; // It determinates the possibility to concatenate the attacks
     private bool isAttacking = false;
     private bool isBlocking = false;
-    private bool blockingTransitionPlayed = false;
     private bool isRolling = false;
-    private bool isSliding = false; // It prevents the interruption of the roll's animation
+    private bool canInputAttack = true;
+    private bool canInputRoll = true;
     private Vector2 move = Vector2.zero;
     private float x = 0;
     private float y = 0;
@@ -31,6 +31,7 @@ public class AnimationController : MonoBehaviour
     // Sound effetcs
     [SerializeField] private AudioClip[] footstepAudioClips;
     [SerializeField] private AudioClip[] rollAudioClips;
+    [SerializeField] private AudioClip[] attackAudioClips;
     private AudioSource audioSource;
     private bool isPlayingFootstepLeft = false;
     private bool isPlayingFootstepRight = false;
@@ -52,8 +53,9 @@ public class AnimationController : MonoBehaviour
     }
 
 
-    private void FixedUpdate()
+    private void Update()
     {
+        Debug.Log("Attacking" + isAttacking + " CanInput:"+canInputAttack + "Rolling:"+isRolling);
         MovementAnimationHandler();
         FootStepSound();
     }
@@ -66,9 +68,9 @@ public class AnimationController : MonoBehaviour
         if (isRolling && !playerAnimator.IsInTransition(0))
         {
             playerAnimator.Play("RollBlend");
-            //Debug.Log("FORCE FIX");
         }
         
+
         Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
         if (playerInput.Main.ShieldBlock.IsPressed()) Block();
         if (!isAttacking && !isRolling && !isBlocking)
@@ -80,14 +82,8 @@ public class AnimationController : MonoBehaviour
             playerAnimator.SetFloat("X", move.x);
             playerAnimator.SetFloat("Y", move.y);
         }
-
     }
 
-    public bool AnimatorIsPlaying()
-    {
-        return playerAnimator.GetCurrentAnimatorStateInfo(0).length >
-               playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-    }
 
     private void EventCombatAddListners()
     {
@@ -104,40 +100,72 @@ public class AnimationController : MonoBehaviour
         comboPossible = true;
     }
 
+    IEnumerator ResetCanInputAttack()
+    {
+        yield return new WaitForSeconds(0.1f);
+        canInputAttack = true;
+        comboPossible = false;
+        comboStep = 0;
+    }
+    private void ResetCombo()
+    {  
+        comboPossible = false;
+    }
+
+    private void SetIsAttackingFalse()
+    {
+        isAttacking = false;
+        comboStep = 0;
+        StartCoroutine(ResetCanInputAttack());
+    }
+
+    public void SetIsAttackingTrue()
+    {
+        isAttacking = true;
+    }
+
+    public void SetIsRollingTrue()
+    {
+        isRolling = true;
+    }
+
+    public void SetCanInputAttackFalse()
+    {
+        canInputAttack = false;
+    }
+
     private void NextAttack()
     {
+        isAttacking = true;
         if (comboStep == 2)
         {
             weaponTrail.SetActive(true);
-            playerAnimator.CrossFade("PlayerAttack02", 0.2f);
+            playerAnimator.CrossFade("PlayerAttack02", 0.1f);
+            PlayAudioEffect(attackAudioClips);
             colliderScript.SetDamage(damage2);
             colliderScript.resetCollided();
         }
         else if (comboStep == 3)
         {
             weaponTrail.SetActive(true);
-            playerAnimator.CrossFade("PlayerAttack03", 0.2f);
+            playerAnimator.CrossFade("PlayerAttack03", 0.1f);
+            PlayAudioEffect(attackAudioClips);
             colliderScript.SetDamage(damage3);
             colliderScript.resetCollided();
         }
     }
 
-    private void ResetCombo()
-    {
-        isAttacking = false;
-        comboPossible = false;
-        comboStep = 0;
-    }
 
-    public void NormalAttack(InputAction.CallbackContext ctx)
+    private void NormalAttack(InputAction.CallbackContext ctx)
     {
-        if (!isBlocking && !isRolling)
+        if (!isBlocking && !isRolling && canInputAttack)
         {
             if (comboStep == 0)
             {
-                weaponTrail.SetActive(true);
-                playerAnimator.CrossFade("PlayerAttack01", 0.2f);
                 isAttacking = true;
+                weaponTrail.SetActive(true);
+                playerAnimator.CrossFade("PlayerAttack01", 0.1f);
+                PlayAudioEffect(attackAudioClips, 0.2f);
                 colliderScript.SetDamage(damage1);
                 colliderScript.resetCollided();
                 comboStep = 1;
@@ -148,6 +176,7 @@ public class AnimationController : MonoBehaviour
                 {
                     comboPossible = false; //Evita di duplicare l'input
                     comboStep += 1;
+                    NextAttack();
                 }
             }
         }
@@ -184,16 +213,31 @@ public class AnimationController : MonoBehaviour
     {
         Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
 
-        if (!isRolling && !isAttacking && !isBlocking && (charMove != Vector2.zero))
+        if (!isRolling && !isAttacking && !isBlocking && (charMove != Vector2.zero) && canInputRoll)
         {
-            playerAnimator.SetFloat("X", charMove.x);
-            playerAnimator.SetFloat("Y", charMove.y);
+            isRolling = true;
+            canInputRoll = false;
+            playerAnimator.SetFloat("X roll", charMove.x);
+            playerAnimator.SetFloat("Y roll", charMove.y);
             RollAudioEffect();
             playerAnimator.CrossFade("RollBlend", 0.2f);
             componentCharacterMovement.setStartRollPos();
-            isRolling = true;
         }
 
+    }
+    private void RollAudioEffect()
+    {
+        PlayAudioEffect(rollAudioClips);
+    }
+    IEnumerator ResetCanInputRoll()
+    {
+        yield return new WaitForSeconds(0.1f);
+        canInputRoll = true;
+    }
+    private void ResetRoll()
+    {
+        isRolling = false;
+        StartCoroutine(ResetCanInputRoll());
     }
 
     public void ResetAll()
@@ -201,6 +245,8 @@ public class AnimationController : MonoBehaviour
         isRolling = false;
         isBlocking = false;
         isAttacking = false;
+        comboStep = 0;
+        comboPossible = false;
     }
 
 
@@ -224,19 +270,18 @@ public class AnimationController : MonoBehaviour
     #region Animation's sounds
 
 
-    private void RollAudioEffect()
+    
+
+    IEnumerator CoPlayDelayedClip(AudioClip clip, float delay)
     {
-        
-        if ((move.x < -0.05 || move.x > 0.05) || (move.y < -0.5 || move.y > 0.5))
-        {
-            PlayAudioEffect(rollAudioClips);
-        }
+        yield return new WaitForSeconds(delay);
+        audioSource.PlayOneShot(clip);
     }
 
-    private void PlayAudioEffect(AudioClip[] audioClips) 
+    private void PlayAudioEffect(AudioClip[] audioClips, float delay = 0.0f) 
     {
         AudioClip audioClip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
-        audioSource.PlayOneShot(audioClip);
+        StartCoroutine(CoPlayDelayedClip(audioClip, delay));
     }
 
     #endregion

@@ -25,7 +25,7 @@ public class CharacterMovement : MonoBehaviour
 
 
     private Quaternion nextRotation;
-    private AnimationController combatController;
+    private AnimationController animationController;
 
     public bool lockOnInput;
     public bool right_Stick_Right_Input;
@@ -48,7 +48,7 @@ public class CharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        combatController = GetComponentInChildren<AnimationController>();
+        animationController = GetComponentInChildren<AnimationController>();
     }
 
     private void Awake()
@@ -134,7 +134,7 @@ public class CharacterMovement : MonoBehaviour
 
 
         //Set the player rotation based on the look transform
-        if (!(combatController.getIsAttacking()) && !(combatController.getIsBlocking()) && !(combatController.getIsRolling()) && (charMove.x != 0 || charMove.y != 0))
+        if (!(animationController.getIsAttacking()) && !(animationController.getIsBlocking()) && !(animationController.getIsRolling()) && (charMove.x != 0 || charMove.y != 0))
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0), Time.deltaTime * 10);
 
@@ -152,16 +152,17 @@ public class CharacterMovement : MonoBehaviour
         }
 
 
-        if (!(combatController.getIsAttacking()) && !(combatController.getIsBlocking()))
+        if (!(animationController.getIsAttacking()) && !(animationController.getIsBlocking()))
         {
-            if (combatController.getIsRolling())
+            if (animationController.getIsRolling())
             {
                 // Manage the roll system
                 float t = (Time.time - rollStartTime) / duration;
                 speedRollToDecrease = Mathf.SmoothStep(rollSpeed, 0, t);
                 transform.Translate(localDirection * speedRollToDecrease * Time.deltaTime);
                 followTransform.transform.position = transform.position + followOffset;
-
+                Debug.Log(speedRollToDecrease);
+                if (speedRollToDecrease < 0.05f) animationController.ResetAll();
             }
             else
             {

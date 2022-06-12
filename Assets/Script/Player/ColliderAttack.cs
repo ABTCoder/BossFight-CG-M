@@ -14,10 +14,6 @@ abstract public class ColliderAttack : MonoBehaviour
         
     }
 
-    private void Update()
-    {
-        Debug.Log(collided);
-    }
 
     private void OnTriggerEnter(Collider other)
     {
