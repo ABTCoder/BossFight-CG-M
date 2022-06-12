@@ -20,14 +20,14 @@ public class BossCombatStanceState : CombatStanceState
 
             for (int i = 0; i < secondPhaseAttacks.Length; i++)
             {
-                EnemyAttackAction enemyAttackAction = secondPhaseAttacks[i];
+                EnemyAttackAction bossAttackAction = secondPhaseAttacks[i];
 
-                if (distanceFromTarget <= enemyAttackAction.maximumDistanceNeededToAttack
-                    && distanceFromTarget >= enemyAttackAction.minimumDistanceNeededToAttack)
+                if (distanceFromTarget <= bossAttackAction.maximumDistanceNeededToAttack
+                    && distanceFromTarget >= bossAttackAction.minimumDistanceNeededToAttack)
                 {
-                    if (viewableAngle <= enemyAttackAction.maximumAttackAngle && viewableAngle >= enemyAttackAction.minimumAttackAngle)
+                    if (viewableAngle <= bossAttackAction.maximumAttackAngle)
                     {
-                        maxScore += enemyAttackAction.attackScore;
+                        maxScore += bossAttackAction.attackScore;
                     }
                 }
             }
@@ -37,21 +37,21 @@ public class BossCombatStanceState : CombatStanceState
 
             for (int i = 0; i < secondPhaseAttacks.Length; i++)
             {
-                EnemyAttackAction enemyAttackAction = secondPhaseAttacks[i];
+                EnemyAttackAction bossAttackAction = secondPhaseAttacks[i];
 
-                if (distanceFromTarget <= enemyAttackAction.maximumDistanceNeededToAttack
-                    && distanceFromTarget >= enemyAttackAction.minimumDistanceNeededToAttack)
+                if (distanceFromTarget <= bossAttackAction.maximumDistanceNeededToAttack
+                    && distanceFromTarget >= bossAttackAction.minimumDistanceNeededToAttack)
                 {
-                    if (viewableAngle <= enemyAttackAction.maximumAttackAngle && viewableAngle >= enemyAttackAction.minimumAttackAngle)
+                    if (viewableAngle <= bossAttackAction.maximumAttackAngle)
                     {
                         if (attackState.currentAttack != null)
                             return;
 
-                        temporaryScore += enemyAttackAction.attackScore;
+                        temporaryScore += bossAttackAction.attackScore;
 
                         if (temporaryScore > randomValue)
                         { 
-                            attackState.currentAttack = enemyAttackAction;
+                            attackState.currentAttack = bossAttackAction;
                         }
                     }
                 }
