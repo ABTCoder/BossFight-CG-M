@@ -14,10 +14,7 @@ public class RotateTowardsTargetState : State
 
         Vector3 targetDirection = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
         float viewableAngle = Vector3.SignedAngle(targetDirection, enemyManager.transform.forward, Vector3.up);
-
-        if (enemyManager.isInteracting)
-            return this; //When we enter the state we will still be interacting from the attack animation, so we pause here until it has finished
-
+        
         if (viewableAngle >= 100 && viewableAngle <= 180 && !enemyManager.isInteracting)
         {
             enemyAnimatorManager.PlayTargetAnimationWithRootRotation("Turn Behind", true);
@@ -39,6 +36,29 @@ public class RotateTowardsTargetState : State
             return combatStanceState;
         }
 
+        RotateTowardsTargetWhilstAttacking(enemyManager);
+
+        if (enemyManager.isInteracting)
+            return this; //When we enter the state we will still be interacting from the attack animation, so we pause here until it has finished
+
         return combatStanceState;
+    }
+
+    private void RotateTowardsTargetWhilstAttacking(EnemyManager enemyManager)
+    {
+        //Rotate manually
+        
+        Vector3 direction = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
+        direction.y = 0;
+        direction.Normalize();
+
+        if (direction == Vector3.zero)
+        {
+            direction = transform.forward;
+        }
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, targetRotation, 0.05f* enemyManager.rotationSpeed * Time.deltaTime);
+        
     }
 }

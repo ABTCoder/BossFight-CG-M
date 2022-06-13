@@ -9,21 +9,19 @@ public class CombatStanceState : State
     public EnemyAttackAction[] baseAttacks;
     public PursueTargetState pursueTargetState;
 
-    protected bool randomDestinationSet = false;
     protected float verticalMovementValue = 0;
     protected float horizontalMovementValue = 0;
     
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
     {
+        enemyManager.navMeshAgent.isStopped = true;
         //Check for attack range
         //Potentially circle player or walk around them
         //If in attack range return attack state
         //If we are in cool down after attacking, return this state and continue circling player
         //If the player runs out of range, return pursue target state
-        
+
         float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
-        enemyAnimatorManager.anim.SetFloat("Vertical", verticalMovementValue, 0.2f, Time.deltaTime);
-        enemyAnimatorManager.anim.SetFloat("Horizontal", horizontalMovementValue, 0.2f, Time.deltaTime);
         attackState.hasPerformedAttack = false;
 
         if (enemyManager.isInteracting)
@@ -38,19 +36,10 @@ public class CombatStanceState : State
             return pursueTargetState;
         }
 
-        if (!randomDestinationSet)
-        {
-            randomDestinationSet = true;
-            
-            //DECIDE CIRCLING ACTION
-            DecideCirclingAction(enemyAnimatorManager);
-        }
-
         HandleRotateTowardsTarget(enemyManager);
 
         if (enemyManager.currentRecoveryTime <= 0 && attackState.currentAttack != null)
         {
-            randomDestinationSet = false;
             return attackState;
         }
         else
@@ -90,27 +79,6 @@ public class CombatStanceState : State
         }
     }
     
-    protected void DecideCirclingAction(EnemyAnimatorManager enemyAnimatorManager)
-    {
-        //Circle with walking only 
-        WalkAroundTarget(enemyAnimatorManager);
-    }
-
-    protected void WalkAroundTarget(EnemyAnimatorManager enemyAnimatorManager)
-    {
-        verticalMovementValue = 0.5f;
-
-        horizontalMovementValue = Random.Range(-1, 1);
-        
-        if (horizontalMovementValue >= 0)
-        {
-            horizontalMovementValue = 0.5f;
-        }
-        else 
-        {
-            horizontalMovementValue = -0.5f;
-        }
-    }
     
     protected virtual void GetNewAttack(EnemyManager enemyManager)
         {

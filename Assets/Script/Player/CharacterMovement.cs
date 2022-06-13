@@ -347,7 +347,6 @@ public class CharacterMovement : MonoBehaviour
         
     }
 
-
     IEnumerator CoolDown(float time)
     {
         yield return new WaitForSeconds(time);
