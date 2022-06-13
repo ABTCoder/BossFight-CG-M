@@ -32,6 +32,7 @@ public class AnimationController : MonoBehaviour
     [SerializeField] private AudioClip[] footstepAudioClips;
     [SerializeField] private AudioClip[] rollAudioClips;
     [SerializeField] private AudioClip[] attackAudioClips;
+    [SerializeField] private AudioClip[] shieldHitAudioClips;
     private AudioSource audioSource;
     private bool isPlayingFootstepLeft = false;
     private bool isPlayingFootstepRight = false;
@@ -207,6 +208,7 @@ public class AnimationController : MonoBehaviour
     public void PlayShieldHit()
     {
         playerAnimator.CrossFade("ShieldHit", 0.2f);
+        PlayAudioEffect(shieldHitAudioClips);
     }
 
     public void DodgeRoll(InputAction.CallbackContext ctx)
@@ -269,17 +271,6 @@ public class AnimationController : MonoBehaviour
 
     #region Animation's sounds
 
-    IEnumerator CoPlayDelayedClip(AudioClip clip, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        audioSource.PlayOneShot(clip);
-    }
-
-    private void PlayAudioEffect(AudioClip[] audioClips, float delay = 0.0f) 
-    {
-        AudioClip audioClip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
-        StartCoroutine(CoPlayDelayedClip(audioClip, delay));
-    }
 
     #endregion
 
@@ -328,5 +319,18 @@ public class AnimationController : MonoBehaviour
         leftFootIKPos = playerAnimator.GetIKPosition(AvatarIKGoal.LeftFoot);
         rightFootIKPos = playerAnimator.GetIKPosition(AvatarIKGoal.RightFoot);
 
+    }
+
+
+    IEnumerator CoPlayDelayedClip(AudioClip clip, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        audioSource.PlayOneShot(clip);
+    }
+
+    private void PlayAudioEffect(AudioClip[] audioClips, float delay = 0.0f)
+    {
+        AudioClip audioClip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
+        StartCoroutine(CoPlayDelayedClip(audioClip, delay));
     }
 }

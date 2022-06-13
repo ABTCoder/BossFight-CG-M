@@ -15,10 +15,10 @@ GameObject:
   - component: {fileID: 5779687125099470597}
   - component: {fileID: 5779687124653824812}
   - component: {fileID: 5779687124653824822}
-  - component: {fileID: 5779687124653824820}
   - component: {fileID: 5779687124653824821}
   - component: {fileID: -3940737281525330489}
   - component: {fileID: 7980876612861708127}
+  - component: {fileID: 404913597813834042}
   m_Layer: 0
   m_Name: CustomChandelier
   m_TagString: Untagged
@@ -4885,19 +4885,6 @@ CapsuleCollider:
   m_Height: 4.51
   m_Direction: 1
   m_Center: {x: 0.0000019073485, y: 0.26, z: -0.00000095367426}
---- !u!65 &5779687124653824820
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5779687125114912275}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.3696783, y: 0.73, z: 2.369066}
-  m_Center: {x: 0.0000019073485, y: -2.26, z: -0.00000095367426}
 --- !u!114 &5779687124653824821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4968,7 +4955,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.398
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5064,7 +5051,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.517
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5104,3 +5091,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!64 &404913597813834042
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5779687125114912275}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 49f55550c6b947a479673fcee99f8235, type: 3}

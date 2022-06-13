@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip musicBoss;
     [SerializeField] private AudioSource musicAudioSource;
     [SerializeField] private GameObject gameOverCutscene;
+    [SerializeField] private GameObject ui;
+
+    public static bool gameOver = false;
 
     private PlayableDirector gameOverCutsceneDirector;
     // Start is called before the first frame update
@@ -34,8 +37,10 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        gameOver = true;
         musicAudioSource.Stop();
         gameOverCutsceneDirector.Play();
+        ui.SetActive(false);
         // Game over script
         // Timeline
         Debug.Log("Game Over!");
