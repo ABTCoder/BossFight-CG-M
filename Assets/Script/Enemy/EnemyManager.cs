@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 using UnityEngine.AI;
 
 public class EnemyManager : CharacterManager
@@ -14,8 +13,7 @@ public class EnemyManager : CharacterManager
     public CharacterStats currentTarget;
     public NavMeshAgent navMeshAgent;
     public Rigidbody enemyRigidBody;
-
-    public bool isPreformingAction;
+    
     public bool isInteracting;
     public float rotationSpeed = 15;
     public float maximumAggroRadius = 1.5f;
@@ -80,14 +78,6 @@ public class EnemyManager : CharacterManager
         if (currentRecoveryTime > 0)
         {
             currentRecoveryTime -= Time.deltaTime;
-        }
-
-        if (isPreformingAction)
-        {
-            if (currentRecoveryTime <= 0)
-            {
-                isPreformingAction = false;
-            }
         }
     }
 

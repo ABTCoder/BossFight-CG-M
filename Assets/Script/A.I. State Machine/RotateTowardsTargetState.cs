@@ -47,7 +47,6 @@ public class RotateTowardsTargetState : State
     private void RotateTowardsTargetWhilstAttacking(EnemyManager enemyManager)
     {
         //Rotate manually
-        
         Vector3 direction = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
         direction.y = 0;
         direction.Normalize();
@@ -59,6 +58,5 @@ public class RotateTowardsTargetState : State
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, targetRotation, 0.05f* enemyManager.rotationSpeed * Time.deltaTime);
-        
     }
 }
