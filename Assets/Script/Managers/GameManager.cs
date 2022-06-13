@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip musicBoss;
     [SerializeField] private AudioSource musicAudioSource;
     [SerializeField] private GameObject gameOverCutscene;
-    [SerializeField] private GameObject ui;
+    [SerializeField] private Canvas ui;
 
     public static bool gameOver = false;
 
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         gameOver = true;
         musicAudioSource.Stop();
         gameOverCutsceneDirector.Play();
-        ui.SetActive(false);
+        ui.enabled = false;
         // Game over script
         // Timeline
         Debug.Log("Game Over!");

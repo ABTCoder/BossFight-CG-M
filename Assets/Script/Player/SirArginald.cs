@@ -38,6 +38,7 @@ public class SirArginald : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         canShoot = true;
+        SkillsUI.Instance.FireballReady();
     }
 
     void OnShoot(InputAction.CallbackContext ctx)
@@ -45,6 +46,7 @@ public class SirArginald : MonoBehaviour
         if (canShoot)
         {
             canShoot = false;
+            SkillsUI.Instance.FireballUsed();
             Vector3 pos = transform.position;
             pos.y += 0.2f;
             Transform fireball = Instantiate(fireballObj, pos, transform.rotation);

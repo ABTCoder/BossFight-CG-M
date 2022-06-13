@@ -5058,6 +5058,8 @@ MonoBehaviour:
   right_Stick_Right_Input: 0
   right_Stick_Left_Input: 0
   lockOnFlag: 0
+  lockOnTargetIcon: {fileID: 2485076282415705441, guid: 8e7bb9548e8bbe146a2f0279bfe41547, type: 3}
+  hpUpEffect: {fileID: 4479510274212964901, guid: 8eff268597c6dd14d8a85d277a9f3b44, type: 3}
   followTransform: {fileID: 0}
   mainCamera: {fileID: 0}
 --- !u!1 &8603835717219990649
@@ -5708,3 +5710,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 136266c4be9311b4a90d9ea5aea60511, type: 3}
   rollAudioClips:
   - {fileID: 8300000, guid: 602175da3f11a9546a4797df107fd4b7, type: 3}
+  attackAudioClips: []
+  shieldHitAudioClips: []

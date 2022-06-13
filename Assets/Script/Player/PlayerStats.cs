@@ -58,6 +58,7 @@ public class PlayerStats : CharacterStats
     public void HealPlayer(int hp)
     {
         currentHealth += hp;
+        if (currentHealth > maxHealth) currentHealth = maxHealth;
         healthBar.Heal(hp);
     }
 }

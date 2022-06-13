@@ -37,6 +37,7 @@ public class CharacterMovement : MonoBehaviour
     public bool lockOnFlag;
     [SerializeField] private GameObject lockOnTargetIcon;
     private GameObject activeTargetIcon;
+    [SerializeField] private GameObject hpUpEffect;
 
     [SerializeField] private GameObject followTransform;
     [SerializeField] private Cinemachine.CinemachineVirtualCamera mainCamera;
@@ -341,7 +342,9 @@ public class CharacterMovement : MonoBehaviour
         {
             Debug.Log("Cura!");
             canHealtUp = false;
+            SkillsUI.Instance.HpUpUsed();
             playerStats.HealPlayer(hpUp);
+            Instantiate(hpUpEffect, transform);
             StartCoroutine(CoolDown(coolDownHpUP));
         } 
         
@@ -351,5 +354,6 @@ public class CharacterMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         canHealtUp = true;
+        SkillsUI.Instance.HpUpReady();
     }
 }

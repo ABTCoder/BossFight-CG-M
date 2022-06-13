@@ -8,7 +8,7 @@ public class BossRoomCutscene : MonoBehaviour
 {
     private PlayableDirector cutsceneDirector;
     private GameManager gameManager;
-    private GameObject UI;
+    private Canvas ui;
     private bool ended = false;
 
     // Start is called before the first frame update
@@ -17,15 +17,15 @@ public class BossRoomCutscene : MonoBehaviour
         cutsceneDirector = GetComponentInChildren<PlayableDirector>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         cutsceneDirector.stopped += Stopped;
-        UI = GameObject.Find("UI");
+        ui = GameObject.Find("UI").GetComponent<Canvas>();
     }
 
     private void Stopped(PlayableDirector d)
     {
         ended = true;
         CharacterMovement.UnlockControls();
-        UI.SetActive(true);
-        UI.transform.Find("HealthBar Boss").gameObject.SetActive(true);
+        ui.enabled = true;
+        ui.transform.Find("HealthBar Boss").gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
 
@@ -37,16 +37,12 @@ public class BossRoomCutscene : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            UI.SetActive(false);
+            ui.enabled = false;
             gameManager.PlayBossMusic();
             CharacterMovement.LockControls();
             cutsceneDirector.Play();
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
