@@ -22,4 +22,9 @@ public class HealthBar : MonoBehaviour
     {
         health.value -= damage;
     }
+
+    public void Heal(int hp)
+    {
+        health.value += hp;
+    }
 }

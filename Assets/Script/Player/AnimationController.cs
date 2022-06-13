@@ -55,7 +55,7 @@ public class AnimationController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("Attacking" + isAttacking + " CanInput:"+canInputAttack + "Rolling:"+isRolling);
+        //Debug.Log("Attacking" + isAttacking + " CanInput:"+canInputAttack + "Rolling:"+isRolling);
         MovementAnimationHandler();
         FootStepSound();
     }
@@ -269,9 +269,6 @@ public class AnimationController : MonoBehaviour
 
     #region Animation's sounds
 
-
-    
-
     IEnumerator CoPlayDelayedClip(AudioClip clip, float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -299,7 +296,7 @@ public class AnimationController : MonoBehaviour
             float leftFootDistanceFromGround = leftFootIKPos.y - playerPosition.y;
             float rightFootDistanceFromGround = rightFootIKPos.y - playerPosition.y;
 
-            if (leftFootDistanceFromGround <= 0.087f)
+            if (leftFootDistanceFromGround <= 0.095f)
             {
                 if (isPlayingFootstepLeft == false)
                 {
@@ -310,7 +307,8 @@ public class AnimationController : MonoBehaviour
             }
             else
                 isPlayingFootstepLeft = false;
-            if (rightFootDistanceFromGround <= 0.087f)
+
+            if (rightFootDistanceFromGround <= 0.095f)
             {
                 if (isPlayingFootstepRight == false)
                 {

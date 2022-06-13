@@ -31,6 +31,11 @@ public class PlayerStats : CharacterStats
         return currentHealth;
     }
 
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
     public override void TakeDamage(int damage)
     {
         if (combatController.getIsBlocking())
@@ -48,5 +53,11 @@ public class PlayerStats : CharacterStats
             gameManager.GameOver();
             Debug.Log("Player's health is 0!");
         }
+    }
+
+    public void HealPlayer(int hp)
+    {
+        currentHealth += hp;
+        healthBar.Heal(hp);
     }
 }

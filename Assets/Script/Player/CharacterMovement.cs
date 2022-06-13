@@ -6,6 +6,9 @@ using Cinemachine;
 
 public class CharacterMovement : MonoBehaviour
 {
+    private int hpUp = 20;
+    private int coolDownHpUP = 5;
+    bool canHealtUp = false;
     private static MovementController movement;
     private float speed = 5.5f;
     private Vector3 characterCameraOffset;
@@ -71,6 +74,8 @@ public class CharacterMovement : MonoBehaviour
         movement.Main.LockOn.performed += LockOn;
         movement.Main.LockOnTargetLeft.performed += SwitchLeftLockOnTarget;
         movement.Main.LockOnTargetRight.performed += SwitchRightLockOnTarget;
+        movement.Main.HealthUp.performed += SkillHealthUp;
+        StartCoroutine(CoolDown(0));
     }
 
     private void OnEnable()
@@ -326,5 +331,26 @@ public class CharacterMovement : MonoBehaviour
     public static MovementController getMovement() 
     {
         return movement;
+    }
+
+    private void SkillHealthUp(InputAction.CallbackContext ctx) 
+    {
+        PlayerStats playerStats = GetComponent<PlayerStats>();
+
+        if ((playerStats.GetHealth() != playerStats.GetMaxHealth()) && canHealtUp)
+        {
+            Debug.Log("Cura!");
+            canHealtUp = false;
+            playerStats.HealPlayer(hpUp);
+            StartCoroutine(CoolDown(coolDownHpUP));
+        } 
+        
+    }
+
+
+    IEnumerator CoolDown(float time)
+    {
+        yield return new WaitForSeconds(time);
+        canHealtUp = true;
     }
 }

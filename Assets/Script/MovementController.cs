@@ -116,6 +116,15 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HealthUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""c54a162c-7f0e-4463-b608-1d788b1c4c54"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -272,6 +281,17 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a200a0aa-fe05-41be-871e-94005352b521"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HealthUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -290,6 +310,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         m_Main_LockOnTargetRight = m_Main.FindAction("Lock On Target Right", throwIfNotFound: true);
         m_Main_DodgeRoll = m_Main.FindAction("DodgeRoll", throwIfNotFound: true);
         m_Main_Pause = m_Main.FindAction("Pause", throwIfNotFound: true);
+        m_Main_HealthUp = m_Main.FindAction("HealthUp", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -359,6 +380,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
     private readonly InputAction m_Main_LockOnTargetRight;
     private readonly InputAction m_Main_DodgeRoll;
     private readonly InputAction m_Main_Pause;
+    private readonly InputAction m_Main_HealthUp;
     public struct MainActions
     {
         private @MovementController m_Wrapper;
@@ -373,6 +395,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         public InputAction @LockOnTargetRight => m_Wrapper.m_Main_LockOnTargetRight;
         public InputAction @DodgeRoll => m_Wrapper.m_Main_DodgeRoll;
         public InputAction @Pause => m_Wrapper.m_Main_Pause;
+        public InputAction @HealthUp => m_Wrapper.m_Main_HealthUp;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -412,6 +435,9 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 @Pause.started -= m_Wrapper.m_MainActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnPause;
+                @HealthUp.started -= m_Wrapper.m_MainActionsCallbackInterface.OnHealthUp;
+                @HealthUp.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnHealthUp;
+                @HealthUp.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnHealthUp;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -446,6 +472,9 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @HealthUp.started += instance.OnHealthUp;
+                @HealthUp.performed += instance.OnHealthUp;
+                @HealthUp.canceled += instance.OnHealthUp;
             }
         }
     }
@@ -462,5 +491,6 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         void OnLockOnTargetRight(InputAction.CallbackContext context);
         void OnDodgeRoll(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnHealthUp(InputAction.CallbackContext context);
     }
 }
