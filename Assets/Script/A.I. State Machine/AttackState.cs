@@ -22,19 +22,16 @@ public class AttackState : State
             return pursueTargetState;
         }
 
+        //ATTACK WITH COMBO!
         if (willDoComboOnNextAttack && enemyManager.canDoCombo)
         {
-            //ATTACK WITH COMBO!
-            //Set cool down time
-            
             AttackTargetWithCombo(enemyAnimatorManager, enemyManager);
         }
 
+        //ATTACK!
+        //Roll for a combo chance
         if (!hasPerformedAttack)
         {
-            //ATTACK!
-            //Roll for a combo chance
-            
             AttackTarget(enemyAnimatorManager, enemyManager);
             RollForComboChance(enemyManager);
         }
