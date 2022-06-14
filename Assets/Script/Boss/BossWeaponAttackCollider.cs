@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class BossWeaponAttackCollider : ColliderAttack
 {
-    private BossManager enemyManager;
+    private BossManager bossManager;
 
     private void Start()
     {
-        enemyManager = GetComponentInParent<BossManager>();
+        bossManager = GetComponentInParent<BossManager>();
     }
 
     protected override bool isAttacking()
     {
-        return enemyManager.isAttacking;
+        return bossManager.isAttacking;
     }
 }

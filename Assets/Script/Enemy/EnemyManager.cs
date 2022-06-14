@@ -15,6 +15,7 @@ public class EnemyManager : CharacterManager
     public Rigidbody enemyRigidBody;
     
     public bool isInteracting;
+    public bool isDead = false;
     public bool damageTaken;
     public bool isAttacking = false;
     public float rotationSpeed = 15;
@@ -41,7 +42,10 @@ public class EnemyManager : CharacterManager
     private void Update()
     {
         HandleRecoveryTimer();
-        HandleStateMachine();
+        if (!isDead)
+        {
+            HandleStateMachine();
+        }
 
         isRotatingWithRootMotion = enemyAnimationManager.anim.GetBool("isRotatingWithRootMotion");
         isInteracting = enemyAnimationManager.anim.GetBool("isInteracting");

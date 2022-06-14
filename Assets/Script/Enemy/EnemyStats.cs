@@ -7,9 +7,12 @@ public class EnemyStats : CharacterStats
 {
 
     private EnemyManager enemyManager;
+    private EnemyAnimatorManager enemyAnimatorManager;
+    
     void Start()
     {
         enemyManager = GetComponent<EnemyManager>();
+        enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
         maxHealth = SetMaxHealthFromHealthLevel();
         currentHealth = maxHealth;
     }
@@ -30,6 +33,8 @@ public class EnemyStats : CharacterStats
         if (currentHealth <= 0)
         {
             Debug.Log("The enemy is dead!");
+            enemyAnimatorManager.PlayTargetAnimation("Death", true);
+            enemyManager.isDead = true;
         }
     }
     
