@@ -9,26 +9,19 @@ abstract public class ColliderAttack : MonoBehaviour
     [SerializeField] protected string characterTarget;
     protected bool collided = false;
 
-    private void Start()
-    {
-        
-    }
-
-
     private void OnTriggerEnter(Collider other)
     {
         if (isAttacking() && !collided)
         {
             if (other.tag == characterTarget)
             {
-                Debug.Log("COLLIDED WITH " + other.name);
                 other.gameObject.GetComponent<CharacterStats>().TakeDamage(damage);
-                Debug.Log("Damage done");
                 collided = true;
             }
         }
-        this.doExtraStuff(other);
+        doExtraStuff(other);
     }
+
 
     public void SetDamage(int damage)
     {

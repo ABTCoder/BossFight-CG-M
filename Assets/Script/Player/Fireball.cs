@@ -21,13 +21,13 @@ public class Fireball : ColliderAttack
         this.shootDir = shootDir;
         splash = splashObj;
         Destroy(gameObject, 5f);
-        SetDamage(50);
+        SetDamage(5);
     }
 
 
     protected override void doExtraStuff(Collider other)
     {
-        if (other.gameObject.tag != "Player2")
+        if (other.gameObject.tag != "Player" && other.gameObject.name!= "Target")
         {
             Debug.Log("I'm destroying the fireball");
             Instantiate(splash, transform.position, transform.rotation);

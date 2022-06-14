@@ -8,6 +8,7 @@ public class CombatStanceState : State
     public AttackState attackState;
     public EnemyAttackAction[] baseAttacks;
     public PursueTargetState pursueTargetState;
+    public RotateTowardsTargetState rotateTowardsTargetState;
     public DamageState damageState;
 
     //Check for attack range
@@ -52,17 +53,23 @@ public class CombatStanceState : State
             GetNewAttack(enemyManager);
         }
         
-        return this;
+        return rotateTowardsTargetState;
     }
 
     protected void HandleRotateTowardsTarget(EnemyManager enemyManager)
     {
         //Rotate with pathfinding (NavMesh)
-        Vector3 targetVelocity = enemyManager.enemyRigidBody.velocity;
-        
-        enemyManager.navMeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
-        enemyManager.enemyRigidBody.velocity = targetVelocity;
-        enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, enemyManager.navMeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
+        Vector3 direction = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
+        direction.y = 0;
+        direction.Normalize();
+
+        if (direction == Vector3.zero)
+        {
+            direction = transform.forward;
+        }
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, targetRotation, 0.05f * enemyManager.rotationSpeed * Time.deltaTime);
     }
     
     protected virtual void GetNewAttack(EnemyManager enemyManager)

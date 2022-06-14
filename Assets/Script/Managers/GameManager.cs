@@ -11,8 +11,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource musicAudioSource;
     [SerializeField] private GameObject gameOverCutscene;
     [SerializeField] private Canvas ui;
+    [SerializeField] private Canvas tutorialCanvas;
+
 
     public static bool gameOver = false;
+    public static Queue<string> tutorialsToPlay;
+    private GameObject currentTutorial;
 
     private PlayableDirector gameOverCutsceneDirector;
     // Start is called before the first frame update
@@ -23,6 +27,7 @@ public class GameManager : MonoBehaviour
         gameOverCutsceneDirector = gameOverCutscene.GetComponent<PlayableDirector>();
         gameOverCutsceneDirector.stopped += GameOverCutsceneStopped;
         gameOver = false;
+        tutorialsToPlay = new Queue<string>();
     }
     private void GameOverCutsceneStopped(PlayableDirector d)
     {
@@ -35,6 +40,11 @@ public class GameManager : MonoBehaviour
         musicAudioSource.Play();
     }
 
+    private void Update()
+    {
+        ShowNextTutorial();
+    }
+
     public void GameOver()
     {
         gameOver = true;
@@ -45,4 +55,23 @@ public class GameManager : MonoBehaviour
         // Timeline
         Debug.Log("Game Over!");
     }
+
+    private void ShowNextTutorial()
+    {
+        if(tutorialsToPlay.Count > 0 && currentTutorial == null)
+        {
+            string tutorialName = tutorialsToPlay.Dequeue();
+            currentTutorial = tutorialCanvas.transform.Find(tutorialName).gameObject;
+            currentTutorial.SetActive(true);
+            StartCoroutine(WaitForTutorialCompletion());
+        }
+    } 
+
+    IEnumerator WaitForTutorialCompletion()
+    {
+        yield return new WaitForSeconds(5);
+        currentTutorial.SetActive(false);
+        currentTutorial = null;
+    }
+
 }

@@ -53,7 +53,6 @@ public class SirArginald : MonoBehaviour
             Vector3 direction;
             if (cm.GetLockOnFlag())
             {
-                transform.LookAt(cm.GetLockedTarget());
                 direction = transform.forward;
             }
             else direction = player.transform.forward.normalized;
@@ -80,8 +79,13 @@ public class SirArginald : MonoBehaviour
 
             pos = Vector3.Lerp(pos, player.transform.position, 0.2f);
             transform.position = pos;
-            transform.Translate(offset);
             transform.rotation = player.transform.rotation;
+            transform.Translate(offset);
+            if (cm.GetLockOnFlag())
+            {
+                transform.LookAt(cm.GetLockedTarget());
+            } else
+                transform.rotation = player.transform.rotation;
         } else
         {
             transform.Translate(Vector3.up * Time.deltaTime * 0.8f, Space.World);

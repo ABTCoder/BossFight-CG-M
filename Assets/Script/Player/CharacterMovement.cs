@@ -11,7 +11,6 @@ public class CharacterMovement : MonoBehaviour
     bool canHealtUp = false;
     private static MovementController movement;
     private float speed = 5.5f;
-    private Vector3 characterCameraOffset;
     Vector3 followOffset;
     private float cameraDeg = 0.3f;
     private float rollSpeed = 10f;
@@ -19,10 +18,6 @@ public class CharacterMovement : MonoBehaviour
     private float rollStartTime;
     private float duration = 1f;
 
-    private Vector3 nextPosition;
-    private Vector3 startRollPos;
-    private Vector3 endRollPos;
-    private Vector3 lastPosition;
     private Vector3 localDirection;
     private Vector2 move;
 
@@ -36,7 +31,6 @@ public class CharacterMovement : MonoBehaviour
 
     public bool lockOnFlag;
     [SerializeField] private GameObject lockOnTargetIcon;
-    private Vector3 lockOnIconOffset;
     private GameObject activeTargetIcon;
     [SerializeField] private GameObject hpUpEffect;
 
@@ -58,24 +52,11 @@ public class CharacterMovement : MonoBehaviour
 
     private void Awake()
     {
-        lastPosition = Vector3.zero;
         movement = new MovementController();
-        characterCameraOffset = new Vector3()
-        {
-            x = 0,
-            y = 2,
-            z = -4
-        };
         followOffset = new Vector3()
         {
             x = 0,
             y = 1,
-            z = 0,
-        };
-        lockOnIconOffset = new Vector3()
-        {
-            x = 0,
-            y = 0.5f,
             z = 0,
         };
 
@@ -161,9 +142,11 @@ public class CharacterMovement : MonoBehaviour
         {
             followTransform.transform.LookAt(currentLockOnTarget);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0), Time.deltaTime * 10);
-
         }
-
+        if(currentLockOnTarget == null && lockOnFlag)
+        {
+            ClearLockOnTargets();
+        }
 
         if (!(animationController.getIsAttacking()) && !(animationController.getIsBlocking()))
         {
@@ -216,7 +199,6 @@ public class CharacterMovement : MonoBehaviour
         else
         {
             ClearLockOnTargets();
-            mainCamera.LookAt = followTransform.transform;
         }
 
     }
@@ -257,7 +239,7 @@ public class CharacterMovement : MonoBehaviour
         for (int i = 0; i < colliders.Length; i++)
         {
             Transform character;
-            if (colliders[i].tag == "Enemy")
+            if (colliders[i].tag == "LockOn")
             {
                 character = colliders[i].transform;
                 if (character != null)
@@ -284,7 +266,7 @@ public class CharacterMovement : MonoBehaviour
    
             }
 
-            if (lockOnFlag)
+            if (lockOnFlag && currentLockOnTarget != null)
             {
                 Vector3 availableTargetDirection = availableTargets[k].position - followTransform.transform.position;
                 float angle = Vector3.SignedAngle(availableTargetDirection, mainCamera.transform.forward, Vector3.up);
@@ -310,6 +292,7 @@ public class CharacterMovement : MonoBehaviour
         nearestLockOnTarget = null;
         currentLockOnTarget = null;
         Destroy(activeTargetIcon);
+        mainCamera.LookAt = followTransform.transform;
     }
 
 

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fireball
   - Enemy
+  - LockOn
   layers:
   - Default
   - TransparentFX
