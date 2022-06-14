@@ -30,6 +30,7 @@ public class BossStats : EnemyStats
     {
         currentHealth = currentHealth - damage;
         healthBar.TakeDamage(damage);
+        bossManager.damageTaken = true;
         //Debug.Log(currentHealth);
         if (!bossManager.HasPhaseShifted() && currentHealth <= maxHealth / 2)
         {

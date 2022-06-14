@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class EnemyStats : CharacterStats
 {
+
+    private EnemyManager enemyManager;
     void Start()
     {
+        enemyManager = GetComponent<EnemyManager>();
         maxHealth = SetMaxHealthFromHealthLevel();
         currentHealth = maxHealth;
     }
+
+    
 
     private int SetMaxHealthFromHealthLevel()
     {
@@ -20,6 +25,7 @@ public class EnemyStats : CharacterStats
     public override void TakeDamage(int damage)
     {
         currentHealth = currentHealth - damage;
+        enemyManager.damageTaken = true;
         Debug.Log("Enemy Damage");
         if (currentHealth <= 0)
         {

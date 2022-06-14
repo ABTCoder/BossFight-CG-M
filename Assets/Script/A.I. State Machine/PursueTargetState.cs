@@ -5,6 +5,7 @@ using UnityEngine;
 public class PursueTargetState : State
 {
     public CombatStanceState combatStanceState;
+    public DamageState damageState;
     
     //Chase the target
     //If within attack range, return combat stance state
@@ -16,7 +17,14 @@ public class PursueTargetState : State
         float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
 
         HandleRotateTowardsTarget(enemyManager);
-        
+
+        if (enemyManager.damageTaken)
+        {
+            enemyManager.damageTaken = false;
+            return damageState;
+        }
+        enemyManager.damageTaken = false;
+
         if (enemyManager.isInteracting)
             return this;
         
@@ -25,6 +33,7 @@ public class PursueTargetState : State
         {
             enemyAnimatorManager.anim.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
         }
+
 
         if (distanceFromTarget <= enemyManager.maximumAggroRadius)
         {
@@ -43,6 +52,17 @@ public class PursueTargetState : State
             
         enemyManager.navMeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
         enemyManager.enemyRigidBody.velocity = targetVelocity;
-        enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, enemyManager.navMeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
+
+        Vector3 direction = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
+        direction.y = 0;
+        direction.Normalize();
+
+        if (direction == Vector3.zero)
+        {
+            direction = transform.forward;
+        }
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, targetRotation, enemyManager.rotationSpeed / Time.deltaTime);
     }
 }

@@ -8,6 +8,7 @@ public class CombatStanceState : State
     public AttackState attackState;
     public EnemyAttackAction[] baseAttacks;
     public PursueTargetState pursueTargetState;
+    public DamageState damageState;
 
     //Check for attack range
     //Potentially circle player or walk around them
@@ -20,6 +21,13 @@ public class CombatStanceState : State
 
         float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
         attackState.hasPerformedAttack = false;
+
+        if(enemyManager.damageTaken)
+        {
+            enemyManager.damageTaken = false;
+            return damageState;
+        }
+        enemyManager.damageTaken = false;
 
         if (enemyManager.isInteracting)
         {

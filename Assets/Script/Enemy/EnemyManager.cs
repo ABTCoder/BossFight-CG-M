@@ -15,8 +15,10 @@ public class EnemyManager : CharacterManager
     public Rigidbody enemyRigidBody;
     
     public bool isInteracting;
+    public bool damageTaken;
     public float rotationSpeed = 15;
     public float maximumAggroRadius = 1.5f;
+    public float damageInterruptMoment = 0.5f;
 
     [Header("Combat Flags")]
     public bool canDoCombo;

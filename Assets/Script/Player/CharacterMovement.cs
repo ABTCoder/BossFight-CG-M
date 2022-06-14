@@ -36,6 +36,7 @@ public class CharacterMovement : MonoBehaviour
 
     public bool lockOnFlag;
     [SerializeField] private GameObject lockOnTargetIcon;
+    private Vector3 lockOnIconOffset;
     private GameObject activeTargetIcon;
     [SerializeField] private GameObject hpUpEffect;
 
@@ -69,6 +70,12 @@ public class CharacterMovement : MonoBehaviour
         {
             x = 0,
             y = 1,
+            z = 0,
+        };
+        lockOnIconOffset = new Vector3()
+        {
+            x = 0,
+            y = 0.5f,
             z = 0,
         };
 
