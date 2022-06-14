@@ -19,9 +19,10 @@ abstract public class ColliderAttack : MonoBehaviour
     {
         if (isAttacking() && !collided)
         {
+            Debug.Log("COLLIDED");
             if (other.tag == characterTarget)
             {
-                other.gameObject.GetComponent<CharacterStats>().TakeDamage(damage);
+                other.gameObject.GetComponent<CharacterStats>().TakeDamage(10);
                 //Debug.Log("Damage done");
                 collided = true;
             }

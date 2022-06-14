@@ -9,7 +9,9 @@ public class AttackState : State
     public PursueTargetState pursueTargetState;
     public EnemyAttackAction currentAttack;
 
-    private bool willDoComboOnNextAttack = false;
+    [SerializeField] private ColliderAttack[] enemyColliders;
+
+    public bool willDoComboOnNextAttack = false;
     public bool hasPerformedAttack = false;
     
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
@@ -25,15 +27,25 @@ public class AttackState : State
         //ATTACK WITH COMBO!
         if (willDoComboOnNextAttack && enemyManager.canDoCombo)
         {
+            enemyAnimatorManager.anim.SetBool("isAttacking", true);
             AttackTargetWithCombo(enemyAnimatorManager, enemyManager);
+            for (int i =0; i < enemyColliders.Length; i++)
+            {
+                enemyColliders[i].resetCollided();
+            }
         }
 
         //ATTACK!
         //Roll for a combo chance
         if (!hasPerformedAttack)
         {
+            enemyAnimatorManager.anim.SetBool("isAttacking", true);
             AttackTarget(enemyAnimatorManager, enemyManager);
             RollForComboChance(enemyManager);
+            for (int i = 0; i < enemyColliders.Length; i++)
+            {
+                enemyColliders[i].resetCollided();
+            }
         }
 
         if (willDoComboOnNextAttack && hasPerformedAttack)

@@ -31,9 +31,12 @@ public class BossManager : EnemyManager
         HandleRecoveryTimer();
         HandleStateMachine();
 
+
         isRotatingWithRootMotion = bossAnimatorManager.anim.GetBool("isRotatingWithRootMotion");
         isInteracting = bossAnimatorManager.anim.GetBool("isInteracting");
+        canDoCombo = allowAIToPerformCombos;
         canRotate = bossAnimatorManager.anim.GetBool("canRotate");
+        isAttacking = bossAnimatorManager.anim.GetBool("isAttacking");
     }
 
     protected override void HandleStateMachine()

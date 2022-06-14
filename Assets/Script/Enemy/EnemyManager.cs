@@ -16,6 +16,7 @@ public class EnemyManager : CharacterManager
     
     public bool isInteracting;
     public bool damageTaken;
+    public bool isAttacking = false;
     public float rotationSpeed = 15;
     public float maximumAggroRadius = 1.5f;
     public float damageInterruptMoment = 0.5f;
@@ -53,8 +54,9 @@ public class EnemyManager : CharacterManager
 
         isRotatingWithRootMotion = enemyAnimationManager.anim.GetBool("isRotatingWithRootMotion");
         isInteracting = enemyAnimationManager.anim.GetBool("isInteracting");
-        canDoCombo = enemyAnimationManager.anim.GetBool("canDoCombo");
+        canDoCombo = allowAIToPerformCombos;
         canRotate = enemyAnimationManager.anim.GetBool("canRotate");
+        isAttacking = enemyAnimationManager.anim.GetBool("isAttacking");
     }
 
     protected virtual void HandleStateMachine()

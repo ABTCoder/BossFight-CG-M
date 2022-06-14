@@ -249,6 +249,8 @@ public class AnimationController : MonoBehaviour
         isAttacking = false;
         comboStep = 0;
         comboPossible = false;
+        canInputAttack = true;
+        canInputRoll = true;
     }
 
 
