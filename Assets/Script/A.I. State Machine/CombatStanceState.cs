@@ -70,20 +70,29 @@ public class CombatStanceState : State
         Vector3 targetDirection = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
         float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
         float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
-
-        EnemyAttackAction enemyAttackAction = baseAttacks[Random.Range(0, baseAttacks.Length)];
-
-        if (distanceFromTarget <= enemyAttackAction.maximumDistanceNeededToAttack
-            && distanceFromTarget >= enemyAttackAction.minimumDistanceNeededToAttack)
+        
+        List<EnemyAttackAction> tempAttacksArray = new List<EnemyAttackAction>();
+        for (int i = 0; i < baseAttacks.Length; i++)
         {
-            if (viewableAngle <= enemyAttackAction.maximumAttackAngle)
+            if (distanceFromTarget <= baseAttacks[i].maximumDistanceNeededToAttack
+                && distanceFromTarget >= baseAttacks[i].minimumDistanceNeededToAttack)
             {
-                if (attackState.currentAttack != null)
-                    return;
-                else
-                { 
-                    attackState.currentAttack = enemyAttackAction;
+                if (viewableAngle <= baseAttacks[i].maximumAttackAngle)
+                {
+                    tempAttacksArray.Add(baseAttacks[i]);
                 }
+            }
+        }
+
+        if (tempAttacksArray.Count > 0)
+        {
+            EnemyAttackAction enemyAttackAction = tempAttacksArray[Random.Range(0, tempAttacksArray.Count)];
+        
+            if (attackState.currentAttack != null)
+                return;
+            else
+            { 
+                attackState.currentAttack = enemyAttackAction;
             }
         }
     }

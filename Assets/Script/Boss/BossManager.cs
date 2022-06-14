@@ -34,7 +34,6 @@ public class BossManager : EnemyManager
 
         isRotatingWithRootMotion = bossAnimatorManager.anim.GetBool("isRotatingWithRootMotion");
         isInteracting = bossAnimatorManager.anim.GetBool("isInteracting");
-        canDoCombo = allowAIToPerformCombos;
         canRotate = bossAnimatorManager.anim.GetBool("canRotate");
         isAttacking = bossAnimatorManager.anim.GetBool("isAttacking");
     }

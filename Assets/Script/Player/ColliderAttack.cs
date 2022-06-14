@@ -19,11 +19,11 @@ abstract public class ColliderAttack : MonoBehaviour
     {
         if (isAttacking() && !collided)
         {
-            Debug.Log("COLLIDED");
             if (other.tag == characterTarget)
             {
-                other.gameObject.GetComponent<CharacterStats>().TakeDamage(10);
-                //Debug.Log("Damage done");
+                Debug.Log("COLLIDED WITH " + other.name);
+                other.gameObject.GetComponent<CharacterStats>().TakeDamage(damage);
+                Debug.Log("Damage done");
                 collided = true;
             }
         }

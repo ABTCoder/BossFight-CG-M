@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         musicAudioSource.Play();
         gameOverCutsceneDirector = gameOverCutscene.GetComponent<PlayableDirector>();
         gameOverCutsceneDirector.stopped += GameOverCutsceneStopped;
-        
+        gameOver = false;
     }
     private void GameOverCutsceneStopped(PlayableDirector d)
     {
@@ -44,11 +44,5 @@ public class GameManager : MonoBehaviour
         // Game over script
         // Timeline
         Debug.Log("Game Over!");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

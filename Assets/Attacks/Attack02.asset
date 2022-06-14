@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Attack02
   m_EditorClassIdentifier: 
   actionAnimation: PlayerAttack02
-  canCombo: 0
-  comboAction: {fileID: 0}
-  attackScore: 3
+  attackDamage: 5
   recoveryTime: 2
   maximumAttackAngle: 35
   minimumDistanceNeededToAttack: 0
   maximumDistanceNeededToAttack: 3
+  colliderName: Punch

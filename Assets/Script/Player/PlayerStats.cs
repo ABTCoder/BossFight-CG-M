@@ -38,20 +38,23 @@ public class PlayerStats : CharacterStats
 
     public override void TakeDamage(int damage)
     {
-        if (combatController.getIsBlocking())
+        if (damage > 0)
         {
-            damage = Mathf.RoundToInt(damage * 0.6f);
-            combatController.PlayShieldHit();
-        }
-        else combatController.DamageHit();
-        currentHealth = currentHealth - damage;
-        healthBar.TakeDamage(damage);
-        //Debug.Log("The player get a damage of " + damage);
-        if (currentHealth <= 0)
-        {
-            CharacterMovement.LockControls();
-            gameManager.GameOver();
-            Debug.Log("Player's health is 0!");
+            if (combatController.getIsBlocking())
+            {
+                damage = Mathf.RoundToInt(damage * 0.6f);
+                combatController.PlayShieldHit();
+            }
+            else combatController.DamageHit();
+            currentHealth = currentHealth - damage;
+            healthBar.TakeDamage(damage);
+            //Debug.Log("The player get a damage of " + damage);
+            if (currentHealth <= 0)
+            {
+                CharacterMovement.LockControls();
+                gameManager.GameOver();
+                Debug.Log("Player's health is 0!");
+            }
         }
     }
 

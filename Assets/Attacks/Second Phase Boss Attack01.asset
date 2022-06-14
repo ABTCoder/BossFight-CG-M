@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Second Phase Boss Attack01
   m_EditorClassIdentifier: 
   actionAnimation: SecondPhaseBossAttack01
-  canCombo: 1
-  comboAction: {fileID: 11400000, guid: cf156145c3952504aa8d5aa16eb87649, type: 2}
-  attackScore: 3
+  attackDamage: 10
   recoveryTime: 2
   maximumAttackAngle: 35
   minimumDistanceNeededToAttack: 0
   maximumDistanceNeededToAttack: 3
+  colliderName: Great Sword

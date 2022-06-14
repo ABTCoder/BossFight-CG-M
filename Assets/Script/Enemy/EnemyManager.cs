@@ -19,20 +19,11 @@ public class EnemyManager : CharacterManager
     public bool isAttacking = false;
     public float rotationSpeed = 15;
     public float maximumAggroRadius = 1.5f;
-    public float damageInterruptMoment = 0.5f;
-
-    [Header("Combat Flags")]
-    public bool canDoCombo;
 
     [Header("A.I. Settings")]
     public float detectionRadius = 20;
-    //The higher, and lower, respectively these angles are, the greater detection FIELD OF VIEW (basically like eye sight)
     public float maximumDetectionAngle = 50;
     public float currentRecoveryTime = 0;
-
-    [Header("A.I. Combat Settings")] 
-    public bool allowAIToPerformCombos;
-    public float comboLikelyHood;
 
     private void Awake()
     {
@@ -54,7 +45,6 @@ public class EnemyManager : CharacterManager
 
         isRotatingWithRootMotion = enemyAnimationManager.anim.GetBool("isRotatingWithRootMotion");
         isInteracting = enemyAnimationManager.anim.GetBool("isInteracting");
-        canDoCombo = allowAIToPerformCombos;
         canRotate = enemyAnimationManager.anim.GetBool("canRotate");
         isAttacking = enemyAnimationManager.anim.GetBool("isAttacking");
     }
