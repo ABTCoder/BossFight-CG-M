@@ -27,17 +27,13 @@ public class AnimationController : MonoBehaviour
     private Vector2 move = Vector2.zero;
     private float stunTime = 0.7f;
 
-    // Sound effetcs
-    [SerializeField] private AudioClip[] footstepAudioClips;
-    [SerializeField] private AudioClip[] rollAudioClips;
-    [SerializeField] private AudioClip[] attackAudioClips;
-    [SerializeField] private AudioClip[] shieldHitAudioClips;
-    private AudioSource audioSource;
+    // Sound effect stuff
     private bool isPlayingFootstepLeft = false;
     private bool isPlayingFootstepRight = false;
     private bool isTakingDamage = false;
     private Vector3 leftFootIKPos;
     private Vector3 rightFootIKPos;
+    private PlayerSoundManager soundManager;
 
     void Start()
     {
@@ -50,7 +46,7 @@ public class AnimationController : MonoBehaviour
         EventCombatAddListners();
         colliderScript = weaponCollider.GetComponent<ColliderAttack>();
 
-        audioSource = GetComponent<AudioSource>();
+        soundManager = GetComponent<PlayerSoundManager>();
     }
 
 
@@ -142,7 +138,7 @@ public class AnimationController : MonoBehaviour
         {
             weaponTrail.SetActive(true);
             playerAnimator.CrossFade("PlayerAttack02", 0.1f);
-            PlayAudioEffect(attackAudioClips);
+            soundManager.PlayAudioEffect(soundManager.attackAudioClips);
             colliderScript.SetDamage(damage2);
             colliderScript.resetCollided();
         }
@@ -150,7 +146,7 @@ public class AnimationController : MonoBehaviour
         {
             weaponTrail.SetActive(true);
             playerAnimator.CrossFade("PlayerAttack03", 0.1f);
-            PlayAudioEffect(attackAudioClips);
+            soundManager.PlayAudioEffect(soundManager.attackAudioClips);
             colliderScript.SetDamage(damage3);
             colliderScript.resetCollided();
         }
@@ -166,7 +162,7 @@ public class AnimationController : MonoBehaviour
                 isAttacking = true;
                 weaponTrail.SetActive(true);
                 playerAnimator.CrossFade("PlayerAttack01", 0.1f);
-                PlayAudioEffect(attackAudioClips, 0.2f);
+                soundManager.PlayAudioEffect(soundManager.attackAudioClips, 0.2f);
                 colliderScript.SetDamage(damage1);
                 colliderScript.resetCollided();
                 comboStep = 1;
@@ -221,7 +217,7 @@ public class AnimationController : MonoBehaviour
     public void PlayShieldHit()
     {
         playerAnimator.CrossFade("ShieldHit", 0.2f);
-        PlayAudioEffect(shieldHitAudioClips);
+        soundManager.PlayAudioEffect(soundManager.shieldHitAudioClips);
     }
 
     public void DodgeRoll(InputAction.CallbackContext ctx)
@@ -242,7 +238,7 @@ public class AnimationController : MonoBehaviour
     }
     private void RollAudioEffect()
     {
-        PlayAudioEffect(rollAudioClips);
+        soundManager.PlayAudioEffect(soundManager.rollAudioClips);
     }
     IEnumerator ResetCanInputRoll()
     {
@@ -306,7 +302,7 @@ public class AnimationController : MonoBehaviour
             {
                 if (isPlayingFootstepLeft == false)
                 {
-                    PlayAudioEffect(footstepAudioClips);
+                    soundManager.PlayAudioEffect(soundManager.footstepAudioClips);
                     isPlayingFootstepLeft = true;
                 }
 
@@ -318,7 +314,7 @@ public class AnimationController : MonoBehaviour
             {
                 if (isPlayingFootstepRight == false)
                 {
-                    PlayAudioEffect(footstepAudioClips);
+                    soundManager.PlayAudioEffect(soundManager.footstepAudioClips);
                     isPlayingFootstepRight = true;
                 }
             }
@@ -337,15 +333,4 @@ public class AnimationController : MonoBehaviour
     }
 
 
-    IEnumerator CoPlayDelayedClip(AudioClip clip, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        audioSource.PlayOneShot(clip);
-    }
-
-    private void PlayAudioEffect(AudioClip[] audioClips, float delay = 0.0f)
-    {
-        AudioClip audioClip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
-        StartCoroutine(CoPlayDelayedClip(audioClip, delay));
-    }
 }

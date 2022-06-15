@@ -9,6 +9,7 @@ public class PlayerStats : CharacterStats
     private GameManager gameManager;
     [SerializeField] private HealthBar healthBar;
     private AnimationController combatController;
+    
 
     void Start()
     {

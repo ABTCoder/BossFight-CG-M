@@ -32,6 +32,13 @@ public class EnemyManager : CharacterManager
     [SerializeField] private Material fadeMaterial;
     private bool changedMaterial = false;
 
+
+    //Sound stuff
+    private AudioSource audioSource;
+    public AudioClip[] attackGrunts;
+    public AudioClip[] damageGrunts;
+    public AudioClip[] deathCries;
+
     private void Awake()
     {
         enemyAnimationManager = GetComponentInChildren<EnemyAnimatorManager>();
@@ -39,6 +46,7 @@ public class EnemyManager : CharacterManager
         enemyRigidBody = GetComponent<Rigidbody>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         renderer = GetComponentInChildren<Renderer>();
+        audioSource = GetComponent<AudioSource>();
     }
     
     private void Start()
@@ -59,13 +67,13 @@ public class EnemyManager : CharacterManager
             {
                 renderer.material = fadeMaterial;
                 changedMaterial = true;
+                PlayAudioEffect(deathCries);
             }
                 
             materialColor = renderer.material.color;
             float fadeAmount = (float)(materialColor.a - (0.3f * Time.deltaTime));
             materialColor = new Color(materialColor.r, materialColor.g, materialColor.b, fadeAmount);
             renderer.material.color = materialColor;
-            Debug.Log(materialColor.a);
             if (materialColor.a < 0)
                 Destroy(gameObject);
         }
@@ -109,5 +117,17 @@ public class EnemyManager : CharacterManager
     public virtual bool isEnded()
     {
         return false;
+    }
+
+    IEnumerator CoPlayDelayedClip(AudioClip clip, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        audioSource.PlayOneShot(clip);
+    }
+
+    public void PlayAudioEffect(AudioClip[] audioClips, float delay = 0.0f)
+    {
+        AudioClip audioClip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
+        StartCoroutine(CoPlayDelayedClip(audioClip, delay));
     }
 }
