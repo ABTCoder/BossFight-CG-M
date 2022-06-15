@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip musicBoss;
     [SerializeField] private AudioSource musicAudioSource;
     [SerializeField] private GameObject gameOverCutscene;
+    [SerializeField] private GameObject introCutscene;
     [SerializeField] private Canvas ui;
     [SerializeField] private Canvas tutorialCanvas;
 
@@ -19,19 +20,32 @@ public class GameManager : MonoBehaviour
     private GameObject currentTutorial;
 
     private PlayableDirector gameOverCutsceneDirector;
+    private PlayableDirector introCutsceneDirector;
     // Start is called before the first frame update
+
+    private bool gameStarted = false;
     void Start()
     {
-        musicAudioSource.clip = musicMain;
-        musicAudioSource.Play();
+        ui.enabled = false;
         gameOverCutsceneDirector = gameOverCutscene.GetComponent<PlayableDirector>();
         gameOverCutsceneDirector.stopped += GameOverCutsceneStopped;
+        introCutsceneDirector = introCutscene.GetComponent<PlayableDirector>();
+        introCutsceneDirector.stopped += IntroCutsceneStopped;
         gameOver = false;
         tutorialsToPlay = new Queue<string>();
+        CharacterMovement.LockControls();
     }
     private void GameOverCutsceneStopped(PlayableDirector d)
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void IntroCutsceneStopped(PlayableDirector d)
+    {
+        musicAudioSource.clip = musicMain;
+        musicAudioSource.Play();
+        ui.enabled = true;
+        CharacterMovement.UnlockControls();
     }
     public void PlayBossMusic()
     {
