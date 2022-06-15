@@ -25,6 +25,12 @@ public class EnemyManager : CharacterManager
     public float detectionRadius = 20;
     public float maximumDetectionAngle = 50;
     public float currentRecoveryTime = 0;
+    public float damageAnimRecoveryTime = 0;
+
+    private Renderer renderer;
+    private Color materialColor;
+    [SerializeField] private Material fadeMaterial;
+    private bool changedMaterial = false;
 
     private void Awake()
     {
@@ -32,6 +38,7 @@ public class EnemyManager : CharacterManager
         enemyStats = GetComponent<EnemyStats>();
         enemyRigidBody = GetComponent<Rigidbody>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        renderer = GetComponentInChildren<Renderer>();
     }
     
     private void Start()
@@ -45,6 +52,22 @@ public class EnemyManager : CharacterManager
         if (!isDead)
         {
             HandleStateMachine();
+        }
+        else
+        {
+            if(!changedMaterial)
+            {
+                renderer.material = fadeMaterial;
+                changedMaterial = true;
+            }
+                
+            materialColor = renderer.material.color;
+            float fadeAmount = (float)(materialColor.a - (0.3f * Time.deltaTime));
+            materialColor = new Color(materialColor.r, materialColor.g, materialColor.b, fadeAmount);
+            renderer.material.color = materialColor;
+            Debug.Log(materialColor.a);
+            if (materialColor.a < 0)
+                Destroy(gameObject);
         }
 
         isRotatingWithRootMotion = enemyAnimationManager.anim.GetBool("isRotatingWithRootMotion");
@@ -76,6 +99,10 @@ public class EnemyManager : CharacterManager
         if (currentRecoveryTime > 0)
         {
             currentRecoveryTime -= Time.deltaTime;
+        }
+        if (damageAnimRecoveryTime > 0)
+        {
+            damageAnimRecoveryTime -= Time.deltaTime;
         }
     }
 

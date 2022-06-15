@@ -17,7 +17,7 @@ public class PlayerWeaponAttackCollider : ColliderAttack
 
     protected override bool isAttacking()
     {
-        return animationController.getIsAttacking();
+        return animationController.GetIsAttacking();
     }
 
 }

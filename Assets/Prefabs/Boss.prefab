@@ -5226,6 +5226,7 @@ MonoBehaviour:
   detectionRadius: 20
   maximumDetectionAngle: 50
   currentRecoveryTime: 0
+  damageAnimRecoveryTime: 0
 --- !u!82 &493324696691217569
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10353,6 +10354,7 @@ MonoBehaviour:
   detectionLayer:
     serializedVersion: 2
     m_Bits: 512
+  damageState: {fileID: 493324697751606653}
 --- !u!1 &493324697751606655
 GameObject:
   m_ObjectHideFlags: 0
@@ -10397,6 +10399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateTowardsTargetState: {fileID: 493324697291913492}
+  IdleState: {fileID: 493324697400984014}
 --- !u!1 &493324697951706123
 GameObject:
   m_ObjectHideFlags: 0

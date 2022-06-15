@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateTowardsTargetState: {fileID: 4402768578197057445}
+  IdleState: {fileID: 4402768577716154014}
 --- !u!1 &4402768577716154013
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,6 +231,7 @@ MonoBehaviour:
   detectionLayer:
     serializedVersion: 2
     m_Bits: 512
+  damageState: {fileID: 4402768577679724864}
 --- !u!1 &4402768577728439167
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +464,8 @@ MonoBehaviour:
   detectionRadius: 20
   maximumDetectionAngle: 50
   currentRecoveryTime: 0
+  damageAnimRecoveryTime: 0
+  fadeMaterial: {fileID: 2100000, guid: 8fa55156321a6f3419c9d2977492dd60, type: 2}
 --- !u!1 &4402768578197057444
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,6 +981,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 3e9c02e8732f1df44b6a4b61819dcbed, type: 2}
+    - target: {fileID: 13722610, guid: 659981ab97d9bb64990767ef5f931f7c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e5f54c6aa80293743be92fa947dac054, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 659981ab97d9bb64990767ef5f931f7c, type: 3}
 --- !u!4 &4402768576969232970 stripped

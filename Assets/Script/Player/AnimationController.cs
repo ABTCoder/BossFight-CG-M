@@ -25,8 +25,7 @@ public class AnimationController : MonoBehaviour
     private bool canInputAttack = true;
     private bool canInputRoll = true;
     private Vector2 move = Vector2.zero;
-    private float x = 0;
-    private float y = 0;
+    private float stunTime = 0.7f;
 
     // Sound effetcs
     [SerializeField] private AudioClip[] footstepAudioClips;
@@ -36,6 +35,7 @@ public class AnimationController : MonoBehaviour
     private AudioSource audioSource;
     private bool isPlayingFootstepLeft = false;
     private bool isPlayingFootstepRight = false;
+    private bool isTakingDamage = false;
     private Vector3 leftFootIKPos;
     private Vector3 rightFootIKPos;
 
@@ -74,7 +74,7 @@ public class AnimationController : MonoBehaviour
 
         Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
         if (playerInput.Main.ShieldBlock.IsPressed()) Block();
-        if (!isAttacking && !isRolling && !isBlocking)
+        if (!isAttacking && !isRolling && !isBlocking && !isTakingDamage)
         {
             if (!playerAnimator.IsInTransition(0))
                 playerAnimator.CrossFade("Movement Blend Tree", 0.2f);
@@ -159,7 +159,7 @@ public class AnimationController : MonoBehaviour
 
     private void NormalAttack(InputAction.CallbackContext ctx)
     {
-        if (!isBlocking && !isRolling && canInputAttack)
+        if (!isBlocking && !isRolling && !isTakingDamage && canInputAttack)
         {
             if (comboStep == 0)
             {
@@ -202,7 +202,20 @@ public class AnimationController : MonoBehaviour
     {
         int randomNumber = Mathf.RoundToInt(Random.Range(0, 2));
         playerAnimator.CrossFade(damageAnimations[randomNumber], 0.2f);
+        isTakingDamage = true;
+        StartCoroutine(ResetIsTakingDamage());
         ResetAll();
+    }
+
+    IEnumerator ResetIsTakingDamage()
+    {
+        yield return new WaitForSeconds(stunTime);
+        isTakingDamage = false;
+    }
+
+    public bool GetIsTakingDamage()
+    {
+        return isTakingDamage;
     }
 
     public void PlayShieldHit()
@@ -215,7 +228,7 @@ public class AnimationController : MonoBehaviour
     {
         Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
 
-        if (!isRolling && !isAttacking && !isBlocking && (charMove != Vector2.zero) && canInputRoll)
+        if (!isRolling && !isAttacking && !isBlocking && !isTakingDamage && (charMove != Vector2.zero) && canInputRoll)
         {
             isRolling = true;
             canInputRoll = false;
@@ -254,17 +267,17 @@ public class AnimationController : MonoBehaviour
     }
 
 
-    public bool getIsRolling()
+    public bool GetIsRolling()
     {
         return isRolling;
     }
 
-    public bool getIsBlocking()
+    public bool GetIsBlocking()
     {
         return isBlocking;
     }
 
-    public bool getIsAttacking()
+    public bool GetIsAttacking()
     {
         return isAttacking;
     }

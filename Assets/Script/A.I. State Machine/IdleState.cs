@@ -7,12 +7,21 @@ public class IdleState : State
     public PursueTargetState pursueTargetState;
     
     public LayerMask detectionLayer;
+    public DamageState damageState;
     
     //Look for a potential target
     //Switch to the pursue target state if target is found
     //If not return this state
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
     {
+
+        if (enemyManager.damageTaken && enemyManager.damageAnimRecoveryTime <= 0)
+        {
+            enemyManager.damageTaken = false;
+            return damageState;
+        }
+        enemyManager.damageTaken = false;
+
         #region Handle Enemy Target Detection
         Collider[] colliders = Physics.OverlapSphere(transform.position, enemyManager.detectionRadius, detectionLayer);
         for (int i = 0; i < colliders.Length; i++)

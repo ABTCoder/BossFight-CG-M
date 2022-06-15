@@ -40,7 +40,7 @@ public class PlayerStats : CharacterStats
     {
         if (damage > 0)
         {
-            if (combatController.getIsBlocking())
+            if (combatController.GetIsBlocking())
             {
                 damage = Mathf.RoundToInt(damage * 0.6f);
                 combatController.PlayShieldHit();

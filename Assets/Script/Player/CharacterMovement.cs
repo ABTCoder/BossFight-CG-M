@@ -128,7 +128,7 @@ public class CharacterMovement : MonoBehaviour
 
 
         //Set the player rotation based on the look transform
-        if (!(animationController.getIsAttacking()) && !(animationController.getIsBlocking()) && !(animationController.getIsRolling()) && (charMove.x != 0 || charMove.y != 0))
+        if (!(animationController.GetIsAttacking()) && !(animationController.GetIsBlocking()) && !(animationController.GetIsRolling()) && (charMove.x != 0 || charMove.y != 0))
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0), Time.deltaTime * 10);
 
@@ -148,9 +148,9 @@ public class CharacterMovement : MonoBehaviour
             ClearLockOnTargets();
         }
 
-        if (!(animationController.getIsAttacking()) && !(animationController.getIsBlocking()))
+        if (!animationController.GetIsAttacking() && !animationController.GetIsBlocking() && !animationController.GetIsTakingDamage())
         {
-            if (animationController.getIsRolling())
+            if (animationController.GetIsRolling())
             {
                 // Manage the roll system
                 float t = (Time.time - rollStartTime) / duration;
