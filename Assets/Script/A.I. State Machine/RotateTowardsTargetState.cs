@@ -13,7 +13,7 @@ public class RotateTowardsTargetState : State
         enemyAnimatorManager.anim.SetFloat("Vertical", 0);
         enemyAnimatorManager.anim.SetFloat("Horizontal", 0);
 
-        if (enemyManager.damageTaken)
+        if (enemyManager.damageTaken && enemyManager.damageAnimRecoveryTime <= 0)
         {
             enemyManager.damageTaken = false;
             return damageState;

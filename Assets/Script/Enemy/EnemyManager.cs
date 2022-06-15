@@ -25,6 +25,19 @@ public class EnemyManager : CharacterManager
     public float detectionRadius = 20;
     public float maximumDetectionAngle = 50;
     public float currentRecoveryTime = 0;
+    public float damageAnimRecoveryTime = 0;
+
+    private Renderer renderer;
+    private Color materialColor;
+    [SerializeField] private Material fadeMaterial;
+    private bool changedMaterial = false;
+
+
+    //Sound stuff
+    private AudioSource audioSource;
+    public AudioClip[] attackGrunts;
+    public AudioClip[] damageGrunts;
+    public AudioClip[] deathCries;
 
     private void Awake()
     {
@@ -32,6 +45,8 @@ public class EnemyManager : CharacterManager
         enemyStats = GetComponent<EnemyStats>();
         enemyRigidBody = GetComponent<Rigidbody>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        renderer = GetComponentInChildren<Renderer>();
+        audioSource = GetComponent<AudioSource>();
     }
     
     private void Start()
@@ -45,6 +60,22 @@ public class EnemyManager : CharacterManager
         if (!isDead)
         {
             HandleStateMachine();
+        }
+        else
+        {
+            if(!changedMaterial)
+            {
+                renderer.material = fadeMaterial;
+                changedMaterial = true;
+                PlayAudioEffect(deathCries);
+            }
+                
+            materialColor = renderer.material.color;
+            float fadeAmount = (float)(materialColor.a - (0.3f * Time.deltaTime));
+            materialColor = new Color(materialColor.r, materialColor.g, materialColor.b, fadeAmount);
+            renderer.material.color = materialColor;
+            if (materialColor.a < 0)
+                Destroy(gameObject);
         }
 
         isRotatingWithRootMotion = enemyAnimationManager.anim.GetBool("isRotatingWithRootMotion");
@@ -77,10 +108,26 @@ public class EnemyManager : CharacterManager
         {
             currentRecoveryTime -= Time.deltaTime;
         }
+        if (damageAnimRecoveryTime > 0)
+        {
+            damageAnimRecoveryTime -= Time.deltaTime;
+        }
     }
 
     public virtual bool isEnded()
     {
         return false;
+    }
+
+    IEnumerator CoPlayDelayedClip(AudioClip clip, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        audioSource.PlayOneShot(clip);
+    }
+
+    public void PlayAudioEffect(AudioClip[] audioClips, float delay = 0.0f)
+    {
+        AudioClip audioClip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
+        StartCoroutine(CoPlayDelayedClip(audioClip, delay));
     }
 }
