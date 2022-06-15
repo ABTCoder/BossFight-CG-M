@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
         musicAudioSource.clip = musicMain;
         musicAudioSource.Play();
         ui.enabled = true;
+        gameStarted = true;
         CharacterMovement.UnlockControls();
     }
     public void PlayBossMusic()
