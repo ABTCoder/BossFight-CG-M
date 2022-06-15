@@ -11,7 +11,7 @@ public class DamageState : State
     {
         enemyManager.damageAnimRecoveryTime = 0.8f;
         enemyAnimatorManager.PlayTargetAnimation("TakeDamage", true);
-        enemyManager.PlayAudioEffect(enemyManager.damageGrunts);
+        enemyManager.soundManager.PlayAudioEffect(enemyManager.soundManager.damageAudioClips);
         if (enemyManager.currentTarget != null)
             return rotateTowardsTargetState;
         else return IdleState;

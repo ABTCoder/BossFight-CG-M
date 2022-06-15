@@ -34,10 +34,7 @@ public class EnemyManager : CharacterManager
 
 
     //Sound stuff
-    private AudioSource audioSource;
-    public AudioClip[] attackGrunts;
-    public AudioClip[] damageGrunts;
-    public AudioClip[] deathCries;
+    public CharacterSoundManager soundManager;
 
     private void Awake()
     {
@@ -46,7 +43,7 @@ public class EnemyManager : CharacterManager
         enemyRigidBody = GetComponent<Rigidbody>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         renderer = GetComponentInChildren<Renderer>();
-        audioSource = GetComponent<AudioSource>();
+        soundManager = GetComponent<CharacterSoundManager>();
     }
     
     private void Start()
@@ -67,7 +64,7 @@ public class EnemyManager : CharacterManager
             {
                 renderer.material = fadeMaterial;
                 changedMaterial = true;
-                PlayAudioEffect(deathCries);
+                soundManager.PlayAudioEffect(soundManager.deathCriesAudioClips);
             }
                 
             materialColor = renderer.material.color;
@@ -119,15 +116,4 @@ public class EnemyManager : CharacterManager
         return false;
     }
 
-    IEnumerator CoPlayDelayedClip(AudioClip clip, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        audioSource.PlayOneShot(clip);
-    }
-
-    public void PlayAudioEffect(AudioClip[] audioClips, float delay = 0.0f)
-    {
-        AudioClip audioClip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
-        StartCoroutine(CoPlayDelayedClip(audioClip, delay));
-    }
 }

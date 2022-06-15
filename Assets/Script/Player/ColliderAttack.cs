@@ -8,6 +8,8 @@ abstract public class ColliderAttack : MonoBehaviour
     protected int damage;
     [SerializeField] protected string characterTarget;
     protected bool collided = false;
+    [SerializeField] private AudioClip[] hitSounds;
+    private AudioSource audioSource;
 
     private void OnTriggerEnter(Collider other)
     {

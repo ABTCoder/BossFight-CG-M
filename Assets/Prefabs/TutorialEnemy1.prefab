@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterTarget: Player
+  hitSounds: []
 --- !u!1 &4402768577429812362
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,6 +347,7 @@ GameObject:
   - component: {fileID: 4402768578060655653}
   - component: {fileID: 4402768578060655652}
   - component: {fileID: 5583993366552145049}
+  - component: {fileID: 2189119323712355102}
   m_Layer: 0
   m_Name: TutorialEnemy1
   m_TagString: Enemy
@@ -449,7 +451,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be66d14beeeffe1478ece084401e6f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lockOnTransform: {fileID: 0}
   isRotatingWithRootMotion: 0
   canRotate: 0
   currentState: {fileID: 4402768577716154014}
@@ -467,13 +468,7 @@ MonoBehaviour:
   currentRecoveryTime: 0
   damageAnimRecoveryTime: 0
   fadeMaterial: {fileID: 2100000, guid: 8fa55156321a6f3419c9d2977492dd60, type: 2}
-  attackGrunts:
-  - {fileID: 8300000, guid: 01923eb019c42b24695d01cfb26bc720, type: 3}
-  damageGrunts:
-  - {fileID: 8300000, guid: ca8561bb30ef90b44a3e809a84dd9d70, type: 3}
-  deathCries:
-  - {fileID: 8300000, guid: 04048091ece33834ebcd77e5ea48c2c4, type: 3}
-  - {fileID: 8300000, guid: e41728318e0fd6e49aa31f3af32be848, type: 3}
+  soundManager: {fileID: 0}
 --- !u!82 &5583993366552145049
 AudioSource:
   m_ObjectHideFlags: 0
@@ -570,6 +565,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2189119323712355102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402768578060655675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488a68a014b9dee46bfb2451680a055f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footstepAudioClips: []
+  rollAudioClips: []
+  attackAudioClips:
+  - {fileID: 8300000, guid: 01923eb019c42b24695d01cfb26bc720, type: 3}
+  shieldHitAudioClips: []
+  damageAudioClips:
+  - {fileID: 8300000, guid: ca8561bb30ef90b44a3e809a84dd9d70, type: 3}
+  deathCriesAudioClips:
+  - {fileID: 8300000, guid: 04048091ece33834ebcd77e5ea48c2c4, type: 3}
+  - {fileID: 8300000, guid: e41728318e0fd6e49aa31f3af32be848, type: 3}
+  audioSource: {fileID: 0}
 --- !u!1 &4402768578197057444
 GameObject:
   m_ObjectHideFlags: 0

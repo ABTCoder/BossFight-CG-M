@@ -46,7 +46,7 @@ public class AttackState : State
     private void AttackTarget(EnemyAnimatorManager enemyAnimatorManager, EnemyManager enemyManager)
     {
         enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
-        enemyManager.PlayAudioEffect(enemyManager.attackGrunts);
+        enemyManager.soundManager.PlayAudioEffect(enemyManager.soundManager.attackAudioClips);
         enemyManager.currentRecoveryTime = currentAttack.recoveryTime;
         hasPerformedAttack = true;
         currentAttack = null;

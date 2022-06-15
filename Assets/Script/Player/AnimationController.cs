@@ -33,7 +33,7 @@ public class AnimationController : MonoBehaviour
     private bool isTakingDamage = false;
     private Vector3 leftFootIKPos;
     private Vector3 rightFootIKPos;
-    private PlayerSoundManager soundManager;
+    private CharacterSoundManager soundManager;
 
     void Start()
     {
@@ -46,7 +46,7 @@ public class AnimationController : MonoBehaviour
         EventCombatAddListners();
         colliderScript = weaponCollider.GetComponent<ColliderAttack>();
 
-        soundManager = GetComponent<PlayerSoundManager>();
+        soundManager = GetComponent<CharacterSoundManager>();
     }
 
 
