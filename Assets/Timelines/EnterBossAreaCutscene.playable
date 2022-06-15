@@ -98,7 +98,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: Cutscene CM camera 1
+    m_DisplayName: BossCutscene CM camera 1
   - m_Version: 1
     m_Start: 4.95
     m_ClipIn: 0
@@ -176,7 +176,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: Cutscene CM camera 2
+    m_DisplayName: BossCutscene CM camera 2
   - m_Version: 1
     m_Start: 0.04999999999999982
     m_ClipIn: 0
