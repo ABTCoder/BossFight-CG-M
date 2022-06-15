@@ -8,8 +8,11 @@ public class TutorialTriggers : MonoBehaviour
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
-        GameManager.tutorialsToPlay.Enqueue(tutorialName);
-        Destroy(gameObject);
+        if(other.tag == "Player")
+        { 
+            GameManager.tutorialsToPlay.Enqueue(tutorialName);
+            Destroy(gameObject);
+        }
     }
 
 }

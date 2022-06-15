@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     private PlayableDirector introCutsceneDirector;
     // Start is called before the first frame update
 
-    private bool gameStarted = false;
+    public static bool gameStarted = false;
     void Start()
     {
         ui.enabled = false;
@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
         introCutsceneDirector = introCutscene.GetComponent<PlayableDirector>();
         introCutsceneDirector.stopped += IntroCutsceneStopped;
         gameOver = false;
+        gameStarted = false;
         tutorialsToPlay = new Queue<string>();
         CharacterMovement.LockControls();
     }
@@ -72,7 +73,7 @@ public class GameManager : MonoBehaviour
 
     private void ShowNextTutorial()
     {
-        if(tutorialsToPlay.Count > 0 && currentTutorial == null)
+        if(tutorialsToPlay.Count > 0 && currentTutorial == null && gameStarted)
         {
             string tutorialName = tutorialsToPlay.Dequeue();
             currentTutorial = tutorialCanvas.transform.Find(tutorialName).gameObject;
