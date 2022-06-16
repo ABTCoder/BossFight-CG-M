@@ -14,4 +14,14 @@ public class EnemyAttackAction : EnemyAction
     public float maximumDistanceNeededToAttack = 3;
 
     public string colliderName;
+
+    public bool hasExtraEffect;
+    public GameObject extraEffect;
+
+    public float soundDelay = 0;
+
+    public void DoExtraEffect(Vector3 position)
+    {
+        Instantiate(extraEffect, position, Quaternion.identity);
+    }
 }

@@ -10481,6 +10481,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fb5caaed0db9fdc4d9436dc1f0282217, type: 2}
   - {fileID: 11400000, guid: 5b414777e3a63364599d8068ab332c7e, type: 2}
   - {fileID: 11400000, guid: 4a94f174b6814ea4a832727ecc342439, type: 2}
+  - {fileID: 11400000, guid: 9dd7fc9043960b54c9d629b017d37ccc, type: 2}
   pursueTargetState: {fileID: 493324697165100463}
   rotateTowardsTargetState: {fileID: 493324697291913492}
   damageState: {fileID: 493324697751606653}
