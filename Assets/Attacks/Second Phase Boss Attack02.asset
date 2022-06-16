@@ -19,3 +19,6 @@ MonoBehaviour:
   minimumDistanceNeededToAttack: 0
   maximumDistanceNeededToAttack: 3
   colliderName: Great Sword
+  hasExtraEffect: 0
+  extraEffect: {fileID: 0}
+  soundDelay: 0.1

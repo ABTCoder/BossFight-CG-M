@@ -16,6 +16,9 @@ MonoBehaviour:
   attackDamage: 15
   recoveryTime: 2
   maximumAttackAngle: 35
-  minimumDistanceNeededToAttack: 4
+  minimumDistanceNeededToAttack: 3
   maximumDistanceNeededToAttack: 5
   colliderName: All
+  hasExtraEffect: 0
+  extraEffect: {fileID: 0}
+  soundDelay: 0
