@@ -24,6 +24,8 @@ public class BossManager : EnemyManager
         bossAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
         bossCombatStanceState = GetComponentInChildren<BossCombatStanceState>();
         cs = GameObject.Find("BossRoom trigger").GetComponent<BossRoomCutscene>();
+
+        soundManager = GetComponent<CharacterSoundManager>();
     }
 
     private void Update()

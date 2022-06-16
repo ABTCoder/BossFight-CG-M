@@ -4972,6 +4972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterTarget: Player
+  hitSounds: []
 --- !u!1 &493324696573420388
 GameObject:
   m_ObjectHideFlags: 0
@@ -5030,6 +5031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterTarget: Player
+  hitSounds: []
 --- !u!1 &493324696612283199
 GameObject:
   m_ObjectHideFlags: 0
@@ -5076,6 +5078,7 @@ GameObject:
   - component: {fileID: 493324696691217631}
   - component: {fileID: 493324696691217568}
   - component: {fileID: 493324696691217569}
+  - component: {fileID: 386130089419621446}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -5197,9 +5200,7 @@ MonoBehaviour:
   currentRecoveryTime: 0
   damageAnimRecoveryTime: 0
   fadeMaterial: {fileID: 0}
-  attackGrunts: []
-  damageGrunts: []
-  deathCries: []
+  soundManager: {fileID: 0}
 --- !u!82 &493324696691217569
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5296,6 +5297,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &386130089419621446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493324696691217570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488a68a014b9dee46bfb2451680a055f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footstepAudioClips: []
+  rollAudioClips: []
+  attackAudioClips:
+  - {fileID: 8300000, guid: a6aee8e93245bed478ff3d0d48215e40, type: 3}
+  - {fileID: 8300000, guid: 8c501231beb093244b96a349a6ca2a69, type: 3}
+  - {fileID: 8300000, guid: e2de971ef55c5ba48b55119de704673e, type: 3}
+  shieldHitAudioClips: []
+  damageAudioClips:
+  - {fileID: 8300000, guid: ca8561bb30ef90b44a3e809a84dd9d70, type: 3}
+  deathCriesAudioClips: []
+  audioSource: {fileID: 0}
 --- !u!1 &493324696897896182
 GameObject:
   m_ObjectHideFlags: 0
@@ -15386,6 +15410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterTarget: Player
+  hitSounds: []
 --- !u!1 &3489148675481505004
 GameObject:
   m_ObjectHideFlags: 0
@@ -15669,9 +15694,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4218663422984900, guid: d9162a78a8deb714a9bddd8038021008, type: 3}
   m_PrefabInstance: {fileID: 493324696523506411}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &489121382108926423 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4804301688967996, guid: d9162a78a8deb714a9bddd8038021008, type: 3}
+--- !u!1 &494686916286674821 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1652650793432430, guid: d9162a78a8deb714a9bddd8038021008, type: 3}
   m_PrefabInstance: {fileID: 493324696523506411}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &488807041933014163 stripped
@@ -15679,9 +15704,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4560055581439608, guid: d9162a78a8deb714a9bddd8038021008, type: 3}
   m_PrefabInstance: {fileID: 493324696523506411}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &494686916286674821 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1652650793432430, guid: d9162a78a8deb714a9bddd8038021008, type: 3}
+--- !u!4 &489121382108926423 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4804301688967996, guid: d9162a78a8deb714a9bddd8038021008, type: 3}
   m_PrefabInstance: {fileID: 493324696523506411}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &493324696523506406
