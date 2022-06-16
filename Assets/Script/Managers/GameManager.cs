@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource musicAudioSource;
     [SerializeField] private GameObject gameOverCutscene;
     [SerializeField] private GameObject introCutscene;
+    [SerializeField] private GameObject Boss2PhaseCutscene;
     [SerializeField] private Canvas ui;
     [SerializeField] private Canvas tutorialCanvas;
 
@@ -21,18 +22,27 @@ public class GameManager : MonoBehaviour
 
     private PlayableDirector gameOverCutsceneDirector;
     private PlayableDirector introCutsceneDirector;
+    private PlayableDirector Boss2PhaseCutsceneDirector;
     // Start is called before the first frame update
 
     public static bool gameStarted = false;
+    public static bool boss2PhaseCutsceneEnded = false;
     void Start()
     {
         ui.enabled = false;
-        gameOverCutsceneDirector = gameOverCutscene.GetComponent<PlayableDirector>();
-        gameOverCutsceneDirector.stopped += GameOverCutsceneStopped;
-        introCutsceneDirector = introCutscene.GetComponent<PlayableDirector>();
-        introCutsceneDirector.stopped += IntroCutsceneStopped;
         gameOver = false;
         gameStarted = false;
+        boss2PhaseCutsceneEnded = false;
+
+        gameOverCutsceneDirector = gameOverCutscene.GetComponent<PlayableDirector>();
+        gameOverCutsceneDirector.stopped += GameOverCutsceneStopped;
+
+        introCutsceneDirector = introCutscene.GetComponent<PlayableDirector>();
+        introCutsceneDirector.stopped += IntroCutsceneStopped;
+
+        Boss2PhaseCutsceneDirector = Boss2PhaseCutscene.GetComponent<PlayableDirector>();
+        Boss2PhaseCutsceneDirector.stopped += Boss2PhaseCutsceneStopped;
+
         tutorialsToPlay = new Queue<string>();
         CharacterMovement.LockControls();
     }
@@ -49,6 +59,18 @@ public class GameManager : MonoBehaviour
         gameStarted = true;
         CharacterMovement.UnlockControls();
     }
+
+
+    private void Boss2PhaseCutsceneStopped(PlayableDirector d)
+    {
+        musicAudioSource.clip = musicMain;
+        musicAudioSource.Play();
+        ui.enabled = true;
+        gameStarted = true;
+        CharacterMovement.UnlockControls();
+    }
+
+
     public void PlayBossMusic()
     {
         musicAudioSource.Stop();

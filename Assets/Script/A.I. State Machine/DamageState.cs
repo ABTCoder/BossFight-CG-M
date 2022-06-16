@@ -9,7 +9,7 @@ public class DamageState : State
     
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
     {
-        enemyManager.damageAnimRecoveryTime = 0.8f;
+        enemyManager.damageAnimRecoveryTime = 2.5f;
         enemyAnimatorManager.PlayTargetAnimation("TakeDamage", true);
         enemyManager.soundManager.PlayAudioEffect(enemyManager.soundManager.damageAudioClips);
         if (enemyManager.currentTarget != null)
