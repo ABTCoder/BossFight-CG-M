@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
 
     private void Boss2PhaseCutsceneStopped(PlayableDirector d)
     {
-        musicAudioSource.clip = musicMain;
+        musicAudioSource.clip = musicBoss;
         musicAudioSource.Play();
         ui.enabled = true;
         gameStarted = true;
@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WaitForTutorialCompletion()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(8);
         currentTutorial.SetActive(false);
         currentTutorial = null;
     }
