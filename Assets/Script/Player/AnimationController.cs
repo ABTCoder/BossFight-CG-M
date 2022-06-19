@@ -24,6 +24,7 @@ public class AnimationController : MonoBehaviour
     private bool isRolling = false;
     private bool canInputAttack = true;
     private bool canInputRoll = true;
+    private bool canDoDamage = false;
     private Vector2 move = Vector2.zero;
     private float stunTime = 0.7f;
 
@@ -212,6 +213,21 @@ public class AnimationController : MonoBehaviour
     public bool GetIsTakingDamage()
     {
         return isTakingDamage;
+    }
+
+    public bool CanDoDamage()
+    {
+        return canDoDamage;
+    }
+
+    public void SetCanDoDamageTrue()
+    {
+        this.canDoDamage = true;
+    }
+
+    public void ResetCanDoDamage()
+    {
+        this.canDoDamage = false;
     }
 
     public void PlayShieldHit()

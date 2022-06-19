@@ -11,8 +11,8 @@ public class EnemyWeaponAttackCollider : ColliderAttack
         enemyManager = GetComponentInParent<EnemyManager>();
     }
 
-    protected override bool isAttacking()
+    protected override bool CanDoDamage()
     {
-        return enemyManager.isAttacking;
+        return enemyManager.canDoDamage;
     }
 }

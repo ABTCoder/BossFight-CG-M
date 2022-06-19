@@ -36,7 +36,7 @@ public class Fireball : ColliderAttack
 
     }
 
-    protected override bool isAttacking()
+    protected override bool CanDoDamage()
     {
         return true;
     }

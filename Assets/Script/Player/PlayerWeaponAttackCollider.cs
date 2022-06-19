@@ -15,9 +15,9 @@ public class PlayerWeaponAttackCollider : ColliderAttack
         animationController = GetComponentInParent<AnimationController>();
     }
 
-    protected override bool isAttacking()
+    protected override bool CanDoDamage()
     {
-        return animationController.GetIsAttacking();
+        return animationController.CanDoDamage();
     }
 
 }

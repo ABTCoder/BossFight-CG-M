@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Second Phase Boss Attack01
   m_EditorClassIdentifier: 
   actionAnimation: SecondPhaseBossAttack01
-  attackDamage: 20
+  weaponAttackDamage: 10
   recoveryTime: 2
   maximumAttackAngle: 35
   minimumDistanceNeededToAttack: 0
@@ -22,3 +22,4 @@ MonoBehaviour:
   hasExtraEffect: 0
   extraEffect: {fileID: 0}
   soundDelay: 0.2
+  effectDelay: 1

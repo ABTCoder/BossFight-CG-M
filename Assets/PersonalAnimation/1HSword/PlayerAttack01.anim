@@ -96407,8 +96407,22 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.43333334
+    functionName: SetCanDoDamageTrue
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.5
     functionName: ComboPossible
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.6666667
+    functionName: ResetCanDoDamage
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -28,7 +28,10 @@ public class CharacterSoundManager : MonoBehaviour
 
     public void PlayAudioEffect(AudioClip[] audioClips, float delay = 0.0f)
     {
-        AudioClip audioClip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
-        StartCoroutine(CoPlayDelayedClip(audioClip, delay));
+        if (audioClips.Length > 0)
+        {
+            AudioClip audioClip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
+            StartCoroutine(CoPlayDelayedClip(audioClip, delay));
+        }
     }
 }
