@@ -29,7 +29,7 @@ public class AttackState : State
             for (int i = 0; i < enemyColliders.Length; i++)
             {
                 if (currentAttack.colliderName == enemyColliders[i].name || currentAttack.colliderName == "All")
-                    enemyColliders[i].SetDamage(currentAttack.attackDamage);
+                    enemyColliders[i].SetDamage(currentAttack.weaponAttackDamage);
                 else
                 {
                     enemyColliders[i].SetDamage(0);
@@ -50,7 +50,7 @@ public class AttackState : State
         enemyManager.currentRecoveryTime = currentAttack.recoveryTime;
         hasPerformedAttack = true;
         if (currentAttack.hasExtraEffect)
-            currentAttack.DoExtraEffect(enemyManager.transform.position);
+            StartCoroutine(currentAttack.ExtraEffectCoroutine(enemyManager.transform.position));
         currentAttack = null;
     }
 

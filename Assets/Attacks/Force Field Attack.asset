@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Force Field Attack
   m_EditorClassIdentifier: 
   actionAnimation: ForceFieldAttack
-  attackDamage: 20
+  weaponAttackDamage: 0
   recoveryTime: 2
   maximumAttackAngle: 35
   minimumDistanceNeededToAttack: 3
@@ -22,3 +22,4 @@ MonoBehaviour:
   hasExtraEffect: 1
   extraEffect: {fileID: 8673061406346552685, guid: 41498aa2b7b74884c877815ecef91e91, type: 3}
   soundDelay: 1
+  effectDelay: 1

@@ -27,6 +27,11 @@ public class GameManager : MonoBehaviour
 
     public static bool gameStarted = false;
     public static bool boss2PhaseCutsceneEnded = false;
+
+    private void Awake()
+    {
+        tutorialsToPlay = new Queue<string>();
+    }
     void Start()
     {
         ui.enabled = false;
@@ -42,13 +47,16 @@ public class GameManager : MonoBehaviour
 
         Boss2PhaseCutsceneDirector = Boss2PhaseCutscene.GetComponent<PlayableDirector>();
         Boss2PhaseCutsceneDirector.stopped += Boss2PhaseCutsceneStopped;
-
-        tutorialsToPlay = new Queue<string>();
         CharacterMovement.LockControls();
     }
     private void GameOverCutsceneStopped(PlayableDirector d)
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void Update()
+    {
+        ShowNextTutorial();
     }
 
     private void IntroCutsceneStopped(PlayableDirector d)
@@ -78,11 +86,6 @@ public class GameManager : MonoBehaviour
         musicAudioSource.Play();
     }
 
-    private void Update()
-    {
-        ShowNextTutorial();
-    }
-
     public void GameOver()
     {
         gameOver = true;
@@ -96,6 +99,7 @@ public class GameManager : MonoBehaviour
 
     private void ShowNextTutorial()
     {
+        Debug.Log(tutorialsToPlay.Count);
         if(tutorialsToPlay.Count > 0 && currentTutorial == null && gameStarted)
         {
             string tutorialName = tutorialsToPlay.Dequeue();

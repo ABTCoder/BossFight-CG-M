@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "A.I./Enemy Actions/Attack Action")]
 public class EnemyAttackAction : EnemyAction
 {
-    public int attackDamage;
+    public int weaponAttackDamage;
     public float recoveryTime = 2;
 
     public float maximumAttackAngle = 35;
@@ -19,9 +19,11 @@ public class EnemyAttackAction : EnemyAction
     public GameObject extraEffect;
 
     public float soundDelay = 0;
+    public float effectDelay = 0;
 
-    public void DoExtraEffect(Vector3 position)
+    public IEnumerator ExtraEffectCoroutine(Vector3 position)
     {
+        yield return new WaitForSeconds(effectDelay);
         Instantiate(extraEffect, position, Quaternion.identity);
     }
 }
