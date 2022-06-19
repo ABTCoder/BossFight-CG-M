@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8673061406346552674}
   - component: {fileID: 8673061406346552678}
   - component: {fileID: 5564516333871050189}
+  - component: {fileID: 6348338555068256721}
   m_Layer: 0
   m_Name: ForceFieldAttack
   m_TagString: Untagged
@@ -4832,8 +4833,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa69c14f69e75ef4d89ab2f9732730a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterTarget: 
-  hitSounds: []
+  characterTarget: Player
+  hitSounds:
+  - {fileID: 8300000, guid: 50e800f44f28ad244b19cb68380254fd, type: 3}
 --- !u!82 &5564516333871050189
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4930,3 +4932,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6348338555068256721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8673061406346552685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488a68a014b9dee46bfb2451680a055f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footstepAudioClips: []
+  rollAudioClips: []
+  attackAudioClips: []
+  shieldHitAudioClips: []
+  damageAudioClips: []
+  deathCriesAudioClips: []
+  audioSource: {fileID: 0}

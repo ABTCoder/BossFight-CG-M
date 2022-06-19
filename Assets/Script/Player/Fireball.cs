@@ -36,10 +36,6 @@ public class Fireball : ColliderAttack
 
     }
 
-    protected override bool CanDoDamage()
-    {
-        return true;
-    }
 
     // Update is called once per frame
     void Update()
