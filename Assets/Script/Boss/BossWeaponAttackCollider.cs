@@ -11,8 +11,5 @@ public class BossWeaponAttackCollider : ColliderAttack
         bossManager = GetComponentInParent<BossManager>();
     }
 
-    protected override bool CanDoDamage()
-    {
-        return bossManager.canDoDamage;
-    }
+   
 }

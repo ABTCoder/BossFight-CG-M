@@ -24,7 +24,6 @@ public class AnimationController : MonoBehaviour
     private bool isRolling = false;
     private bool canInputAttack = true;
     private bool canInputRoll = true;
-    private bool canDoDamage = false;
     private Vector2 move = Vector2.zero;
     private float stunTime = 0.7f;
 
@@ -93,30 +92,6 @@ public class AnimationController : MonoBehaviour
 
 
     #region Handler's methods
-    private void ComboPossible()
-    {
-        comboPossible = true;
-    }
-
-    IEnumerator ResetCanInputAttack()
-    {
-        yield return new WaitForSeconds(0.1f);
-        canInputAttack = true;
-        comboPossible = false;
-        comboStep = 0;
-    }
-    private void ResetCombo()
-    {  
-        comboPossible = false;
-    }
-
-    private void SetIsAttackingFalse()
-    {
-        isAttacking = false;
-        comboStep = 0;
-        StartCoroutine(ResetCanInputAttack());
-    }
-
     public void SetIsAttackingTrue()
     {
         isAttacking = true;
@@ -132,8 +107,42 @@ public class AnimationController : MonoBehaviour
         canInputAttack = false;
     }
 
+    public void SetCanDoDamageTrue()
+    {
+        weaponCollider.GetComponent<Collider>().enabled = true;
+    }
+
+    public void ResetCanDoDamage()
+    {
+        weaponCollider.GetComponent<Collider>().enabled = false;
+    }
+
+    private void ComboPossible()
+    {
+        comboPossible = true;
+    }
+
+    IEnumerator ResetCanInputAttack()
+    {
+        yield return new WaitForSeconds(0.1f);
+        canInputAttack = true;
+        comboPossible = false;
+        comboStep = 0;
+    }
+    private void ResetCombo()
+    {
+        comboPossible = false;
+    }
+
+    private void SetIsAttackingFalse()
+    {
+        isAttacking = false;
+        comboStep = 0;
+        StartCoroutine(ResetCanInputAttack());
+    }
     private void NextAttack()
     {
+        weaponCollider.GetComponent<Collider>().enabled = false;
         isAttacking = true;
         if (comboStep == 2)
         {
@@ -213,21 +222,6 @@ public class AnimationController : MonoBehaviour
     public bool GetIsTakingDamage()
     {
         return isTakingDamage;
-    }
-
-    public bool CanDoDamage()
-    {
-        return canDoDamage;
-    }
-
-    public void SetCanDoDamageTrue()
-    {
-        this.canDoDamage = true;
-    }
-
-    public void ResetCanDoDamage()
-    {
-        this.canDoDamage = false;
     }
 
     public void PlayShieldHit()

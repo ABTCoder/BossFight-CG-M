@@ -6,7 +6,9 @@ using UnityEngine;
 public class EnemyAnimatorManager : AnimatorManager
 {
     EnemyManager enemyManager;
-    
+
+    [SerializeField] public ColliderAttack[] enemyColliders;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -30,11 +32,17 @@ public class EnemyAnimatorManager : AnimatorManager
 
     public void SetCanDoDamageTrue()
     {
-        enemyManager.canDoDamage = true;
+        for (int i = 0; i < enemyColliders.Length; i++)
+        {
+            enemyColliders[i].GetComponent<Collider>().enabled = true;
+        }
     }
 
     public void ResetCanDoDamage()
     {
-        enemyManager.canDoDamage = false;
+        for (int i = 0; i < enemyColliders.Length; i++)
+        {
+            enemyColliders[i].GetComponent<Collider>().enabled = false;
+        }
     }
 }

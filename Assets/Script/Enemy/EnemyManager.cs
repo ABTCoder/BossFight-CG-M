@@ -18,7 +18,6 @@ public class EnemyManager : CharacterManager
     public bool isDead = false;
     public bool damageTaken;
     public bool isAttacking = false;
-    public bool canDoDamage = false;
     public float rotationSpeed = 15;
     public float maximumAggroRadius = 1.5f;
 

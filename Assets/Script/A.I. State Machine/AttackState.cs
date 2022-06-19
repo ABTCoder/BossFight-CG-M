@@ -8,7 +8,6 @@ public class AttackState : State
     public PursueTargetState pursueTargetState;
     public EnemyAttackAction currentAttack;
 
-    [SerializeField] private ColliderAttack[] enemyColliders;
     
     public bool hasPerformedAttack = false;
     
@@ -26,15 +25,15 @@ public class AttackState : State
         //Roll for a combo chance
         if (!hasPerformedAttack)
         {
-            for (int i = 0; i < enemyColliders.Length; i++)
+            for (int i = 0; i < enemyAnimatorManager.enemyColliders.Length; i++)
             {
-                if (currentAttack.colliderName == enemyColliders[i].name || currentAttack.colliderName == "All")
-                    enemyColliders[i].SetDamage(currentAttack.weaponAttackDamage);
+                if (currentAttack.colliderName == enemyAnimatorManager.enemyColliders[i].name || currentAttack.colliderName == "All")
+                    enemyAnimatorManager.enemyColliders[i].SetDamage(currentAttack.weaponAttackDamage);
                 else
                 {
-                    enemyColliders[i].SetDamage(0);
+                    enemyAnimatorManager.enemyColliders[i].SetDamage(0);
                 }
-                enemyColliders[i].resetCollided();
+                enemyAnimatorManager.enemyColliders[i].resetCollided();
             }
             enemyAnimatorManager.anim.SetBool("isAttacking", true);
             AttackTarget(enemyAnimatorManager, enemyManager);

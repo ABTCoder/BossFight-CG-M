@@ -10,13 +10,9 @@ public class ForceFieldCollider : ColliderAttack
     {
         SetDamage(10);
         characterTarget = "Player";
+        soundManager = GetComponent<CharacterSoundManager>();
     }
-
-    // Start is called before the first frame update
-    protected override bool CanDoDamage()
-    {
-        return true;
-    }
+    
 
     private void Update()
     {
