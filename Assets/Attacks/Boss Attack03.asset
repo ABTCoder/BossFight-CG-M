@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boss Attack03
   m_EditorClassIdentifier: 
   actionAnimation: BossAttack03
-  attackDamage: 15
+  weaponAttackDamage: 10
   recoveryTime: 2
   maximumAttackAngle: 35
   minimumDistanceNeededToAttack: 3
@@ -22,3 +22,4 @@ MonoBehaviour:
   hasExtraEffect: 0
   extraEffect: {fileID: 0}
   soundDelay: 0
+  effectDelay: 0

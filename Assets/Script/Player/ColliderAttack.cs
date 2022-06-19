@@ -13,7 +13,7 @@ abstract public class ColliderAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isAttacking() && !collided)
+        if (CanDoDamage() && !collided)
         {
             if (other.tag == characterTarget)
             {
@@ -38,6 +38,6 @@ abstract public class ColliderAttack : MonoBehaviour
 
     protected virtual void doExtraStuff(Collider other) { }
 
-    abstract protected bool isAttacking();
+    abstract protected bool CanDoDamage();
 
 }

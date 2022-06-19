@@ -27,4 +27,14 @@ public class EnemyAnimatorManager : AnimatorManager
             enemyManager.transform.rotation *= anim.deltaRotation;
         }
     }
+
+    public void SetCanDoDamageTrue()
+    {
+        enemyManager.canDoDamage = true;
+    }
+
+    public void ResetCanDoDamage()
+    {
+        enemyManager.canDoDamage = false;
+    }
 }

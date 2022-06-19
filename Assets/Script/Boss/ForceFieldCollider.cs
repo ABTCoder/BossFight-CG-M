@@ -13,7 +13,7 @@ public class ForceFieldCollider : ColliderAttack
     }
 
     // Start is called before the first frame update
-    protected override bool isAttacking()
+    protected override bool CanDoDamage()
     {
         return true;
     }
