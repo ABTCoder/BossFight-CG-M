@@ -9,7 +9,7 @@ public class RotateTowardsTargetState : State
 
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
     {
-
+        enemyManager.navMeshAgent.isStopped = true;
         enemyAnimatorManager.anim.SetFloat("Vertical", 0);
         enemyAnimatorManager.anim.SetFloat("Horizontal", 0);
 
@@ -55,6 +55,7 @@ public class RotateTowardsTargetState : State
     private void RotateTowardsTargetWhilstAttacking(EnemyManager enemyManager)
     {
         //Rotate manually
+        Debug.DrawLine(enemyManager.currentTarget.transform.position, enemyManager.transform.position, Color.red, 2f, false);
         Vector3 direction = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
         direction.y = 0;
         direction.Normalize();

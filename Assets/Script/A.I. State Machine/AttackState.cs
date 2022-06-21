@@ -13,6 +13,7 @@ public class AttackState : State
     
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
     {
+        enemyManager.navMeshAgent.isStopped = true;
         float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
         RotateTowardsTargetWhilstAttacking(enemyManager);
 
@@ -59,6 +60,7 @@ public class AttackState : State
         //Rotate manually
         if (enemyManager.canRotate && enemyManager.isInteracting)
         {
+            
             Vector3 direction = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
             direction.y = 0;
             direction.Normalize();

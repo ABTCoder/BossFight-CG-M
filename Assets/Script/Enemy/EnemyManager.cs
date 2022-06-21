@@ -48,10 +48,6 @@ public class EnemyManager : CharacterManager
         soundManager = GetComponent<CharacterSoundManager>();
     }
     
-    private void Start()
-    {
-        enemyRigidBody.isKinematic = false;
-    }
 
     private void Update()
     {

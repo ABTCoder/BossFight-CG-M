@@ -316,7 +316,7 @@ public class AnimationController : MonoBehaviour
     {
         PlayerStats playerStats = GetComponentInParent<PlayerStats>();
 
-        if ((playerStats.GetHealth() != playerStats.GetMaxHealth()) && canHealtUp)
+        if ((playerStats.GetHealth() != playerStats.GetMaxHealth()) && canHealtUp && !isAttacking && !isRolling && !isBlocking && !isTakingDamage)
         {
             isHealing = true;
             canHealtUp = false;

@@ -12,9 +12,13 @@ public class CharacterMovement : MonoBehaviour
     Vector3 followOffset;
     private float cameraDeg = 0.3f;
     private float rollSpeed = 10f;
-    private float speedRollToDecrease;
+    private float pushbackSpeed = 3f;
+    private float rollSpeedToDecrease;
+    private float pushbackSpeedToDecrease;
     private float rollStartTime;
-    private float duration = 1f;
+    private float pushbackStartTime;
+    private float rollDuration = 1f; 
+    private float pushbackDuration = 1f;
 
     private Vector3 localDirection;
     private Vector2 move;
@@ -121,7 +125,8 @@ public class CharacterMovement : MonoBehaviour
 
 
         //Set the player rotation based on the look transform
-        if (!(animationController.GetIsAttacking()) && !(animationController.GetIsBlocking()) && !(animationController.GetIsRolling()) && (charMove.x != 0 || charMove.y != 0))
+        if (!(animationController.GetIsAttacking()) && !(animationController.GetIsHealing()) && !(animationController.GetIsBlocking()) 
+            && !(animationController.GetIsRolling()) && (charMove.x != 0 || charMove.y != 0))
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0), Time.deltaTime * 10);
 
@@ -146,15 +151,17 @@ public class CharacterMovement : MonoBehaviour
             if (animationController.GetIsRolling())
             {
                 // Manage the roll system
-                float t = (Time.time - rollStartTime) / duration;
-                speedRollToDecrease = Mathf.SmoothStep(rollSpeed, 0, t);
-                transform.Translate(localDirection * speedRollToDecrease * Time.deltaTime);
-                Debug.Log(speedRollToDecrease);
-                if (speedRollToDecrease < 0.05f) animationController.ResetAll();
+                float t = (Time.time - rollStartTime) / rollDuration;
+                rollSpeedToDecrease = Mathf.SmoothStep(rollSpeed, 0, t);
+                transform.Translate(localDirection * rollSpeedToDecrease * Time.deltaTime);
+                Debug.Log(rollSpeedToDecrease);
+                if (rollSpeedToDecrease < 0.05f) animationController.ResetAll();
             }
             else if(animationController.GetIsTakingDamage())
             {
-                transform.Translate(-attackerDirection* 2 * Time.deltaTime);
+                float t = (Time.time - pushbackStartTime) / pushbackDuration;
+                pushbackSpeedToDecrease = Mathf.SmoothStep(pushbackSpeed, 0, t);
+                transform.Translate(-attackerDirection.normalized* pushbackSpeedToDecrease * Time.deltaTime, Space.World);
             }
             else
             {
@@ -305,7 +312,7 @@ public class CharacterMovement : MonoBehaviour
     public void setStartRollPos()
     {
         Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();
-        speedRollToDecrease = rollSpeed; // Reset roll speed
+        rollSpeedToDecrease = rollSpeed; // Reset roll speed
         rollStartTime = Time.time;
         localDirection = new Vector3()
         {
@@ -317,7 +324,9 @@ public class CharacterMovement : MonoBehaviour
 
     public void SetAttacker(Vector3 attackerPosition)
     {
-        this.attackerDirection = transform.position - attackerPosition;
+        pushbackSpeedToDecrease = pushbackSpeed;
+        pushbackStartTime = Time.time;
+        this.attackerDirection = attackerPosition - transform.position;
     }
 
     public static MovementController getMovement() 
