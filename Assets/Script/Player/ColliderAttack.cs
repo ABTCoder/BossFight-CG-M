@@ -27,7 +27,7 @@ abstract public class ColliderAttack : MonoBehaviour
             {
                 if(soundManager != null)
                     soundManager.PlayAudioEffect(hitSounds);
-                other.gameObject.GetComponent<CharacterStats>().TakeDamage(damage);
+                other.gameObject.GetComponent<CharacterStats>().TakeDamage(damage, transform.root);
                 collided = true;
             }
         }

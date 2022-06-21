@@ -99,7 +99,6 @@ public class GameManager : MonoBehaviour
 
     private void ShowNextTutorial()
     {
-        Debug.Log(tutorialsToPlay.Count);
         if(tutorialsToPlay.Count > 0 && currentTutorial == null && gameStarted)
         {
             string tutorialName = tutorialsToPlay.Dequeue();

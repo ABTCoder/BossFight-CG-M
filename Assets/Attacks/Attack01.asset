@@ -23,3 +23,6 @@ MonoBehaviour:
   extraEffect: {fileID: 0}
   soundDelay: 0
   effectDelay: 0
+  weaponAudioClips: []
+  gruntsAudioClips:
+  - {fileID: 8300000, guid: 01923eb019c42b24695d01cfb26bc720, type: 3}

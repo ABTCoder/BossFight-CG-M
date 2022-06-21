@@ -8,5 +8,5 @@ public abstract class CharacterStats : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
 
-    public abstract void TakeDamage(int damage);
+    public abstract void TakeDamage(int damage, Transform other = null);
 }

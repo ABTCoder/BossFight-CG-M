@@ -9,9 +9,11 @@ public class DamageState : State
     
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
     {
+        enemyManager.navMeshAgent.isStopped = true;
+        enemyManager.navMeshAgent.velocity = Vector3.zero;
         enemyManager.damageAnimRecoveryTime = 2.5f;
         enemyAnimatorManager.PlayTargetAnimation("TakeDamage", true);
-        enemyManager.soundManager.PlayAudioEffect(enemyManager.soundManager.damageAudioClips);
+        enemyManager.soundManager.PlayAudioEffect(enemyManager.damageAudioClips);
         if (enemyManager.currentTarget != null)
             return rotateTowardsTargetState;
         else return IdleState;

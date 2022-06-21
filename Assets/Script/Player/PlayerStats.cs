@@ -8,17 +8,20 @@ public class PlayerStats : CharacterStats
 {
     private GameManager gameManager;
     [SerializeField] private HealthBar healthBar;
-    private AnimationController combatController;
+    private AnimationController animationController;
+    private CharacterMovement characterMovement;
+    private Rigidbody rigidBody;
     
 
     void Start()
     {
-        
+        rigidBody = GetComponent<Rigidbody>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         maxHealth = SetMaxHealthFromHealthLevel();
         currentHealth = maxHealth;
         healthBar.SetHealth(maxHealth);
-        combatController = GetComponentInChildren<AnimationController>();
+        animationController = GetComponentInChildren<AnimationController>();
+        characterMovement = GetComponent<CharacterMovement>();
     }
     
     private int SetMaxHealthFromHealthLevel()
@@ -37,16 +40,20 @@ public class PlayerStats : CharacterStats
         return maxHealth;
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(int damage, Transform other = null)
     {
-        if (damage > 0)
+        if (damage > 0 && !animationController.GetIsRolling())
         {
-            if (combatController.GetIsBlocking())
+            if (animationController.GetIsBlocking())
             {
                 damage = Mathf.RoundToInt(damage * 0.6f);
-                combatController.PlayShieldHit();
+                animationController.PlayShieldHit();
             }
-            else combatController.DamageHit();
+            else
+            {
+                animationController.DamageHit();
+                characterMovement.SetAttacker(other.position);
+            }
             currentHealth = currentHealth - damage;
             healthBar.TakeDamage(damage);
             //Debug.Log("The player get a damage of " + damage);

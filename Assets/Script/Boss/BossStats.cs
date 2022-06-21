@@ -26,7 +26,7 @@ public class BossStats : EnemyStats
         return maxHealth;
     }
     
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(int damage, Transform other = null)
     {
         currentHealth = currentHealth - damage;
         healthBar.TakeDamage(damage);

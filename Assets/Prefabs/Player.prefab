@@ -67,9 +67,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1200644403183471634}
   serializedVersion: 2
-  m_Mass: 1000
-  m_Drag: 1000
-  m_AngularDrag: 1000
+  m_Mass: 1
+  m_Drag: 0.5
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
@@ -122,7 +122,6 @@ MonoBehaviour:
   right_Stick_Left_Input: 0
   lockOnFlag: 0
   lockOnTargetIcon: {fileID: 2485076282415705441, guid: 8e7bb9548e8bbe146a2f0279bfe41547, type: 3}
-  hpUpEffect: {fileID: 4479510274212964901, guid: 8eff268597c6dd14d8a85d277a9f3b44, type: 3}
   followTransform: {fileID: 0}
   mainCamera: {fileID: 0}
 --- !u!1 &2470098199621271203
@@ -7274,18 +7273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponCollider: {fileID: 7966785045015798248}
   weaponTrail: {fileID: 6819754827365118298}
---- !u!114 &4712183016334808149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1200644402670612306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 488a68a014b9dee46bfb2451680a055f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  hpUpEffect: {fileID: 4479510274212964901, guid: 8eff268597c6dd14d8a85d277a9f3b44, type: 3}
   footstepAudioClips:
   - {fileID: 8300000, guid: a76dafc362d94f24aa75ddf0f2b0666f, type: 3}
   - {fileID: 8300000, guid: 0274a1adffbd59f4fac8799731615c55, type: 3}
@@ -7304,6 +7292,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6101e619d55977f40a75a4393d8634ee, type: 3}
   damageAudioClips: []
   deathCriesAudioClips: []
+--- !u!114 &4712183016334808149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200644402670612306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488a68a014b9dee46bfb2451680a055f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
 --- !u!1001 &1200644403474440536
 PrefabInstance:

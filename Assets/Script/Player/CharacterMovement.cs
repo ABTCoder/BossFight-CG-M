@@ -6,9 +6,7 @@ using Cinemachine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    private int hpUp = 20;
-    private int coolDownHpUP = 5;
-    bool canHealtUp = false;
+    
     private static MovementController movement;
     private float speed = 5.5f;
     Vector3 followOffset;
@@ -22,21 +20,18 @@ public class CharacterMovement : MonoBehaviour
     private Vector2 move;
 
 
-    private Quaternion nextRotation;
     private AnimationController animationController;
 
     public bool lockOnInput;
-    public bool right_Stick_Right_Input;
-    public bool right_Stick_Left_Input;
 
     public bool lockOnFlag;
     [SerializeField] private GameObject lockOnTargetIcon;
     private GameObject activeTargetIcon;
-    [SerializeField] private GameObject hpUpEffect;
 
     [SerializeField] private GameObject followTransform;
     [SerializeField] private Cinemachine.CinemachineVirtualCamera mainCamera;
-    
+
+    private Vector3 attackerDirection;
 
     private Transform currentLockOnTarget;
     List<Transform> availableTargets = new List<Transform>();
@@ -63,8 +58,6 @@ public class CharacterMovement : MonoBehaviour
         movement.Main.LockOn.performed += LockOn;
         movement.Main.LockOnTargetLeft.performed += SwitchLeftLockOnTarget;
         movement.Main.LockOnTargetRight.performed += SwitchRightLockOnTarget;
-        movement.Main.HealthUp.performed += SkillHealthUp;
-        StartCoroutine(CoolDown(0));
     }
 
     private void OnEnable()
@@ -148,7 +141,7 @@ public class CharacterMovement : MonoBehaviour
             ClearLockOnTargets();
         }
 
-        if (!animationController.GetIsAttacking() && !animationController.GetIsBlocking() && !animationController.GetIsTakingDamage())
+        if (!animationController.GetIsAttacking() && !animationController.GetIsBlocking() && !animationController.GetIsHealing())
         {
             if (animationController.GetIsRolling())
             {
@@ -156,21 +149,24 @@ public class CharacterMovement : MonoBehaviour
                 float t = (Time.time - rollStartTime) / duration;
                 speedRollToDecrease = Mathf.SmoothStep(rollSpeed, 0, t);
                 transform.Translate(localDirection * speedRollToDecrease * Time.deltaTime);
-                followTransform.transform.position = transform.position + followOffset;
                 Debug.Log(speedRollToDecrease);
                 if (speedRollToDecrease < 0.05f) animationController.ResetAll();
+            }
+            else if(animationController.GetIsTakingDamage())
+            {
+                transform.Translate(-attackerDirection* 2 * Time.deltaTime);
             }
             else
             {
                 move = Vector2.Lerp(move, charMove, Time.deltaTime * 10f);
                 transform.Translate(move.x * Time.deltaTime * speed, 0, move.y * Time.deltaTime * speed);
-                followTransform.transform.position = transform.position + followOffset;
             }
         }
         else
         {
             move = Vector2.Lerp(move, Vector2.zero, Time.deltaTime * 10f);
         }
+        followTransform.transform.position = transform.position + followOffset;
 
     }
 
@@ -319,31 +315,15 @@ public class CharacterMovement : MonoBehaviour
         };
     }
 
+    public void SetAttacker(Vector3 attackerPosition)
+    {
+        this.attackerDirection = transform.position - attackerPosition;
+    }
+
     public static MovementController getMovement() 
     {
         return movement;
     }
 
-    private void SkillHealthUp(InputAction.CallbackContext ctx) 
-    {
-        PlayerStats playerStats = GetComponent<PlayerStats>();
-
-        if ((playerStats.GetHealth() != playerStats.GetMaxHealth()) && canHealtUp)
-        {
-            Debug.Log("Cura!");
-            canHealtUp = false;
-            SkillsUI.Instance.HpUpUsed();
-            playerStats.HealPlayer(hpUp);
-            Instantiate(hpUpEffect, transform);
-            StartCoroutine(CoolDown(coolDownHpUP));
-        } 
-        
-    }
-
-    IEnumerator CoolDown(float time)
-    {
-        yield return new WaitForSeconds(time);
-        canHealtUp = true;
-        SkillsUI.Instance.HpUpReady();
-    }
+    
 }

@@ -21,6 +21,9 @@ public class EnemyAttackAction : EnemyAction
     public float soundDelay = 0;
     public float effectDelay = 0;
 
+    public AudioClip[] weaponAudioClips;
+    public AudioClip[] gruntsAudioClips;
+
     public IEnumerator ExtraEffectCoroutine(Vector3 position)
     {
         yield return new WaitForSeconds(effectDelay);

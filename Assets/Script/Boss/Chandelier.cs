@@ -6,8 +6,9 @@ public class Chandelier : MonoBehaviour
 {
 
     private Rigidbody physics;
-    [SerializeField] AudioSource chainBreaking;
-    [SerializeField] AudioSource hitSound;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip chainSound;
+    [SerializeField] private AudioClip hitSound;
     private bool canDoDamage = true;
     private Renderer renderer;
     private ParticleSystem particleSystem;
@@ -27,7 +28,7 @@ public class Chandelier : MonoBehaviour
         if (other.gameObject.tag == "Fireball")
         {
             physics.isKinematic = false;
-            chainBreaking.Play();
+            audioSource.PlayOneShot(chainSound);
         }
         
     }
@@ -35,7 +36,7 @@ public class Chandelier : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        hitSound.Play();
+        audioSource.PlayOneShot(hitSound);
         if (collision.collider.gameObject.name == "Boss" && canDoDamage)
         {
             collision.collider.gameObject.GetComponent<CharacterStats>().TakeDamage(20);

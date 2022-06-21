@@ -5,13 +5,6 @@ using UnityEngine;
 public class CharacterSoundManager : MonoBehaviour
 {
 
-    [SerializeField] public AudioClip[] footstepAudioClips;
-    [SerializeField] public AudioClip[] rollAudioClips;
-    [SerializeField] public AudioClip[] attackAudioClips;
-    [SerializeField] public AudioClip[] shieldHitAudioClips;
-    [SerializeField] public AudioClip[] damageAudioClips;
-    [SerializeField] public AudioClip[] deathCriesAudioClips;
-
     [SerializeField] private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
@@ -33,5 +26,9 @@ public class CharacterSoundManager : MonoBehaviour
             AudioClip audioClip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
             StartCoroutine(CoPlayDelayedClip(audioClip, delay));
         }
+    }
+    public void PlayAudioEffect(AudioClip audioClip, float delay = 0.0f)
+    { 
+        StartCoroutine(CoPlayDelayedClip(audioClip, delay));  
     }
 }

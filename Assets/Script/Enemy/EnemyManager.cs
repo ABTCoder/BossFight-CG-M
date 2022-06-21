@@ -35,6 +35,8 @@ public class EnemyManager : CharacterManager
 
     //Sound stuff
     public CharacterSoundManager soundManager;
+    public AudioClip[] damageAudioClips;
+    public AudioClip[] deathCriesAudioClips;
 
     private void Awake()
     {
@@ -64,7 +66,7 @@ public class EnemyManager : CharacterManager
             {
                 renderer.material = fadeMaterial;
                 changedMaterial = true;
-                soundManager.PlayAudioEffect(soundManager.deathCriesAudioClips);
+                soundManager.PlayAudioEffect(deathCriesAudioClips);
             }
                 
             materialColor = renderer.material.color;

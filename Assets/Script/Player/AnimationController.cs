@@ -24,19 +24,32 @@ public class AnimationController : MonoBehaviour
     private bool isRolling = false;
     private bool canInputAttack = true;
     private bool canInputRoll = true;
+    private bool isTakingDamage = false;
+    private bool isHealing = false;
     private Vector2 move = Vector2.zero;
     private float stunTime = 0.7f;
 
+    private int hpUp = 20;
+    private int coolDownHpUP = 5;
+    bool canHealtUp = false;
+    [SerializeField] private GameObject hpUpEffect;
+
     // Sound effect stuff
+    [SerializeField] public AudioClip[] footstepAudioClips;
+    [SerializeField] public AudioClip[] rollAudioClips;
+    [SerializeField] public AudioClip[] attackAudioClips;
+    [SerializeField] public AudioClip[] shieldHitAudioClips;
+    [SerializeField] public AudioClip[] damageAudioClips;
+    [SerializeField] public AudioClip[] deathCriesAudioClips;
     private bool isPlayingFootstepLeft = false;
     private bool isPlayingFootstepRight = false;
-    private bool isTakingDamage = false;
     private Vector3 leftFootIKPos;
     private Vector3 rightFootIKPos;
     private CharacterSoundManager soundManager;
 
     void Start()
     {
+        StartCoroutine(CoolDown(0));
         playerAnimator = GetComponent<Animator>();
 
         
@@ -70,7 +83,7 @@ public class AnimationController : MonoBehaviour
 
         Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
         if (playerInput.Main.ShieldBlock.IsPressed()) Block();
-        if (!isAttacking && !isRolling && !isBlocking && !isTakingDamage)
+        if (!isAttacking && !isRolling && !isBlocking && !isTakingDamage && !isHealing)
         {
             if (!playerAnimator.IsInTransition(0))
                 playerAnimator.CrossFade("Movement Blend Tree", 0.2f);
@@ -88,6 +101,7 @@ public class AnimationController : MonoBehaviour
         playerInput.Main.BaseAttack.performed += NormalAttack;
         playerInput.Main.ShieldBlock.canceled += StopBlocking;
         playerInput.Main.DodgeRoll.performed += DodgeRoll;
+        playerInput.Main.HealthUp.performed += SkillHealthUp;
     }
 
 
@@ -148,7 +162,7 @@ public class AnimationController : MonoBehaviour
         {
             weaponTrail.SetActive(true);
             playerAnimator.CrossFade("PlayerAttack02", 0.1f);
-            soundManager.PlayAudioEffect(soundManager.attackAudioClips);
+            soundManager.PlayAudioEffect(attackAudioClips);
             colliderScript.SetDamage(damage2);
             colliderScript.resetCollided();
         }
@@ -156,7 +170,7 @@ public class AnimationController : MonoBehaviour
         {
             weaponTrail.SetActive(true);
             playerAnimator.CrossFade("PlayerAttack03", 0.1f);
-            soundManager.PlayAudioEffect(soundManager.attackAudioClips);
+            soundManager.PlayAudioEffect(attackAudioClips);
             colliderScript.SetDamage(damage3);
             colliderScript.resetCollided();
         }
@@ -165,14 +179,14 @@ public class AnimationController : MonoBehaviour
 
     private void NormalAttack(InputAction.CallbackContext ctx)
     {
-        if (!isBlocking && !isRolling && !isTakingDamage && canInputAttack)
+        if (!isBlocking && !isRolling && !isTakingDamage && canInputAttack && !isHealing)
         {
             if (comboStep == 0)
             {
                 isAttacking = true;
                 weaponTrail.SetActive(true);
                 playerAnimator.CrossFade("PlayerAttack01", 0.1f);
-                soundManager.PlayAudioEffect(soundManager.attackAudioClips, 0.2f);
+                soundManager.PlayAudioEffect(attackAudioClips, 0.2f);
                 colliderScript.SetDamage(damage1);
                 colliderScript.resetCollided();
                 comboStep = 1;
@@ -191,7 +205,7 @@ public class AnimationController : MonoBehaviour
 
     public void Block()
     {
-        if (!isAttacking && !isRolling && !isBlocking)
+        if (!isAttacking && !isRolling && !isBlocking && !isHealing)
         {
             isBlocking = true;
             playerAnimator.CrossFade("ShieldBlock01_Loop", 0.075f);
@@ -227,14 +241,14 @@ public class AnimationController : MonoBehaviour
     public void PlayShieldHit()
     {
         playerAnimator.CrossFade("ShieldHit", 0.2f);
-        soundManager.PlayAudioEffect(soundManager.shieldHitAudioClips);
+        soundManager.PlayAudioEffect(shieldHitAudioClips);
     }
 
     public void DodgeRoll(InputAction.CallbackContext ctx)
     {
         Vector2 charMove = playerInput.Main.Move.ReadValue<Vector2>();
 
-        if (!isRolling && !isAttacking && !isBlocking && !isTakingDamage && (charMove != Vector2.zero) && canInputRoll)
+        if (!isRolling && !isAttacking && !isHealing && !isBlocking && !isTakingDamage && (charMove != Vector2.zero) && canInputRoll)
         {
             isRolling = true;
             canInputRoll = false;
@@ -248,7 +262,7 @@ public class AnimationController : MonoBehaviour
     }
     private void RollAudioEffect()
     {
-        soundManager.PlayAudioEffect(soundManager.rollAudioClips);
+        soundManager.PlayAudioEffect(rollAudioClips);
     }
     IEnumerator ResetCanInputRoll()
     {
@@ -270,6 +284,7 @@ public class AnimationController : MonoBehaviour
         comboPossible = false;
         canInputAttack = true;
         canInputRoll = true;
+        isHealing = false;
     }
 
 
@@ -286,6 +301,39 @@ public class AnimationController : MonoBehaviour
     public bool GetIsAttacking()
     {
         return isAttacking;
+    }
+
+    public bool GetIsHealing()
+    {
+        return isHealing;
+    }
+
+    public void ResetIsHealing()
+    {
+        isHealing = false;
+    }
+    private void SkillHealthUp(InputAction.CallbackContext ctx)
+    {
+        PlayerStats playerStats = GetComponentInParent<PlayerStats>();
+
+        if ((playerStats.GetHealth() != playerStats.GetMaxHealth()) && canHealtUp)
+        {
+            isHealing = true;
+            canHealtUp = false;
+            playerAnimator.CrossFade("Heal", 0.2f);
+            SkillsUI.Instance.HpUpUsed();
+            playerStats.HealPlayer(hpUp);
+            Instantiate(hpUpEffect, transform);
+            StartCoroutine(CoolDown(coolDownHpUP));
+        }
+
+    }
+
+    IEnumerator CoolDown(float time)
+    {
+        yield return new WaitForSeconds(time);
+        canHealtUp = true;
+        SkillsUI.Instance.HpUpReady();
     }
 
     #endregion
@@ -312,7 +360,7 @@ public class AnimationController : MonoBehaviour
             {
                 if (isPlayingFootstepLeft == false)
                 {
-                    soundManager.PlayAudioEffect(soundManager.footstepAudioClips);
+                    soundManager.PlayAudioEffect(footstepAudioClips);
                     isPlayingFootstepLeft = true;
                 }
 
@@ -324,7 +372,7 @@ public class AnimationController : MonoBehaviour
             {
                 if (isPlayingFootstepRight == false)
                 {
-                    soundManager.PlayAudioEffect(soundManager.footstepAudioClips);
+                    soundManager.PlayAudioEffect(footstepAudioClips);
                     isPlayingFootstepRight = true;
                 }
             }
