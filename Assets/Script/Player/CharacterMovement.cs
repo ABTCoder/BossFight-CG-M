@@ -34,6 +34,7 @@ public class CharacterMovement : MonoBehaviour
 
     [SerializeField] private GameObject followTransform;
     [SerializeField] private Cinemachine.CinemachineVirtualCamera mainCamera;
+    [SerializeField] private Cinemachine.CinemachineVirtualCamera lockOnCamera;
 
     private Vector3 attackerDirection;
 
@@ -195,8 +196,9 @@ public class CharacterMovement : MonoBehaviour
             {
                 currentLockOnTarget = nearestLockOnTarget;
                 activeTargetIcon = Instantiate(lockOnTargetIcon, currentLockOnTarget);
-                mainCamera.LookAt = currentLockOnTarget;
+                lockOnCamera.LookAt = currentLockOnTarget;
                 lockOnFlag = true;
+                lockOnCamera.Priority = 16;
             }
         }
         else
@@ -214,7 +216,8 @@ public class CharacterMovement : MonoBehaviour
             Destroy(activeTargetIcon);
             currentLockOnTarget = leftLockTarget;
             activeTargetIcon = Instantiate(lockOnTargetIcon, currentLockOnTarget);
-            mainCamera.LookAt = currentLockOnTarget;
+            lockOnCamera.LookAt = currentLockOnTarget;
+            lockOnCamera.Priority = 16;
         }
     }
 
@@ -225,7 +228,8 @@ public class CharacterMovement : MonoBehaviour
             Destroy(activeTargetIcon);
             currentLockOnTarget = rightLockTarget;
             activeTargetIcon = Instantiate(lockOnTargetIcon, currentLockOnTarget);
-            mainCamera.LookAt = currentLockOnTarget;
+            lockOnCamera.LookAt = currentLockOnTarget;
+            lockOnCamera.Priority = 16;
         }
     }
 
@@ -295,7 +299,7 @@ public class CharacterMovement : MonoBehaviour
         nearestLockOnTarget = null;
         currentLockOnTarget = null;
         Destroy(activeTargetIcon);
-        mainCamera.LookAt = followTransform.transform;
+        lockOnCamera.Priority = 9;
     }
 
 
