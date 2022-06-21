@@ -205,7 +205,7 @@ public class AnimationController : MonoBehaviour
 
     public void Block()
     {
-        if (!isAttacking && !isRolling && !isBlocking && !isHealing)
+        if (!isAttacking && !isRolling && !isBlocking && !isHealing && !isTakingDamage)
         {
             isBlocking = true;
             playerAnimator.CrossFade("ShieldBlock01_Loop", 0.075f);
