@@ -118,12 +118,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lockOnInput: 0
-  right_Stick_Right_Input: 0
-  right_Stick_Left_Input: 0
   lockOnFlag: 0
   lockOnTargetIcon: {fileID: 2485076282415705441, guid: 8e7bb9548e8bbe146a2f0279bfe41547, type: 3}
   followTransform: {fileID: 0}
   mainCamera: {fileID: 0}
+  lockOnCamera: {fileID: 0}
 --- !u!1 &2470098199621271203
 GameObject:
   m_ObjectHideFlags: 0
@@ -5185,7 +5184,7 @@ GameObject:
   - component: {fileID: 1887660295436925117}
   - component: {fileID: 1112137544694109679}
   - component: {fileID: 3009264731942139394}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Weapon_collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5234,8 +5233,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 0.05211397, y: 0.52616936, z: 0.12252584}
-  m_Center: {x: -0.02243556, y: 0.3444537, z: 0.00724408}
+  m_Size: {x: 0.05211397, y: 0.64079964, z: 0.12252584}
+  m_Center: {x: -0.022435803, y: 0.40176913, z: 0.0072440617}
 --- !u!1001 &1200644402670721622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7338,7 +7337,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 422976, guid: 4b12cbf8230d02b4890f46dba29baeff, type: 3}
       propertyPath: m_LocalScale.y
-      value: 100
+      value: 131.94
       objectReference: {fileID: 0}
     - target: {fileID: 422976, guid: 4b12cbf8230d02b4890f46dba29baeff, type: 3}
       propertyPath: m_LocalScale.z

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8673061406346552678}
   - component: {fileID: 5564516333871050189}
   - component: {fileID: 6348338555068256721}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ForceFieldAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4944,10 +4944,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488a68a014b9dee46bfb2451680a055f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  footstepAudioClips: []
-  rollAudioClips: []
-  attackAudioClips: []
-  shieldHitAudioClips: []
-  damageAudioClips: []
-  deathCriesAudioClips: []
   audioSource: {fileID: 0}
