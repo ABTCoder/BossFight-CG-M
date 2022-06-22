@@ -37,6 +37,7 @@ public class BossStats : EnemyStats
         }
         else if (currentHealth <= 0)
         {
+            bossManager.BossDeath();
             Debug.Log("The BOSS is dead! Fuck yeah!");
         }
     }

@@ -18,15 +18,18 @@ public class BossManager : EnemyManager
     private BossRoomCutscene cs;
 
     [SerializeField] private GameObject Boss2PhaseCutscene;
+    [SerializeField] private GameObject BossDeathCutscene;
     [SerializeField] private Canvas ui;
     [SerializeField] private AudioSource musicAudioSource;
-    private PlayableDirector Boss2PhaseCutsceneDirector;
     [SerializeField] private GameObject modelPhaseOne;
     [SerializeField] private GameObject modelPhaseTwo;
     [SerializeField] private GameObject firstAxe;
     [SerializeField] private GameObject secondAxe;
     [SerializeField] private GameObject greatsword;
     [SerializeField] private CharacterMovement characterMovement;
+
+    private PlayableDirector Boss2PhaseCutsceneDirector;
+    private PlayableDirector BossDeathDirector;
 
     private void Awake()
     {
@@ -39,6 +42,7 @@ public class BossManager : EnemyManager
         cs = GameObject.Find("BossRoom trigger").GetComponent<BossRoomCutscene>();
 
         Boss2PhaseCutsceneDirector = Boss2PhaseCutscene.GetComponent<PlayableDirector>();
+        BossDeathDirector = BossDeathCutscene.GetComponent<PlayableDirector>();
 
         soundManager = GetComponent<CharacterSoundManager>();
     }
@@ -86,6 +90,15 @@ public class BossManager : EnemyManager
         //SWITCH ATTACK ACTIONS
         bossAnimatorManager.PlayTargetAnimation("Phase Shift", true);
         bossCombatStanceState.hasPhaseShifted = true;
+    }
+
+    public void BossDeath()
+    {
+        characterMovement.ClearLockOnTargets();
+        ui.enabled = false;
+        musicAudioSource.Stop();
+        CharacterMovement.LockControls();
+        BossDeathDirector.Play();
     }
 
     public override bool isEnded()
