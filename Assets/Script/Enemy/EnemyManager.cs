@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 
 public class EnemyManager : CharacterManager
 {
@@ -20,6 +18,10 @@ public class EnemyManager : CharacterManager
     public bool isAttacking = false;
     public float rotationSpeed = 15;
     public float maximumAggroRadius = 1.5f;
+
+    [Header("Rigging")]
+    public GameObject lookTarget;
+    public Vector3 initOffset;
 
     [Header("A.I. Settings")]
     public float detectionRadius = 20;
@@ -46,6 +48,12 @@ public class EnemyManager : CharacterManager
         navMeshAgent = GetComponent<NavMeshAgent>();
         renderer = GetComponentInChildren<Renderer>();
         soundManager = GetComponent<CharacterSoundManager>();
+        initOffset = new Vector3()
+        {
+            x = -1,
+            y = 1.6f,
+            z = 0
+        };
     }
     
 
@@ -77,8 +85,22 @@ public class EnemyManager : CharacterManager
         isInteracting = enemyAnimationManager.anim.GetBool("isInteracting");
         canRotate = enemyAnimationManager.anim.GetBool("canRotate");
         isAttacking = enemyAnimationManager.anim.GetBool("isAttacking");
+
+        LookAtTarget();
     }
 
+    protected void LookAtTarget()
+    {
+        if(currentTarget != null)
+        {
+            lookTarget.transform.position = currentTarget.transform.position + Vector3.up*1.6f;
+            Vector3 targetDirection = lookTarget.transform.position - transform.position;
+            float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
+            if (viewableAngle > 90)
+                lookTarget.transform.position = transform.position + initOffset;
+            
+        }
+    }
     protected virtual void HandleStateMachine()
     {
         if (currentState != null)

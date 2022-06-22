@@ -155,7 +155,6 @@ public class AnimationController : MonoBehaviour
     }
     private void NextAttack()
     {
-        weaponCollider.GetComponent<Collider>().enabled = false;
         isAttacking = true;
         if (comboStep == 2)
         {
@@ -178,6 +177,7 @@ public class AnimationController : MonoBehaviour
 
     private void NormalAttack(InputAction.CallbackContext ctx)
     {
+        weaponCollider.GetComponent<Collider>().enabled = false;
         if (!isBlocking && !isRolling && !isTakingDamage && canInputAttack && !isHealing)
         {
             if (comboStep == 0)
@@ -285,6 +285,7 @@ public class AnimationController : MonoBehaviour
         canInputAttack = true;
         canInputRoll = true;
         isHealing = false;
+        weaponCollider.GetComponent<Collider>().enabled = false;
     }
 
 
@@ -310,7 +311,7 @@ public class AnimationController : MonoBehaviour
 
     public void ResetIsHealing()
     {
-        isHealing = false;
+        ResetAll();
     }
     private void SkillHealthUp(InputAction.CallbackContext ctx)
     {

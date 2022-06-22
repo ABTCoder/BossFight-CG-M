@@ -298,6 +298,7 @@ public class CharacterMovement : MonoBehaviour
         currentLockOnTarget = null;
         Destroy(activeTargetIcon);
         lockOnCamera.Priority = 9;
+        lockOnCamera.LookAt = followTransform.transform;
     }
 
 
