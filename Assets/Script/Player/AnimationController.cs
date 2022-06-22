@@ -221,6 +221,7 @@ public class AnimationController : MonoBehaviour
     {
         int randomNumber = Mathf.RoundToInt(Random.Range(0, 2));
         playerAnimator.CrossFade(damageAnimations[randomNumber], 0.2f);
+        weaponCollider.GetComponent<Collider>().enabled = false;
         isTakingDamage = true;
         StartCoroutine(ResetIsTakingDamage());
         ResetAll();
