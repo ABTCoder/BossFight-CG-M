@@ -65,7 +65,6 @@ public class AnimationController : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log("Attacking" + isAttacking + " CanInput:"+canInputAttack + "Rolling:"+isRolling);
         MovementAnimationHandler();
         FootStepSound();
     }

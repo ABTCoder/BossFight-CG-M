@@ -5142,7 +5142,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 26
   avoidancePriority: 50
-  m_AngularSpeed: 0
+  m_AngularSpeed: 800
   m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -5207,6 +5207,7 @@ MonoBehaviour:
   firstAxe: {fileID: 493324696690043796}
   secondAxe: {fileID: 493324696853325385}
   greatsword: {fileID: 3489148675481505004}
+  characterMovement: {fileID: 0}
 --- !u!82 &493324696691217569
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10511,13 +10512,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2068289964129604031}
-  m_LocalRotation: {x: -0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0.6546265, y: -0.26732787, z: 0.65462637, w: 0.26732817}
+  m_LocalPosition: {x: 0, y: 0.68, z: -1.92}
+  m_LocalScale: {x: 2.2673874, y: 0.64165, z: 0.5}
   m_Children: []
   m_Father: {fileID: 8840994735347723286}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 135.573}
 --- !u!198 &7845583110314477263
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -15601,7 +15602,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8840994735347723286
 Transform:
   m_ObjectHideFlags: 0

@@ -56,12 +56,10 @@ public class PlayerStats : CharacterStats
             }
             currentHealth = currentHealth - damage;
             healthBar.TakeDamage(damage);
-            //Debug.Log("The player get a damage of " + damage);
             if (currentHealth <= 0)
             {
                 CharacterMovement.LockControls();
                 gameManager.GameOver();
-                Debug.Log("Player's health is 0!");
             }
         }
     }

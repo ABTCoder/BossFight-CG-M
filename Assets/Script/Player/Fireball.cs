@@ -29,7 +29,6 @@ public class Fireball : ColliderAttack
     {
         if (other.gameObject.tag != "Player" && other.gameObject.name!= "Target")
         {
-            Debug.Log("I'm destroying the fireball");
             Instantiate(splash, transform.position, transform.rotation);
             Destroy(gameObject);
         }

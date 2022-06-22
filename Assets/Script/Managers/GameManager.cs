@@ -92,9 +92,6 @@ public class GameManager : MonoBehaviour
         musicAudioSource.Stop();
         gameOverCutsceneDirector.Play();
         ui.enabled = false;
-        // Game over script
-        // Timeline
-        Debug.Log("Game Over!");
     }
 
     private void ShowNextTutorial()

@@ -63,7 +63,6 @@ public class Chandelier : MonoBehaviour
             renderer.material.color = materialColor;
             var main = particleSystem.main;
             main.startColor = new ParticleSystem.MinMaxGradient(particleColor);
-            Debug.Log(materialColor.a);
             if (materialColor.a < 0)
                 Destroy(gameObject);
         }

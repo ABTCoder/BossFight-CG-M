@@ -11,6 +11,8 @@ public class BossRoomCutscene : MonoBehaviour
     private Canvas ui;
     private bool ended = false;
 
+    [SerializeField] private CharacterMovement characterMovement;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +39,7 @@ public class BossRoomCutscene : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
+            characterMovement.ClearLockOnTargets();
             ui.enabled = false;
             gameManager.PlayBossMusic();
             CharacterMovement.LockControls();

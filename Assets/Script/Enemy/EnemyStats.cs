@@ -29,10 +29,8 @@ public class EnemyStats : CharacterStats
     {
         currentHealth = currentHealth - damage;
         enemyManager.damageTaken = true;
-        Debug.Log("Enemy Damage");
         if (currentHealth <= 0)
         {
-            Debug.Log("The enemy is dead!");
             enemyAnimatorManager.PlayTargetAnimation("Death", true);
             enemyManager.isDead = true;
         }

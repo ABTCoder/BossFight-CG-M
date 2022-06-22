@@ -88,7 +88,6 @@ public class CharacterMovement : MonoBehaviour
         availableTargets.Clear();
         nearestLockOnTarget = null; 
 
-        //Debug.Log(combatController.getIsAttacking());
         if (!lockOnFlag)
         {
             #region Follow Transform Rotation
@@ -155,7 +154,6 @@ public class CharacterMovement : MonoBehaviour
                 float t = (Time.time - rollStartTime) / rollDuration;
                 rollSpeedToDecrease = Mathf.SmoothStep(rollSpeed, 0, t);
                 transform.Translate(localDirection * rollSpeedToDecrease * Time.deltaTime);
-                Debug.Log(rollSpeedToDecrease);
                 if (rollSpeedToDecrease < 0.05f) animationController.ResetAll();
             }
             else if(animationController.GetIsTakingDamage())
@@ -292,7 +290,7 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    private void ClearLockOnTargets()
+    public void ClearLockOnTargets()
     {
         lockOnFlag = false;
         availableTargets.Clear();

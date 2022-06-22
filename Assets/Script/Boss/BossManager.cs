@@ -26,6 +26,7 @@ public class BossManager : EnemyManager
     [SerializeField] private GameObject firstAxe;
     [SerializeField] private GameObject secondAxe;
     [SerializeField] private GameObject greatsword;
+    [SerializeField] private CharacterMovement characterMovement;
 
     private void Awake()
     {
@@ -69,6 +70,7 @@ public class BossManager : EnemyManager
     
     public void ShiftToSecondPhase()
     {
+        characterMovement.ClearLockOnTargets();
         Boss2PhaseCutsceneDirector.Play();
         ui.enabled = false;
         musicAudioSource.Stop();

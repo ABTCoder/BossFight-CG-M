@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boss Attack02
   m_EditorClassIdentifier: 
   actionAnimation: BossAttack02
-  weaponAttackDamage: 0
+  weaponAttackDamage: 10
   recoveryTime: 2
   maximumAttackAngle: 35
   minimumDistanceNeededToAttack: 0
