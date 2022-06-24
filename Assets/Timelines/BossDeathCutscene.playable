@@ -219,6 +219,23 @@ MonoBehaviour:
   VirtualCamera:
     exposedName: 43777eb4ef4395941bdba6fa40097cf8
     defaultValue: {fileID: 0}
+--- !u!114 &-8473451644319897999
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f10dd60657c6004587f237a7e90f8e4, type: 3}
+  m_Name: AudioPlayableAsset
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: 1f3c63b49e769ec469e9544621003fc0, type: 3}
+  m_Loop: 0
+  m_bufferingTime: 0.1
+  m_ClipProperties:
+    volume: 1
 --- !u!114 &-8348633095198206551
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -406,7 +423,7 @@ MonoBehaviour:
     m_Start: 11.733333333333333
     m_ClipIn: 0
     m_Asset: {fileID: 4444446971959788604}
-    m_Duration: 12.854158399254084
+    m_Duration: 12.283333333333333
     m_TimeScale: 1
     m_ParentTrack: {fileID: -8329309739721814816}
     m_EaseInDuration: 0
@@ -908,7 +925,7 @@ MonoBehaviour:
     m_Start: 10.400000000000007
     m_ClipIn: 0
     m_Asset: {fileID: -6795111356835769890}
-    m_Duration: 14.187491732587409
+    m_Duration: 13.616666666666658
     m_TimeScale: 0.8999999999999999
     m_ParentTrack: {fileID: -3381390988726446909}
     m_EaseInDuration: 0
@@ -1640,7 +1657,7 @@ MonoBehaviour:
     m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: -6088706629835744952}
-    m_Duration: 24.587491732587416
+    m_Duration: 24.016666666666666
     m_TimeScale: 1
     m_ParentTrack: {fileID: -171261851154649227}
     m_EaseInDuration: 0
@@ -1737,6 +1754,7 @@ MonoBehaviour:
   - {fileID: 4299599998406969686}
   - {fileID: 2929909353323241325}
   - {fileID: 966482426953165555}
+  - {fileID: 7613375861078703703}
   m_FixedDuration: 0
   m_EditorSettings:
     m_Framerate: 60
@@ -1833,7 +1851,7 @@ MonoBehaviour:
     m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: 6877926061701654782}
-    m_Duration: 24.587491732587416
+    m_Duration: 24.016666666666666
     m_TimeScale: 0.71
     m_ParentTrack: {fileID: 753590307510731598}
     m_EaseInDuration: 0
@@ -2110,7 +2128,7 @@ MonoBehaviour:
     m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: -976608627308885692}
-    m_Duration: 24.587491732587416
+    m_Duration: 24.016666666666666
     m_TimeScale: 1
     m_ParentTrack: {fileID: 966482426953165555}
     m_EaseInDuration: 0
@@ -2203,7 +2221,7 @@ MonoBehaviour:
     m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: 7324697410869481182}
-    m_Duration: 24.587491732587416
+    m_Duration: 24.016666666666666
     m_TimeScale: 1
     m_ParentTrack: {fileID: 1169818689530822671}
     m_EaseInDuration: 0
@@ -2420,7 +2438,7 @@ MonoBehaviour:
     m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: -1099154522207881205}
-    m_Duration: 24.587491732587416
+    m_Duration: 24.016666666666666
     m_TimeScale: 1
     m_ParentTrack: {fileID: 4299599998406969686}
     m_EaseInDuration: 0
@@ -3441,6 +3459,102 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde0d25a170598d46a0b9dc16b4527a5, type: 3}
   m_Name: ActivationPlayableAsset
   m_EditorClassIdentifier: 
+--- !u!114 &7613375861078703703
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b22792c3b570444eb18cb78c2af3a74, type: 3}
+  m_Name: Audio Track
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children: []
+  m_Clips:
+  - m_Version: 1
+    m_Start: 0
+    m_ClipIn: 0
+    m_Asset: {fileID: -8473451644319897999}
+    m_Duration: 24.016666666666666
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7613375861078703703}
+    m_EaseInDuration: 2
+    m_EaseOutDuration: 2.5
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Green Bird
+  m_Markers:
+    m_Objects: []
+  m_TrackProperties:
+    volume: 1
+    stereoPan: 0
+    spatialBlend: 0
 --- !u!114 &8769703481778140736
 MonoBehaviour:
   m_ObjectHideFlags: 1

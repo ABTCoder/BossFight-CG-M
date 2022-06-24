@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private AudioClip musicMain;
     [SerializeField] private AudioClip musicBoss;
+    [SerializeField] private AudioClip musicBoss2Phase;
     [SerializeField] private AudioSource musicAudioSource;
     [SerializeField] private GameObject gameOverCutscene;
     [SerializeField] private GameObject introCutscene;
@@ -71,7 +72,7 @@ public class GameManager : MonoBehaviour
 
     private void Boss2PhaseCutsceneStopped(PlayableDirector d)
     {
-        musicAudioSource.clip = musicBoss;
+        musicAudioSource.clip = musicBoss2Phase;
         musicAudioSource.Play();
         ui.enabled = true;
         gameStarted = true;
