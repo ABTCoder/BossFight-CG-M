@@ -12,6 +12,8 @@ public class PursueTargetState : State
     //If target is out of range, return this state and continue to chase target
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
     {
+        if (enemyStats.hasFloatingHealthBar)
+            enemyStats.healthBar.gameObject.SetActive(true);
         enemyManager.navMeshAgent.isStopped = false;
         
         float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);

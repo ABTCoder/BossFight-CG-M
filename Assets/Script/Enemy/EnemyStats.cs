@@ -8,13 +8,16 @@ public class EnemyStats : CharacterStats
 
     private EnemyManager enemyManager;
     private EnemyAnimatorManager enemyAnimatorManager;
-    
+
+
     void Start()
     {
         enemyManager = GetComponent<EnemyManager>();
         enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
         maxHealth = SetMaxHealthFromHealthLevel();
         currentHealth = maxHealth;
+        healthBar.SetHealth(maxHealth);
+        healthBar.gameObject.SetActive(false);
     }
 
     
@@ -29,10 +32,12 @@ public class EnemyStats : CharacterStats
     {
         currentHealth = currentHealth - damage;
         enemyManager.damageTaken = true;
+        healthBar.TakeDamage(damage);
         if (currentHealth <= 0)
         {
             enemyAnimatorManager.PlayTargetAnimation("Death", true);
             enemyManager.isDead = true;
+            healthBar.gameObject.SetActive(false);
         }
     }
     

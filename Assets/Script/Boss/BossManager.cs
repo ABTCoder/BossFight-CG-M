@@ -64,7 +64,6 @@ public class BossManager : EnemyManager
         isInteracting = bossAnimatorManager.anim.GetBool("isInteracting");
         canRotate = bossAnimatorManager.anim.GetBool("canRotate");
         isAttacking = bossAnimatorManager.anim.GetBool("isAttacking");
-        LookAtTarget();
     }
 
     protected override void HandleStateMachine()

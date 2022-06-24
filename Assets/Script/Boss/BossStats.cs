@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class BossStats : EnemyStats
 {
-    [SerializeField] private HealthBar healthBar;
 
     private BossManager bossManager;
 

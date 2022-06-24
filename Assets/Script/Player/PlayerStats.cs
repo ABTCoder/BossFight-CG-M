@@ -7,7 +7,6 @@ using UnityEngine.Playables;
 public class PlayerStats : CharacterStats
 {
     private GameManager gameManager;
-    [SerializeField] private HealthBar healthBar;
     private AnimationController animationController;
     private CharacterMovement characterMovement;
     private Rigidbody rigidBody;
