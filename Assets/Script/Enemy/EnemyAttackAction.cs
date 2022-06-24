@@ -18,7 +18,8 @@ public class EnemyAttackAction : EnemyAction
     public bool hasExtraEffect;
     public GameObject extraEffect;
 
-    public float soundDelay = 0;
+    public float weaponSoundDelay = 0;
+    public float gruntSoundDelay = 0;
     public float effectDelay = 0;
 
     public AudioClip[] weaponAudioClips;

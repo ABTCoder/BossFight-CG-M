@@ -21,10 +21,12 @@ MonoBehaviour:
   colliderName: All
   hasExtraEffect: 1
   extraEffect: {fileID: 8673061406346552685, guid: 41498aa2b7b74884c877815ecef91e91, type: 3}
-  soundDelay: 1
+  weaponSoundDelay: 0.7
+  gruntSoundDelay: 0
   effectDelay: 1
   weaponAudioClips:
   - {fileID: 8300000, guid: a6aee8e93245bed478ff3d0d48215e40, type: 3}
   - {fileID: 8300000, guid: 8c501231beb093244b96a349a6ca2a69, type: 3}
   - {fileID: 8300000, guid: e2de971ef55c5ba48b55119de704673e, type: 3}
-  gruntsAudioClips: []
+  gruntsAudioClips:
+  - {fileID: 8300000, guid: 762dd9382e6449a488c62e1f30f6e25d, type: 3}

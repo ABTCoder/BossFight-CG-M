@@ -528,6 +528,7 @@ MonoBehaviour:
   healthLevel: 10
   maxHealth: 0
   currentHealth: 0
+  hasFloatingLifebar: 1
 --- !u!114 &4402768578060655652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -553,7 +554,7 @@ MonoBehaviour:
   rotationSpeed: 30.9
   maximumAggroRadius: 1.7
   lookTarget: {fileID: 534389290177890714}
-  constraint: {fileID: 3549675048776602578}
+  initOffset: {x: 0, y: 0, z: 0}
   detectionRadius: 20
   maximumDetectionAngle: 50
   currentRecoveryTime: 0
@@ -1047,6 +1048,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 129806, guid: 659981ab97d9bb64990767ef5f931f7c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 130564, guid: 659981ab97d9bb64990767ef5f931f7c, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -1127,6 +1132,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 156136, guid: 659981ab97d9bb64990767ef5f931f7c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 159262, guid: 659981ab97d9bb64990767ef5f931f7c, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -1182,6 +1191,10 @@ PrefabInstance:
     - target: {fileID: 170742, guid: 659981ab97d9bb64990767ef5f931f7c, type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 170742, guid: 659981ab97d9bb64990767ef5f931f7c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 170830, guid: 659981ab97d9bb64990767ef5f931f7c, type: 3}
       propertyPath: m_Layer

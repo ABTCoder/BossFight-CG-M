@@ -93,12 +93,13 @@ public class EnemyManager : CharacterManager
     {
         if(currentTarget != null)
         {
-            lookTarget.transform.position = currentTarget.transform.position + Vector3.up*1.6f;
             Vector3 targetDirection = lookTarget.transform.position - transform.position;
             float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
             if (viewableAngle > 90)
-                lookTarget.transform.position = transform.position + initOffset;
-            
+                lookTarget.transform.position = Vector3.Lerp(lookTarget.transform.position, transform.position + initOffset, Time.deltaTime);
+            else
+                lookTarget.transform.position = Vector3.Lerp(lookTarget.transform.position, currentTarget.transform.position + Vector3.up * 1.6f, Time.deltaTime);
+
         }
     }
     protected virtual void HandleStateMachine()

@@ -45,6 +45,13 @@ public class BossManager : EnemyManager
         BossDeathDirector = BossDeathCutscene.GetComponent<PlayableDirector>();
 
         soundManager = GetComponent<CharacterSoundManager>();
+
+        initOffset = new Vector3()
+        {
+            x = -2,
+            y = 3.5f,
+            z = 0
+        };
     }
 
     private void Update()
@@ -57,6 +64,7 @@ public class BossManager : EnemyManager
         isInteracting = bossAnimatorManager.anim.GetBool("isInteracting");
         canRotate = bossAnimatorManager.anim.GetBool("canRotate");
         isAttacking = bossAnimatorManager.anim.GetBool("isAttacking");
+        LookAtTarget();
     }
 
     protected override void HandleStateMachine()
