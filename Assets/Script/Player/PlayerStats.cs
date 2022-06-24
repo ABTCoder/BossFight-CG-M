@@ -50,6 +50,7 @@ public class PlayerStats : CharacterStats
             }
             else
             {
+                animationController.ResetAll();
                 animationController.DamageHit();
                 characterMovement.SetAttacker(other.position);
             }

@@ -224,7 +224,6 @@ public class AnimationController : MonoBehaviour
         weaponCollider.GetComponent<Collider>().enabled = false;
         isTakingDamage = true;
         StartCoroutine(ResetIsTakingDamage());
-        ResetAll();
     }
 
     IEnumerator ResetIsTakingDamage()
