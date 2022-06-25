@@ -29,16 +29,17 @@ public class BossStats : EnemyStats
     {
         currentHealth = currentHealth - damage;
         healthBar.TakeDamage(damage);
-        bossManager.damageTaken = true;
         if (!bossManager.HasPhaseShifted() && currentHealth <= maxHealth / 2)
         {
             bossManager.ShiftToSecondPhase();
+            return;
         }
         else if (currentHealth <= 0)
         {
             bossManager.BossDeath();
-            Debug.Log("The BOSS is dead! Fuck yeah!");
+            return;
         }
+        bossManager.damageTaken = true;
     }
     
 }

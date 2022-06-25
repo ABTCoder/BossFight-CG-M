@@ -25,9 +25,9 @@ MonoBehaviour:
   gruntSoundDelay: 0
   effectDelay: 0
   weaponAudioClips:
-  - {fileID: 8300000, guid: a6aee8e93245bed478ff3d0d48215e40, type: 3}
-  - {fileID: 8300000, guid: 8c501231beb093244b96a349a6ca2a69, type: 3}
-  - {fileID: 8300000, guid: e2de971ef55c5ba48b55119de704673e, type: 3}
+  - {fileID: 8300000, guid: 0203a77d1d6fad445aefaa7b24e4d4d1, type: 3}
+  - {fileID: 8300000, guid: 25a582be659c42047b2b1959a2069bf4, type: 3}
+  - {fileID: 8300000, guid: 342bd620c82fa504aa35f8760e6d6e01, type: 3}
   gruntsAudioClips:
   - {fileID: 8300000, guid: 1f893f51d2fab7f4798a6d06803077b5, type: 3}
   - {fileID: 8300000, guid: e87ebe1f8ea285c439292530e3cbce1a, type: 3}

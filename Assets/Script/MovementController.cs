@@ -125,6 +125,15 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchLockOnTarget"",
+                    ""type"": ""Value"",
+                    ""id"": ""5eaa564c-a40f-47e0-b84e-624611edab20"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -230,7 +239,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""517d4b13-4d74-4554-8394-918c567bbcc8"",
-                    ""path"": ""<Keyboard>/1"",
+                    ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -241,7 +250,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f5a537de-02f4-4d00-a702-b82be4aa44cc"",
-                    ""path"": ""<Keyboard>/2"",
+                    ""path"": ""<Mouse>/forwardButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -292,6 +301,17 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                     ""action"": ""HealthUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a9668b0-0e02-4c46-8ba8-bd53d4447017"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchLockOnTarget"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -311,6 +331,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         m_Main_DodgeRoll = m_Main.FindAction("DodgeRoll", throwIfNotFound: true);
         m_Main_Pause = m_Main.FindAction("Pause", throwIfNotFound: true);
         m_Main_HealthUp = m_Main.FindAction("HealthUp", throwIfNotFound: true);
+        m_Main_SwitchLockOnTarget = m_Main.FindAction("SwitchLockOnTarget", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -381,6 +402,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
     private readonly InputAction m_Main_DodgeRoll;
     private readonly InputAction m_Main_Pause;
     private readonly InputAction m_Main_HealthUp;
+    private readonly InputAction m_Main_SwitchLockOnTarget;
     public struct MainActions
     {
         private @MovementController m_Wrapper;
@@ -396,6 +418,7 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         public InputAction @DodgeRoll => m_Wrapper.m_Main_DodgeRoll;
         public InputAction @Pause => m_Wrapper.m_Main_Pause;
         public InputAction @HealthUp => m_Wrapper.m_Main_HealthUp;
+        public InputAction @SwitchLockOnTarget => m_Wrapper.m_Main_SwitchLockOnTarget;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -438,6 +461,9 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 @HealthUp.started -= m_Wrapper.m_MainActionsCallbackInterface.OnHealthUp;
                 @HealthUp.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnHealthUp;
                 @HealthUp.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnHealthUp;
+                @SwitchLockOnTarget.started -= m_Wrapper.m_MainActionsCallbackInterface.OnSwitchLockOnTarget;
+                @SwitchLockOnTarget.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnSwitchLockOnTarget;
+                @SwitchLockOnTarget.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnSwitchLockOnTarget;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -475,6 +501,9 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 @HealthUp.started += instance.OnHealthUp;
                 @HealthUp.performed += instance.OnHealthUp;
                 @HealthUp.canceled += instance.OnHealthUp;
+                @SwitchLockOnTarget.started += instance.OnSwitchLockOnTarget;
+                @SwitchLockOnTarget.performed += instance.OnSwitchLockOnTarget;
+                @SwitchLockOnTarget.canceled += instance.OnSwitchLockOnTarget;
             }
         }
     }
@@ -492,5 +521,6 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         void OnDodgeRoll(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnHealthUp(InputAction.CallbackContext context);
+        void OnSwitchLockOnTarget(InputAction.CallbackContext context);
     }
 }

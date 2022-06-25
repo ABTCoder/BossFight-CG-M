@@ -84,6 +84,7 @@ public class CharacterMovement : MonoBehaviour
     void Update()
     {
         Vector2 mouseDelta = movement.Main.MoveCamera.ReadValue<Vector2>();
+        mouseDelta.y = -mouseDelta.y;
         Vector2 charMove = movement.Main.Move.ReadValue<Vector2>();
         availableTargets.Clear();
         nearestLockOnTarget = null; 
@@ -135,16 +136,6 @@ public class CharacterMovement : MonoBehaviour
         }
 
         HandleLockOn();
-
-        if (lockOnFlag)
-        {
-            followTransform.transform.LookAt(currentLockOnTarget);
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0), Time.deltaTime * 10);
-        }
-        if(currentLockOnTarget == null && lockOnFlag)
-        {
-            ClearLockOnTargets();
-        }
 
         if (!animationController.GetIsAttacking() && !animationController.GetIsBlocking() && !animationController.GetIsHealing())
         {
@@ -209,7 +200,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void SwitchLeftLockOnTarget(InputAction.CallbackContext ctx)
     {
-        if (leftLockTarget != null)
+        if (lockOnFlag && leftLockTarget != null && !movement.Main.LockOn.IsPressed())
         {
             Destroy(activeTargetIcon);
             currentLockOnTarget = leftLockTarget;
@@ -221,7 +212,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void SwitchRightLockOnTarget(InputAction.CallbackContext ctx)
     {
-        if (rightLockTarget != null)
+        if (lockOnFlag && rightLockTarget != null && !movement.Main.LockOn.IsPressed())
         {
             Destroy(activeTargetIcon);
             currentLockOnTarget = rightLockTarget;
@@ -287,6 +278,30 @@ public class CharacterMovement : MonoBehaviour
                     rightLockTarget = availableTargets[k];
                 }
             }
+        }
+        Vector2 scroll = movement.Main.SwitchLockOnTarget.ReadValue<Vector2>();
+        if (lockOnFlag && !movement.Main.LockOn.IsPressed() && scroll != Vector2.zero)
+        {
+            Destroy(activeTargetIcon);
+            if(scroll.y < 0 && rightLockTarget!=null)
+                currentLockOnTarget = rightLockTarget;
+            else
+                currentLockOnTarget = leftLockTarget;
+            activeTargetIcon = Instantiate(lockOnTargetIcon, currentLockOnTarget);
+            lockOnCamera.LookAt = currentLockOnTarget;
+            lockOnCamera.Priority = 16;
+        }
+        if (lockOnFlag)
+        {
+            followTransform.transform.LookAt(currentLockOnTarget);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0), Time.deltaTime * 10);
+        }
+        CharacterStats stats = null;
+        if (currentLockOnTarget != null)
+            stats = currentLockOnTarget.GetComponentInParent<CharacterStats>();
+        if (lockOnFlag && (currentLockOnTarget == null || (stats != null && stats.currentHealth <= 0)))
+        {
+            ClearLockOnTargets();
         }
     }
 
