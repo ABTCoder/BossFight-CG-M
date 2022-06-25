@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverCutscene;
     [SerializeField] private GameObject introCutscene;
     [SerializeField] private GameObject Boss2PhaseCutscene;
+    [SerializeField] private GameObject TransitionCutscene;
+    [SerializeField] private GameObject BossDeathCutscene;
     [SerializeField] private Canvas ui;
     [SerializeField] private Canvas tutorialCanvas;
 
@@ -24,6 +26,8 @@ public class GameManager : MonoBehaviour
     private PlayableDirector gameOverCutsceneDirector;
     private PlayableDirector introCutsceneDirector;
     private PlayableDirector Boss2PhaseCutsceneDirector;
+    private PlayableDirector TransitionCutsceneDirector;
+    private PlayableDirector BossDeathCutsceneDirector;
     // Start is called before the first frame update
 
     public static bool gameStarted = false;
@@ -48,6 +52,12 @@ public class GameManager : MonoBehaviour
 
         Boss2PhaseCutsceneDirector = Boss2PhaseCutscene.GetComponent<PlayableDirector>();
         Boss2PhaseCutsceneDirector.stopped += Boss2PhaseCutsceneStopped;
+
+        TransitionCutsceneDirector = TransitionCutscene.GetComponent<PlayableDirector>();
+        TransitionCutsceneDirector.stopped += BossDeathTransition;
+
+        BossDeathCutsceneDirector = BossDeathCutscene.GetComponent<PlayableDirector>();
+        BossDeathCutsceneDirector.stopped += BossDeathCutsceneStopped;
         CharacterMovement.LockControls();
     }
     private void GameOverCutsceneStopped(PlayableDirector d)
@@ -69,6 +79,11 @@ public class GameManager : MonoBehaviour
         CharacterMovement.UnlockControls();
     }
 
+    private void BossDeathTransition(PlayableDirector d)
+    {
+        BossDeathCutsceneDirector.Play();
+    }
+
 
     private void Boss2PhaseCutsceneStopped(PlayableDirector d)
     {
@@ -79,6 +94,10 @@ public class GameManager : MonoBehaviour
         CharacterMovement.UnlockControls();
     }
 
+    private void BossDeathCutsceneStopped(PlayableDirector d)
+    {
+        SceneManager.LoadScene(0);
+    }
 
     public void PlayBossMusic()
     {
@@ -102,13 +121,17 @@ public class GameManager : MonoBehaviour
             string tutorialName = tutorialsToPlay.Dequeue();
             currentTutorial = tutorialCanvas.transform.Find(tutorialName).gameObject;
             currentTutorial.SetActive(true);
+            Time.timeScale = 0f;
+            CharacterMovement.LockControls();
             StartCoroutine(WaitForTutorialCompletion());
         }
     } 
 
     IEnumerator WaitForTutorialCompletion()
     {
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSecondsRealtime(5);
+        Time.timeScale = 1f;
+        CharacterMovement.UnlockControls();
         currentTutorial.SetActive(false);
         currentTutorial = null;
     }

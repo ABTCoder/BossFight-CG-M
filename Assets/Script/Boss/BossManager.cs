@@ -18,7 +18,7 @@ public class BossManager : EnemyManager
     private BossRoomCutscene cs;
 
     [SerializeField] private GameObject Boss2PhaseCutscene;
-    [SerializeField] private GameObject BossDeathCutscene;
+    [SerializeField] private GameObject TransitionCutscene;
     [SerializeField] private Canvas ui;
     [SerializeField] private AudioSource musicAudioSource;
     [SerializeField] private GameObject modelPhaseOne;
@@ -29,7 +29,7 @@ public class BossManager : EnemyManager
     [SerializeField] private CharacterMovement characterMovement;
 
     private PlayableDirector Boss2PhaseCutsceneDirector;
-    private PlayableDirector BossDeathDirector;
+    private PlayableDirector BossDeathTransitionDirector;
 
     private void Awake()
     {
@@ -42,7 +42,7 @@ public class BossManager : EnemyManager
         cs = GameObject.Find("BossRoom trigger").GetComponent<BossRoomCutscene>();
 
         Boss2PhaseCutsceneDirector = Boss2PhaseCutscene.GetComponent<PlayableDirector>();
-        BossDeathDirector = BossDeathCutscene.GetComponent<PlayableDirector>();
+        BossDeathTransitionDirector = TransitionCutscene.GetComponent<PlayableDirector>();
 
         soundManager = GetComponent<CharacterSoundManager>();
 
@@ -105,7 +105,7 @@ public class BossManager : EnemyManager
         ui.enabled = false;
         musicAudioSource.Stop();
         CharacterMovement.LockControls();
-        BossDeathDirector.Play();
+        BossDeathTransitionDirector.Play();
     }
 
     public override bool isEnded()
