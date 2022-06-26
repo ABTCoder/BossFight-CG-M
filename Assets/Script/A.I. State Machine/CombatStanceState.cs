@@ -23,7 +23,7 @@ public class CombatStanceState : State
         float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
         attackState.hasPerformedAttack = false;
 
-        if(enemyManager.damageTaken && enemyManager.damageAnimRecoveryTime <= 0)
+        if(enemyManager.damageTaken && enemyManager.damageAnimRecoveryTime <= 0 && enemyManager.canBeInterrupted)
         {
             enemyManager.damageTaken = false;
             return damageState;

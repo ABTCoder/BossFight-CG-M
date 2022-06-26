@@ -9,6 +9,7 @@ public class EnemyAttackAction : EnemyAction
     public float recoveryTime = 2;
     public float moveRecoveryTime = 0f;
     public bool canDoMove = true;
+    public bool canBeInterrupted = true;
 
     public float maximumAttackAngle = 35;
 

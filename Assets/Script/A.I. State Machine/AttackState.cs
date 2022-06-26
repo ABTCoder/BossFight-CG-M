@@ -45,6 +45,7 @@ public class AttackState : State
 
     private void AttackTarget(EnemyAnimatorManager enemyAnimatorManager, EnemyManager enemyManager)
     {
+        enemyManager.canBeInterrupted = currentAttack.canBeInterrupted;
         enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
         enemyManager.soundManager.PlayAudioEffect(currentAttack.weaponAudioClips, currentAttack.weaponSoundDelay);
         enemyManager.soundManager.PlayAudioEffect(currentAttack.gruntsAudioClips, currentAttack.gruntSoundDelay);

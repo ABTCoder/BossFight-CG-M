@@ -15,7 +15,7 @@ public class IdleState : State
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
     {
 
-        if (enemyManager.damageTaken && enemyManager.damageAnimRecoveryTime <= 0)
+        if (enemyManager.damageTaken && enemyManager.damageAnimRecoveryTime <= 0 && enemyManager.canBeInterrupted)
         {
             enemyManager.damageTaken = false;
             return damageState;

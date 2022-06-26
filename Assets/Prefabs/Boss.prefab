@@ -5199,6 +5199,7 @@ MonoBehaviour:
   isDead: 0
   damageTaken: 0
   isAttacking: 0
+  canBeInterrupted: 1
   rotationSpeed: 30.9
   maximumAggroRadius: 5
   lookTarget: {fileID: 0}
@@ -15449,8 +15450,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 4.89, y: 1.2506429, z: 2.29}
-  m_Center: {x: 0.08649603, y: -0.12532112, z: 0.0000012714632}
+  m_Size: {x: 7.80194, y: 1.2626234, z: 2.29}
+  m_Center: {x: -0.034176264, y: -0.11933088, z: 0.0000025943868}
 --- !u!114 &6181166897450795802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16353,6 +16354,7 @@ MonoBehaviour:
   - {fileID: 493324696456197406}
   - {fileID: 6181166897450795802}
   - {fileID: 493324696573420386}
+  footstepAudioClips: []
 --- !u!1001 &493324696690001152
 PrefabInstance:
   m_ObjectHideFlags: 0

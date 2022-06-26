@@ -30,7 +30,7 @@ public class AnimationController : MonoBehaviour
     private Vector2 move = Vector2.zero;
     private float stunTime = 0.7f;
 
-    private int hpUp = 20;
+    private int hpUp = 30;
     private int coolDownHpUP = 5;
     bool canHealtUp = false;
     [SerializeField] private GameObject hpUpEffect;

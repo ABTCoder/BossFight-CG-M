@@ -16,7 +16,8 @@ MonoBehaviour:
   weaponAttackDamage: 10
   recoveryTime: 2
   moveRecoveryTime: 0
-  currentMoveRecoveryTime: 0
+  canDoMove: 1
+  canBeInterrupted: 1
   maximumAttackAngle: 35
   minimumDistanceNeededToAttack: 3
   maximumDistanceNeededToAttack: 5

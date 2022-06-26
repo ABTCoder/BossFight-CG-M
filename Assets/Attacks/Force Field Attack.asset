@@ -17,6 +17,7 @@ MonoBehaviour:
   recoveryTime: 2
   moveRecoveryTime: 5
   canDoMove: 1
+  canBeInterrupted: 0
   maximumAttackAngle: 35
   minimumDistanceNeededToAttack: 3
   maximumDistanceNeededToAttack: 5

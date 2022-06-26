@@ -20,7 +20,7 @@ public class PursueTargetState : State
 
         HandleRotateTowardsTarget(enemyManager);
 
-        if (enemyManager.damageTaken && enemyManager.damageAnimRecoveryTime <= 0)
+        if (enemyManager.damageTaken && enemyManager.damageAnimRecoveryTime <= 0 && enemyManager.canBeInterrupted)
         {
             enemyManager.damageTaken = false;
             return damageState;
