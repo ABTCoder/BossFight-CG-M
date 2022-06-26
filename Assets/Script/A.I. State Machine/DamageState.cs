@@ -11,7 +11,7 @@ public class DamageState : State
     {
         enemyManager.navMeshAgent.isStopped = true;
         enemyManager.navMeshAgent.velocity = Vector3.zero;
-        enemyManager.damageAnimRecoveryTime = 2.5f;
+        enemyManager.damageAnimRecoveryTime = enemyManager.maxDamageRecoveryTime;
         enemyAnimatorManager.PlayTargetAnimation("TakeDamage", true);
         enemyManager.soundManager.PlayAudioEffect(enemyManager.damageAudioClips);
         if (enemyManager.currentTarget != null)

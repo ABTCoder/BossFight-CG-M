@@ -41,7 +41,7 @@ public class PlayerStats : CharacterStats
 
     public override void TakeDamage(int damage, Transform other = null)
     {
-        if (damage > 0 && !animationController.GetIsRolling())
+        if (damage > 0)
         {
             if (animationController.GetIsBlocking())
             {

@@ -629,7 +629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a9f6477cf82a68469c25eb1682b2c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthLevel: 10
+  healthLevel: 5
   maxHealth: 0
   currentHealth: 0
   healthBar: {fileID: 1646412346682848433}
@@ -657,7 +657,7 @@ MonoBehaviour:
   damageTaken: 0
   isAttacking: 0
   rotationSpeed: 30.9
-  maximumAggroRadius: 1.7
+  maximumAggroRadius: 1.4
   lookTarget: {fileID: 534389290177890714}
   initOffset: {x: 0, y: 0, z: 0}
   detectionRadius: 20

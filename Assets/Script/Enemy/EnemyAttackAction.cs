@@ -7,6 +7,8 @@ public class EnemyAttackAction : EnemyAction
 {
     public int weaponAttackDamage;
     public float recoveryTime = 2;
+    public float moveRecoveryTime = 0f;
+    public bool canDoMove = true;
 
     public float maximumAttackAngle = 35;
 
@@ -29,5 +31,11 @@ public class EnemyAttackAction : EnemyAction
     {
         yield return new WaitForSeconds(effectDelay);
         Instantiate(extraEffect, position, Quaternion.identity);
+    }
+
+    public IEnumerator DecreaseRecoveryTimeCoroutine()
+    {
+        yield return new WaitForSeconds(moveRecoveryTime);
+        canDoMove = true;
     }
 }

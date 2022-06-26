@@ -9,6 +9,7 @@ public abstract class CharacterStats : MonoBehaviour
     public int currentHealth;
     public HealthBar healthBar;
     public bool hasFloatingHealthBar = false;
+    public bool canTakeDamage = true;
 
     public abstract void TakeDamage(int damage, Transform other = null);
 }

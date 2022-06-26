@@ -21,7 +21,7 @@ public class Fireball : ColliderAttack
         this.shootDir = shootDir;
         splash = splashObj;
         Destroy(gameObject, 5f);
-        SetDamage(5);
+        SetDamage(10);
     }
 
 

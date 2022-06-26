@@ -84,7 +84,7 @@ public class CombatStanceState : State
             if (distanceFromTarget <= baseAttacks[i].maximumDistanceNeededToAttack
                 && distanceFromTarget >= baseAttacks[i].minimumDistanceNeededToAttack)
             {
-                if (viewableAngle <= baseAttacks[i].maximumAttackAngle)
+                if (viewableAngle <= baseAttacks[i].maximumAttackAngle && baseAttacks[i].canDoMove)
                 {
                     tempAttacksArray.Add(baseAttacks[i]);
                 }

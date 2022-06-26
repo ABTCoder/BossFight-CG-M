@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Force Field Attack
   m_EditorClassIdentifier: 
   actionAnimation: ForceFieldAttack
-  weaponAttackDamage: 0
+  weaponAttackDamage: 15
   recoveryTime: 2
+  moveRecoveryTime: 5
+  canDoMove: 1
   maximumAttackAngle: 35
   minimumDistanceNeededToAttack: 3
   maximumDistanceNeededToAttack: 5

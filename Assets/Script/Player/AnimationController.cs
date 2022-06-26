@@ -8,6 +8,7 @@ public class AnimationController : MonoBehaviour
     private Animator playerAnimator;
     private MovementController playerInput;
     private CharacterMovement componentCharacterMovement;
+    private PlayerStats playerStats;
     [SerializeField] private GameObject weaponCollider;
     [SerializeField] private GameObject weaponTrail;
     private int damage1 = 10;
@@ -60,6 +61,7 @@ public class AnimationController : MonoBehaviour
         colliderScript = weaponCollider.GetComponent<ColliderAttack>();
 
         soundManager = GetComponent<CharacterSoundManager>();
+        playerStats = GetComponentInParent<PlayerStats>();
     }
 
 
@@ -251,6 +253,7 @@ public class AnimationController : MonoBehaviour
         {
             isRolling = true;
             canInputRoll = false;
+            playerStats.canTakeDamage = false;
             playerAnimator.SetFloat("X roll", charMove.x);
             playerAnimator.SetFloat("Y roll", charMove.y);
             RollAudioEffect();
@@ -271,6 +274,7 @@ public class AnimationController : MonoBehaviour
     private void ResetRoll()
     {
         isRolling = false;
+        playerStats.canTakeDamage = true;
         StartCoroutine(ResetCanInputRoll());
     }
 

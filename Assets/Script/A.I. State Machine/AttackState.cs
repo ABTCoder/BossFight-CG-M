@@ -49,6 +49,8 @@ public class AttackState : State
         enemyManager.soundManager.PlayAudioEffect(currentAttack.weaponAudioClips, currentAttack.weaponSoundDelay);
         enemyManager.soundManager.PlayAudioEffect(currentAttack.gruntsAudioClips, currentAttack.gruntSoundDelay);
         enemyManager.currentRecoveryTime = currentAttack.recoveryTime;
+        currentAttack.canDoMove = false;
+        StartCoroutine(currentAttack.DecreaseRecoveryTimeCoroutine());
         hasPerformedAttack = true;
         if (currentAttack.hasExtraEffect)
             StartCoroutine(currentAttack.ExtraEffectCoroutine(enemyManager.transform.position));

@@ -21,7 +21,7 @@ public class BossStats : EnemyStats
 
     private int SetMaxHealthFromHealthLevel()
     {
-        maxHealth = healthLevel * 20;
+        maxHealth = healthLevel * 10;
         return maxHealth;
     }
     

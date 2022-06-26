@@ -13,15 +13,18 @@ MonoBehaviour:
   m_Name: Attack01
   m_EditorClassIdentifier: 
   actionAnimation: PlayerAttack01
-  weaponAttackDamage: 10
+  weaponAttackDamage: 5
   recoveryTime: 2
+  moveRecoveryTime: 0
+  currentMoveRecoveryTime: 0
   maximumAttackAngle: 35
   minimumDistanceNeededToAttack: 0
   maximumDistanceNeededToAttack: 3
   colliderName: Punch
   hasExtraEffect: 0
   extraEffect: {fileID: 0}
-  soundDelay: 0
+  weaponSoundDelay: 0
+  gruntSoundDelay: 0
   effectDelay: 0
   weaponAudioClips: []
   gruntsAudioClips:

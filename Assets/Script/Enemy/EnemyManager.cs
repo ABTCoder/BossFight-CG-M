@@ -28,6 +28,7 @@ public class EnemyManager : CharacterManager
     public float maximumDetectionAngle = 50;
     public float currentRecoveryTime = 0;
     public float damageAnimRecoveryTime = 0;
+    public float maxDamageRecoveryTime = 2.5f;
 
     private Renderer renderer;
     private Color materialColor;

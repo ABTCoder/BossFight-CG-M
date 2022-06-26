@@ -4968,7 +4968,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterTarget: Player
-  hitSounds: []
+  hitSounds:
+  - {fileID: 8300000, guid: 50e800f44f28ad244b19cb68380254fd, type: 3}
+  - {fileID: 8300000, guid: 82f0ffcdc1b434d44932f6dcd859c94f, type: 3}
+  - {fileID: 8300000, guid: 0f2b0185c2402904882843e85bb8ae64, type: 3}
 --- !u!1 &493324696573420388
 GameObject:
   m_ObjectHideFlags: 0
@@ -5027,7 +5030,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterTarget: Player
-  hitSounds: []
+  hitSounds:
+  - {fileID: 8300000, guid: 50e800f44f28ad244b19cb68380254fd, type: 3}
+  - {fileID: 8300000, guid: 82f0ffcdc1b434d44932f6dcd859c94f, type: 3}
+  - {fileID: 8300000, guid: 0f2b0185c2402904882843e85bb8ae64, type: 3}
 --- !u!1 &493324696612283199
 GameObject:
   m_ObjectHideFlags: 0
@@ -5165,11 +5171,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a9892968d182747971083af80b58b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthLevel: 10
+  healthLevel: 30
   maxHealth: 0
   currentHealth: 0
-  hasFloatingLifebar: 0
   healthBar: {fileID: 0}
+  hasFloatingHealthBar: 0
+  canTakeDamage: 1
 --- !u!114 &493324696691217568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5200,6 +5207,7 @@ MonoBehaviour:
   maximumDetectionAngle: 50
   currentRecoveryTime: 0
   damageAnimRecoveryTime: 0
+  maxDamageRecoveryTime: 1.7
   fadeMaterial: {fileID: 0}
   soundManager: {fileID: 0}
   damageAudioClips:
@@ -5210,7 +5218,7 @@ MonoBehaviour:
   deathCriesAudioClips:
   - {fileID: 8300000, guid: 9d76e4d9d00153f4ba0f2238579fe7e6, type: 3}
   Boss2PhaseCutscene: {fileID: 0}
-  BossDeathCutscene: {fileID: 0}
+  TransitionCutscene: {fileID: 0}
   ui: {fileID: 0}
   musicAudioSource: {fileID: 0}
   modelPhaseOne: {fileID: 494630835366925363}
@@ -15456,7 +15464,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterTarget: Player
-  hitSounds: []
+  hitSounds:
+  - {fileID: 8300000, guid: 50e800f44f28ad244b19cb68380254fd, type: 3}
+  - {fileID: 8300000, guid: 82f0ffcdc1b434d44932f6dcd859c94f, type: 3}
+  - {fileID: 8300000, guid: 0f2b0185c2402904882843e85bb8ae64, type: 3}
 --- !u!1 &3489148675481505004
 GameObject:
   m_ObjectHideFlags: 0

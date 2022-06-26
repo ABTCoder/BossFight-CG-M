@@ -22,7 +22,7 @@ public class BossCombatStanceState : CombatStanceState
                 if (distanceFromTarget <= secondPhaseAttacks[i].maximumDistanceNeededToAttack
                     && distanceFromTarget >= secondPhaseAttacks[i].minimumDistanceNeededToAttack)
                 {
-                    if (viewableAngle <= secondPhaseAttacks[i].maximumAttackAngle)
+                    if (viewableAngle <= secondPhaseAttacks[i].maximumAttackAngle && secondPhaseAttacks[i].canDoMove)
                     {
                         tempAttacksArray.Add(secondPhaseAttacks[i]);
                     }
