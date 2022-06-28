@@ -17,7 +17,7 @@ public class SirArginald : MonoBehaviour
     private Vector3 pos;
     private bool canShoot = true;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         controller = CharacterMovement.getMovement();
         cm = player.GetComponent<CharacterMovement>();
