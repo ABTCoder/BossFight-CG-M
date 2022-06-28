@@ -36,6 +36,7 @@ public class SirArginald : MonoBehaviour
 
     IEnumerator CoolDown(float time)
     {
+        Debug.Log("Waiting for cool down");
         yield return new WaitForSeconds(time);
         canShoot = true;
         SkillsUI.Instance.FireballReady();
@@ -43,6 +44,7 @@ public class SirArginald : MonoBehaviour
 
     void OnShoot(InputAction.CallbackContext ctx)
     {
+        Debug.Log("OnShoot(), canShoot = " + canShoot);
         if (canShoot)
         {
             canShoot = false;
@@ -58,6 +60,7 @@ public class SirArginald : MonoBehaviour
             else direction = player.transform.forward.normalized;
             fireball.GetComponent<Fireball>().Setup(direction, splash);
             fireballFX.Play();
+            Debug.Log("Fireball Shooted");
             StartCoroutine(CoolDown(2));
         }
     }

@@ -26,15 +26,25 @@ public class EnemyAnimatorManager : AnimatorManager
 
     private void OnAnimatorMove()
     {
-        float delta = Time.deltaTime;
-        Vector3 deltaPosition = anim.deltaPosition;
-        deltaPosition.y = 0;
-        Vector3 velocity = deltaPosition / delta;
-        enemyManager.enemyRigidBody.velocity = velocity;
-        
-        if (enemyManager.isRotatingWithRootMotion)
+        try
         {
-            enemyManager.transform.rotation *= anim.deltaRotation;
+            float delta = Time.deltaTime;
+            Vector3 deltaPosition = anim.deltaPosition;
+            deltaPosition.y = 0;
+            Vector3 velocity = deltaPosition / delta;
+            if (float.IsNaN(velocity.x) || float.IsNaN(velocity.y) || float.IsNaN(velocity.z) || float.IsInfinity(velocity.x) || float.IsInfinity(velocity.y) || float.IsInfinity(velocity.z))
+                velocity = Vector3.zero;
+            enemyManager.enemyRigidBody.velocity = velocity;
+
+            if (enemyManager.isRotatingWithRootMotion)
+            {
+                enemyManager.transform.rotation *= anim.deltaRotation;
+            }
+        }
+        catch
+        {
+            Debug.Log("OnAnimatorMove() Excpetion");
+            return;
         }
     }
 

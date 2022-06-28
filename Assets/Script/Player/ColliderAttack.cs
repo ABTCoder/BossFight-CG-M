@@ -21,24 +21,34 @@ abstract public class ColliderAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!collided)
+        try
         {
-            if (other.tag == characterTarget)
+            if (other == null)
+                return;
+            if (!collided)
             {
-                var stats = other.gameObject.GetComponent<CharacterStats>();
-                if (stats.canTakeDamage && damage > 0)
+                if (other.tag == characterTarget)
                 {
-                    if (soundManager != null)
-                        soundManager.PlayAudioEffect(hitSounds);
-                    stats.TakeDamage(damage, transform.root);
-                    
+                    var stats = other.gameObject.GetComponent<CharacterStats>();
+                    if (stats.canTakeDamage && damage > 0)
+                    {
+                        if (soundManager != null)
+                            soundManager.PlayAudioEffect(hitSounds);
+                        stats.TakeDamage(damage, transform.root);
+
+                    }
+                    collided = true;
                 }
-                collided = true;
             }
+            else
+                triggerEnter = false;
+            doExtraStuff(other);
         }
-        else
-            triggerEnter = false;
-        doExtraStuff(other);
+        catch
+        {
+            Debug.Log("OnTriggerEnter() Collider attack exception");
+            return;
+        }
     }
 
     protected void DamageOperations()
