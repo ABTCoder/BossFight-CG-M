@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
@@ -18,10 +19,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Canvas ui;
     [SerializeField] private Canvas tutorialCanvas;
 
-
+    public static bool playingCutscene;
+    private static UiControls uiControls;
     public static bool gameOver = false;
     public static Queue<string> tutorialsToPlay;
-    private GameObject currentTutorial;
+    public static GameObject currentTutorial;
 
     private PlayableDirector gameOverCutsceneDirector;
     private PlayableDirector introCutsceneDirector;
@@ -35,7 +37,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        uiControls = new UiControls();
         tutorialsToPlay = new Queue<string>();
+        Cursor.visible = false;
     }
     void Start()
     {
@@ -43,6 +47,8 @@ public class GameManager : MonoBehaviour
         gameOver = false;
         gameStarted = false;
         boss2PhaseCutsceneEnded = false;
+        playingCutscene = true;
+        currentTutorial = null;
 
         gameOverCutsceneDirector = gameOverCutscene.GetComponent<PlayableDirector>();
         gameOverCutsceneDirector.stopped += GameOverCutsceneStopped;
@@ -59,16 +65,26 @@ public class GameManager : MonoBehaviour
         BossDeathCutsceneDirector = BossDeathCutscene.GetComponent<PlayableDirector>();
         BossDeathCutsceneDirector.stopped += BossDeathCutsceneStopped;
         CharacterMovement.LockControls();
+
+        uiControls.Enable();
+        uiControls.UI.SkipTutorial.performed += PressEnterToContinue;
     }
     private void GameOverCutsceneStopped(PlayableDirector d)
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        playingCutscene = false;
     }
 
     private void Update()
     {
         ShowNextTutorial();
     }
+
+    public static UiControls getUiController()
+    {
+        return uiControls;
+    }
+
 
     private void IntroCutsceneStopped(PlayableDirector d)
     {
@@ -77,6 +93,7 @@ public class GameManager : MonoBehaviour
         ui.enabled = true;
         gameStarted = true;
         CharacterMovement.UnlockControls();
+        playingCutscene = false;
     }
 
     private void BossDeathTransition(PlayableDirector d)
@@ -92,6 +109,7 @@ public class GameManager : MonoBehaviour
         ui.enabled = true;
         gameStarted = true;
         CharacterMovement.UnlockControls();
+        playingCutscene = false;
     }
 
     private void BossDeathCutsceneStopped(PlayableDirector d)
@@ -110,6 +128,7 @@ public class GameManager : MonoBehaviour
     {
         gameOver = true;
         musicAudioSource.Stop();
+        playingCutscene = true;
         gameOverCutsceneDirector.Play();
         ui.enabled = false;
     }
@@ -123,7 +142,12 @@ public class GameManager : MonoBehaviour
             currentTutorial.SetActive(true);
             Time.timeScale = 0f;
             CharacterMovement.LockControls();
-            StartCoroutine(WaitForTutorialCompletion());
+            //StartCoroutine(WaitForTutorialCompletion());
+        }
+        if(currentTutorial != null)
+        {
+            Time.timeScale = 0f;
+            CharacterMovement.LockControls();
         }
     } 
 
@@ -136,4 +160,17 @@ public class GameManager : MonoBehaviour
         currentTutorial = null;
     }
 
+
+
+    private void PressEnterToContinue(InputAction.CallbackContext ctx)
+    {
+        if (currentTutorial != null)
+        {
+            Debug.Log("Sono qui");
+            Time.timeScale = 1f;
+            CharacterMovement.UnlockControls();
+            currentTutorial.SetActive(false);
+            currentTutorial = null;
+        }
+    }
 }

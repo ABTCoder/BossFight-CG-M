@@ -81,6 +81,7 @@ public class BossManager : EnemyManager
     
     public void ShiftToSecondPhase()
     {
+        GameManager.playingCutscene = true;
         characterMovement.ClearLockOnTargets();
         Boss2PhaseCutsceneDirector.Play();
         ui.enabled = false;
@@ -92,7 +93,6 @@ public class BossManager : EnemyManager
         secondAxe.SetActive(false);
         greatsword.SetActive(true);
         transform.localScale += Vector3.one * 0.2f;
-
         //PLAY AN ANIMATION /W AN EVENT THAT TRIGGERS PARTICLE FX/WEAPON FX
         //SWITCH ATTACK ACTIONS
         bossAnimatorManager.PlayTargetAnimation("Phase Shift", true);
@@ -101,6 +101,7 @@ public class BossManager : EnemyManager
 
     public void BossDeath()
     {
+        GameManager.playingCutscene = true;
         characterMovement.ClearLockOnTargets();
         ui.enabled = false;
         musicAudioSource.Stop();

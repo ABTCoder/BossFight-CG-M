@@ -44,6 +44,7 @@ public class BossRoomCutscene : MonoBehaviour
             gameManager.PlayBossMusic();
             CharacterMovement.LockControls();
             cutsceneDirector.Play();
+            GameManager.playingCutscene = true;
         }
     }
 

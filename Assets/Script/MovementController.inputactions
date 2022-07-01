@@ -87,15 +87,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "eaa5f42f-5de6-4886-87e7-c914151aa613",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "HealthUp",
                     "type": "Button",
                     "id": "c54a162c-7f0e-4463-b608-1d788b1c4c54",
@@ -255,17 +246,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "DodgeRoll",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "bf69ccb6-8eeb-49e1-a026-8e2e309a3243",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

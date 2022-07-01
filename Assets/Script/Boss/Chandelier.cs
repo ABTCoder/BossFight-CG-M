@@ -39,7 +39,7 @@ public class Chandelier : MonoBehaviour
         audioSource.PlayOneShot(hitSound);
         if (collision.collider.gameObject.name == "Boss" && canDoDamage)
         {
-            collision.collider.gameObject.GetComponent<CharacterStats>().TakeDamage(30);
+            collision.collider.gameObject.GetComponent<CharacterStats>().TakeDamage(50);
             canDoDamage = false;
             //gameObject.SetActive(false);
 

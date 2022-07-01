@@ -5,31 +5,39 @@ using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject ui;
+    [SerializeField] private Canvas ui;
     [SerializeField] private Canvas pauseMenuCanvas;
-    private MovementController controller;
+    private UiControls controller;
     // Start is called before the first frame update
 
     private void Start()
     {
-        controller = CharacterMovement.getMovement();
-        controller.Main.Pause.performed += Pause;
+        controller = GameManager.getUiController();
+        controller.UI.Pause.performed += Pause;
     }
 
     private void Pause(InputAction.CallbackContext ctx)
     {
-        pauseMenuCanvas.enabled = true;
-        CharacterMovement.LockControls();
-        ui.SetActive(false);
-        Time.timeScale = 0f;
+        if (!GameManager.playingCutscene && GameManager.currentTutorial == null)
+        {
+            Cursor.visible = true;
+            pauseMenuCanvas.enabled = true;
+            CharacterMovement.LockControls();
+            ui.enabled = false;
+            Time.timeScale = 0f;
+        }
     }
 
     public void Resume()
     {
         Time.timeScale = 1.0f;
         pauseMenuCanvas.enabled = false;
-        CharacterMovement.UnlockControls();
-        ui.SetActive(true);
+        if (!GameManager.playingCutscene)
+        {
+            CharacterMovement.UnlockControls();
+            ui.enabled = true;
+        }
+        Cursor.visible = false;
     }
 
 

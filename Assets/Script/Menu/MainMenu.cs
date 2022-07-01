@@ -10,6 +10,10 @@ public class MainMenu : MonoBehaviour
     public AudioClip playSound;
     public AudioSource audioSource;
 
+    private void Awake()
+    {
+        Cursor.visible = true;
+    }
     public void PlayGame()
     {
         audioSource.Stop();

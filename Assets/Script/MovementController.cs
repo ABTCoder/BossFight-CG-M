@@ -109,15 +109,6 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Pause"",
-                    ""type"": ""Button"",
-                    ""id"": ""eaa5f42f-5de6-4886-87e7-c914151aa613"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""HealthUp"",
                     ""type"": ""Button"",
                     ""id"": ""c54a162c-7f0e-4463-b608-1d788b1c4c54"",
@@ -282,17 +273,6 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""bf69ccb6-8eeb-49e1-a026-8e2e309a3243"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""a200a0aa-fe05-41be-871e-94005352b521"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -329,7 +309,6 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         m_Main_LockOnTargetLeft = m_Main.FindAction("Lock On Target Left", throwIfNotFound: true);
         m_Main_LockOnTargetRight = m_Main.FindAction("Lock On Target Right", throwIfNotFound: true);
         m_Main_DodgeRoll = m_Main.FindAction("DodgeRoll", throwIfNotFound: true);
-        m_Main_Pause = m_Main.FindAction("Pause", throwIfNotFound: true);
         m_Main_HealthUp = m_Main.FindAction("HealthUp", throwIfNotFound: true);
         m_Main_SwitchLockOnTarget = m_Main.FindAction("SwitchLockOnTarget", throwIfNotFound: true);
     }
@@ -400,7 +379,6 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
     private readonly InputAction m_Main_LockOnTargetLeft;
     private readonly InputAction m_Main_LockOnTargetRight;
     private readonly InputAction m_Main_DodgeRoll;
-    private readonly InputAction m_Main_Pause;
     private readonly InputAction m_Main_HealthUp;
     private readonly InputAction m_Main_SwitchLockOnTarget;
     public struct MainActions
@@ -416,7 +394,6 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         public InputAction @LockOnTargetLeft => m_Wrapper.m_Main_LockOnTargetLeft;
         public InputAction @LockOnTargetRight => m_Wrapper.m_Main_LockOnTargetRight;
         public InputAction @DodgeRoll => m_Wrapper.m_Main_DodgeRoll;
-        public InputAction @Pause => m_Wrapper.m_Main_Pause;
         public InputAction @HealthUp => m_Wrapper.m_Main_HealthUp;
         public InputAction @SwitchLockOnTarget => m_Wrapper.m_Main_SwitchLockOnTarget;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
@@ -455,9 +432,6 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 @DodgeRoll.started -= m_Wrapper.m_MainActionsCallbackInterface.OnDodgeRoll;
                 @DodgeRoll.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnDodgeRoll;
                 @DodgeRoll.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnDodgeRoll;
-                @Pause.started -= m_Wrapper.m_MainActionsCallbackInterface.OnPause;
-                @Pause.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnPause;
-                @Pause.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnPause;
                 @HealthUp.started -= m_Wrapper.m_MainActionsCallbackInterface.OnHealthUp;
                 @HealthUp.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnHealthUp;
                 @HealthUp.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnHealthUp;
@@ -495,9 +469,6 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
                 @DodgeRoll.started += instance.OnDodgeRoll;
                 @DodgeRoll.performed += instance.OnDodgeRoll;
                 @DodgeRoll.canceled += instance.OnDodgeRoll;
-                @Pause.started += instance.OnPause;
-                @Pause.performed += instance.OnPause;
-                @Pause.canceled += instance.OnPause;
                 @HealthUp.started += instance.OnHealthUp;
                 @HealthUp.performed += instance.OnHealthUp;
                 @HealthUp.canceled += instance.OnHealthUp;
@@ -519,7 +490,6 @@ public partial class @MovementController : IInputActionCollection2, IDisposable
         void OnLockOnTargetLeft(InputAction.CallbackContext context);
         void OnLockOnTargetRight(InputAction.CallbackContext context);
         void OnDodgeRoll(InputAction.CallbackContext context);
-        void OnPause(InputAction.CallbackContext context);
         void OnHealthUp(InputAction.CallbackContext context);
         void OnSwitchLockOnTarget(InputAction.CallbackContext context);
     }
