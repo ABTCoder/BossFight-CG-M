@@ -29,6 +29,7 @@ public class BossRoomCutscene : MonoBehaviour
         ui.enabled = true;
         ui.transform.Find("HealthBar Boss").gameObject.SetActive(true);
         gameObject.SetActive(false);
+        GameManager.playingCutscene = false;
     }
 
     public bool IsEnded()

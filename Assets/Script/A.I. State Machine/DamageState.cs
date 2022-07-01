@@ -13,6 +13,7 @@ public class DamageState : State
         enemyManager.navMeshAgent.velocity = Vector3.zero;
         enemyManager.damageAnimRecoveryTime = enemyManager.maxDamageRecoveryTime;
         enemyAnimatorManager.PlayTargetAnimation("TakeDamage", true);
+        enemyAnimatorManager.ResetCanDoDamage();
         enemyManager.soundManager.PlayAudioEffect(enemyManager.damageAudioClips);
         if (enemyManager.currentTarget != null)
             return rotateTowardsTargetState;
