@@ -42,4 +42,9 @@ public class OptionsMenu : MonoBehaviour
     {
         PlayerPrefs.Save();
     }
+
+    private void OnDestroy()
+    {
+        PlayerPrefs.Save();
+    }
 }
