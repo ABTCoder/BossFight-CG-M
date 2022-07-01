@@ -11,6 +11,7 @@ public class CharacterMovement : MonoBehaviour
     private float speed = 5.5f;
     Vector3 followOffset;
     private float cameraDeg = 0.3f;
+    static float sensitivity;
     private float rollSpeed = 10f;
     private float pushbackSpeed = 3f;
     private float rollSpeedToDecrease;
@@ -52,6 +53,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void Awake()
     {
+        sensitivity = PlayerPrefs.GetInt("Sensitivity", 8);
         movement = new MovementController();
         followOffset = new Vector3()
         {
@@ -94,13 +96,13 @@ public class CharacterMovement : MonoBehaviour
             #region Follow Transform Rotation
 
             //Rotate the Follow Target transform based on the input
-            followTransform.transform.rotation *= Quaternion.AngleAxis(mouseDelta.x * cameraDeg, Vector3.up);
+            followTransform.transform.rotation *= Quaternion.AngleAxis(mouseDelta.x * cameraDeg * (sensitivity / 10), Vector3.up);
 
             #endregion
 
             #region Vertical Rotation
 
-            followTransform.transform.rotation *= Quaternion.AngleAxis(mouseDelta.y * cameraDeg, Vector3.right);
+            followTransform.transform.rotation *= Quaternion.AngleAxis(mouseDelta.y * cameraDeg * (sensitivity / 10), Vector3.right);
 
             var angles = followTransform.transform.localEulerAngles;
             angles.z = 0;
@@ -165,6 +167,11 @@ public class CharacterMovement : MonoBehaviour
         }
         followTransform.transform.position = transform.position + followOffset;
 
+    }
+
+    public static void ChangeSensitivity(int sens)
+    {
+        sensitivity = sens;
     }
 
     public static void LockControls()

@@ -232,6 +232,7 @@ public class AnimationController : MonoBehaviour
     {
         yield return new WaitForSeconds(stunTime);
         isTakingDamage = false;
+        ResetAll();
     }
 
     public bool GetIsTakingDamage()

@@ -26,7 +26,7 @@ MonoBehaviour:
   extraEffect: {fileID: 8673061406346552685, guid: 41498aa2b7b74884c877815ecef91e91, type: 3}
   weaponSoundDelay: 0.7
   gruntSoundDelay: 0
-  effectDelay: 1
+  effectDelay: 1.8
   weaponAudioClips:
   - {fileID: 8300000, guid: 0203a77d1d6fad445aefaa7b24e4d4d1, type: 3}
   - {fileID: 8300000, guid: 25a582be659c42047b2b1959a2069bf4, type: 3}

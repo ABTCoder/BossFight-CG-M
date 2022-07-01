@@ -5,14 +5,20 @@ using UnityEngine;
 public class ForceFieldCollider : ColliderAttack
 {
     private float lifeTime = 4f;
+    private ParticleSystem ps;
 
     private void Awake()
     {
         SetDamage(10);
         characterTarget = "Player";
         soundManager = GetComponent<CharacterSoundManager>();
+        ps = GetComponent<ParticleSystem>();
     }
-    
+
+    private void Start()
+    {
+        ps.Emit(1);
+    }
 
     private void Update()
     {
