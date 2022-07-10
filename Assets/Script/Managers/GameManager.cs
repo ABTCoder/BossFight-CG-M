@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject BossDeathCutscene;
     [SerializeField] private Canvas ui;
     [SerializeField] private Canvas tutorialCanvas;
+    [SerializeField] private AudioMixer gameMixer;
 
     public static bool playingCutscene;
     private static UiControls uiControls;
@@ -37,6 +39,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        gameMixer.SetFloat("Master", -80f + PlayerPrefs.GetFloat("Master", 80f));
+        gameMixer.SetFloat("Music", -80f + PlayerPrefs.GetFloat("Music", 80f));
         uiControls = new UiControls();
         tutorialsToPlay = new Queue<string>();
         Cursor.visible = false;

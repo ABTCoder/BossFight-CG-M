@@ -3117,6 +3117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playSound: {fileID: 8300000, guid: 5d71df176b688264daa2dd47228a4123, type: 3}
   audioSource: {fileID: 371279529}
+  gameMixer: {fileID: 24100000, guid: c19f0e4c7a16daf4c84e5e80f786eb95, type: 2}
 --- !u!1 &1591020706
 GameObject:
   m_ObjectHideFlags: 0
