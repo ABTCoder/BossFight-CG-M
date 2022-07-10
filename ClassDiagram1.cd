@@ -1,0 +1,446 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AnimationController" Collapsed="true">
+    <Position X="18.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EFQFiUQCZiAUAGLIIYiCQGcGIDQowCiBIACcgYjDgAA=</HashCode>
+      <FileName>Assets\Script\Player\AnimationController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AnimatorManager" Collapsed="true">
+    <Position X="21.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Managers\AnimatorManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AttackState" Collapsed="true">
+    <Position X="3.75" Y="2" Width="1.5" />
+    <AssociationLine Name="currentAttack" Type="EnemyAttackAction">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.324" Y="-0.5" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="pursueTargetState" Type="PursueTargetState">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.121" Y="0.085" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAgAAAAAAABAAAQAAAAAQBA=</HashCode>
+      <FileName>Assets\Script\A.I. State Machine\AttackState.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="currentAttack" />
+      <Field Name="pursueTargetState" />
+      <Field Name="rotateTowardsTargetState" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BossCombatStanceState" Collapsed="true">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <AssociationLine Name="secondPhaseAttacks" Type="EnemyAttackAction">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-2.434" Y="-1.362" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAgABAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\A.I. State Machine\BossCombatStanceState.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="secondPhaseAttacks" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BossIdleState" Collapsed="true">
+    <Position X="1.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Assets\Script\A.I. State Machine\BossIdleState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BossManager" Collapsed="true">
+    <Position X="12.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAQIAIBMACAAEAAABAiAAAEAAAAABAAAAjAAAAIAgEA=</HashCode>
+      <FileName>Assets\Script\Boss\BossManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BossRoomCutscene" Collapsed="true">
+    <Position X="20" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAASIAEAAAAAAAAAAAAAABAAgAQAAAAAIAAAA=</HashCode>
+      <FileName>Assets\Script\Boss\BossRoomCutscene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BossStats" Collapsed="true">
+    <Position X="14.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAEAAAAAAAAAAAAAAAAAAAAAAgAgAAAA=</HashCode>
+      <FileName>Assets\Script\Boss\BossStats.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="bossManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BossWeaponAttackCollider" Collapsed="true">
+    <Position X="3.75" Y="7.5" Width="1.5" />
+    <AssociationLine Name="bossManager" Type="BossManager">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.041" Y="-0.903" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Assets\Script\Boss\BossWeaponAttackCollider.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="bossManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Chandelier" Collapsed="true">
+    <Position X="21.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAIgAAACAAAABAAAACEAAIQAAAAAIAgBA=</HashCode>
+      <FileName>Assets\Script\Boss\Chandelier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CharacterManager" Collapsed="true">
+    <Position X="12.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Managers\CharacterManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CharacterMovement" Collapsed="true">
+    <Position X="14.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QKQIQAEEASAmEATDASQRCBYAAgkEMaEIAQAEAAAACFA=</HashCode>
+      <FileName>Assets\Script\Player\CharacterMovement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CharacterSoundManager" Collapsed="true">
+    <Position X="16.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAABAAAAAAAAAAAAAAAEAAAAAAAABAAAAA=</HashCode>
+      <FileName>Assets\Script\Managers\CharacterSoundManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CharacterStats" Collapsed="true">
+    <Position X="16" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAIAAAAAAAAAAAAAAAAAAAEAAAAAAAAggAQAAA=</HashCode>
+      <FileName>Assets\Script\Managers\CharacterStats.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CheckAllEnemiesDefeated" Collapsed="true">
+    <Position X="18.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Managers\CheckAllEnemiesDefeated.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ColliderAttack" Collapsed="true">
+    <Position X="6" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEACQBAAAoAAAAQCAAAAAAAAAAAAAUAAAAAQAAEE=</HashCode>
+      <FileName>Assets\Script\Player\ColliderAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CombatStanceState" Collapsed="true">
+    <Position X="6" Y="2" Width="1.5" />
+    <AssociationLine Name="pursueTargetState" Type="PursueTargetState">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.487" Y="-0.217" Height="0.182" Width="1.394" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="rotateTowardsTargetState" Type="RotateTowardsTargetState">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.144" Y="0.145" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAABBAAAAAAAAAIAAAAAgAAAAAAAAABAAAQAAAAIQAA=</HashCode>
+      <FileName>Assets\Script\A.I. State Machine\CombatStanceState.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="attackState" />
+      <Field Name="baseAttacks" />
+      <Field Name="damageState" />
+      <Field Name="pursueTargetState" />
+      <Field Name="rotateTowardsTargetState" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DamageState" Collapsed="true">
+    <Position X="10.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQABAAAQAA=</HashCode>
+      <FileName>Assets\Script\A.I. State Machine\DamageState.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="IdleState" />
+      <Field Name="rotateTowardsTargetState" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EnemyAction" Collapsed="true">
+    <Position X="19.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Assets\Script\Enemy\EnemyAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyAnimatorManager" Collapsed="true">
+    <Position X="21.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAAAAAAAAQAAABIACCAEACACQAAACAAADkAAAAAEA=</HashCode>
+      <FileName>Assets\Script\Enemy\EnemyAnimatorManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyManager" Collapsed="true">
+    <Position X="12.75" Y="6" Width="1.5" />
+    <AssociationLine Name="soundManager" Type="CharacterSoundManager">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="2.102" Y="0.319" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>CEQgEAAFQACAAAAIIQCEoAMAABAQAAAAAAhKAIKEgEA=</HashCode>
+      <FileName>Assets\Script\Enemy\EnemyManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="currentState" />
+      <Field Name="currentTarget" />
+      <Field Name="soundManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EnemyAttackAction" Collapsed="true">
+    <Position X="19.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwgAAAAQCACAAABAAwABAAAEAAMAAAABCCAEAAEAAA=</HashCode>
+      <FileName>Assets\Script\Enemy\EnemyAttackAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyStats" Collapsed="true">
+    <Position X="14.75" Y="5.75" Width="1.5" />
+    <AssociationLine Name="enemyAnimatorManager" Type="EnemyAnimatorManager" ManuallyRouted="true">
+      <Path>
+        <Point X="16.25" Y="6.096" />
+        <Point X="16.417" Y="6.096" Type="JumpStart" />
+        <Point X="16.583" Y="6.096" Type="JumpEnd" />
+        <Point X="16.75" Y="6.096" />
+        <Point X="16.75" Y="7.195" />
+        <Point X="22.5" Y="7.195" />
+        <Point X="22.5" Y="6.691" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.134" Y="0.272" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAEABAAAAAAAAAAAAAAAAAAAAgAAAAQA=</HashCode>
+      <FileName>Assets\Script\Enemy\EnemyStats.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="enemyAnimatorManager" />
+      <Field Name="enemyManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EnemyWeaponAttackCollider" Collapsed="true">
+    <Position X="6" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Enemy\EnemyWeaponAttackCollider.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="enemyManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Fireball" Collapsed="true">
+    <Position X="8.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAACCIAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Assets\Script\Player\Fireball.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForceFieldCollider" Collapsed="true">
+    <Position X="10.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAQAAAAAAAAAAAAAAAAAAgAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Script\Boss\ForceFieldCollider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager" Collapsed="true">
+    <Position X="20" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hYWNgAKYIGAEEABCwAAAAABAABEAAAAEIAAAAaYAQMA=</HashCode>
+      <FileName>Assets\Script\Managers\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealthBar" Collapsed="true">
+    <Position X="21.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAggAAAEg=</HashCode>
+      <FileName>Assets\Script\UI\HealthBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IdleState" Collapsed="true">
+    <Position X="1.5" Y="2" Width="1.5" />
+    <AssociationLine Name="pursueTargetState" Type="PursueTargetState">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.399" Y="0.247" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAIAAAAAAABAAAAgAAAAQAA=</HashCode>
+      <FileName>Assets\Script\A.I. State Machine\IdleState.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="damageState" />
+      <Field Name="pursueTargetState" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="LockOnTargetSprite" Collapsed="true">
+    <Position X="14.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Script\UI\LockOnTargetSprite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainMenu" Collapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAIEAAAIAAAAAAAAUA=</HashCode>
+      <FileName>Assets\Script\Menu\MainMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OptionsMenu" Collapsed="true">
+    <Position X="18.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAACAAAAAAAAAIAAgAAAAAAAAIIgAAAEAAQQA=</HashCode>
+      <FileName>Assets\Script\Menu\OptionsMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PauseMenu" Collapsed="true">
+    <Position X="20" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAACAAEAEAAgAAAAAAAAAAAAAAAAAAAAgAAQA=</HashCode>
+      <FileName>Assets\Script\Menu\PauseMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerStats" Collapsed="true">
+    <Position X="17" Y="5.75" Width="1.5" />
+    <AssociationLine Name="animationController" Type="AnimationController">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.149" Y="-0.265" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="characterMovement" Type="CharacterMovement">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.176" Y="-0.449" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="gameManager" Type="GameManager">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.415" Y="0.399" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AEAIAAAAACAAAEAAAAAAAAAAAAAAIAAAAAAAgCIAAIA=</HashCode>
+      <FileName>Assets\Script\Player\PlayerStats.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="animationController" />
+      <Field Name="characterMovement" />
+      <Field Name="gameManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PlayerWeaponAttackCollider" Collapsed="true">
+    <Position X="1.5" Y="7.5" Width="1.5" />
+    <AssociationLine Name="animationController" Type="AnimationController">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="1.06" Y="0.136" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Player\PlayerWeaponAttackCollider.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="animationController" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ResetAnimatorBool" Collapsed="true">
+    <Position X="21.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAABAEAAAAAAAAAIAIAAAAAAAAAEAAAEAAA=</HashCode>
+      <FileName>Assets\Script\Managers\ResetAnimatorBool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PursueTargetState" Collapsed="true">
+    <Position X="8.25" Y="2" Width="1.5" />
+    <AssociationLine Name="combatStanceState" Type="CombatStanceState">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.281" Y="0.306" Height="0.182" Width="1.666" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAIQAA=</HashCode>
+      <FileName>Assets\Script\A.I. State Machine\PursueTargetState.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="combatStanceState" />
+      <Field Name="damageState" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Resetter" Collapsed="true">
+    <Position X="14.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Player\Resetter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RotateTowardsTargetState" Collapsed="true">
+    <Position X="12.75" Y="2" Width="1.5" />
+    <AssociationLine Name="damageState" Type="DamageState">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.399" Y="0.094" Height="0.182" Width="1.575" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAgAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Assets\Script\A.I. State Machine\RotateTowardsTargetState.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="combatStanceState" />
+      <Field Name="damageState" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SirArginald" Collapsed="true">
+    <Position X="16.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASBAAAAQCAAACUAAAAAAIAAAAAIAAABEAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Player\SirArginald.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkillsUI" Collapsed="true">
+    <Position X="18.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACgAAEIAEAAQABAAEAAAAAAAAAAAABAIQAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Script\UI\SkillsUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="State" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Assets\Script\A.I. State Machine\State.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TutorialTriggers" Collapsed="true">
+    <Position X="20" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\UI\TutorialTriggers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
